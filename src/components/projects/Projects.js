@@ -4,7 +4,7 @@ import { SortSomething, FilterSomething } from "../Actions";
 import { SearchAndFilter } from "../SearchAndFilter";
 import '../../css/projects.css';
 
-export function Projects() {
+export function Projects({ agentId }) {
     const [projects, setProjects] = useState([]);
     const [allProjects, setAllProjects] = useState([]);
     const [sortCriterion, setSortCriterion] = useState('id');
@@ -18,13 +18,18 @@ export function Projects() {
         if (token) {
             const decoded = jwtDecode(token);
             setUserId(decoded.userId);
-            fetchProjects(decoded.userId);
+            if (decoded.role === 'admin') {
+                fetchProjectsForAdmin(decoded.userId);
+            } else {
+                fetchProjects(decoded.userId);
+            }
         }
     }, []);
 
     const fetchProjects = async (uid) => {
         try {
-            const res = await fetch("http://localhost:3001/projects", {
+            const res = await fetch(`http://localhost:3001/projects/open/${uid}`, {
+                method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
@@ -32,6 +37,23 @@ export function Projects() {
             const data = await res.json();
             setAllProjects(data);
             const filtered = data.filter(p => p.user_id === uid);
+            setProjects(filtered);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        }
+    };
+
+    const fetchProjectsForAdmin = async () => {
+        try {
+            const res = await fetch(`http://localhost:3001/projects/open/${agentId}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            const data = await res.json();
+            setAllProjects(data);
+            const filtered = data.filter(p => p.user_id === agentId);
             setProjects(filtered);
         } catch (error) {
             console.error("Error fetching projects:", error);

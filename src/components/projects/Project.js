@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function Project({ currentStage }) {
+export function Project({ userId, currentStage }) {
 
     const [documentFilePath, setDocumentFilePath] = useState('');
 
@@ -12,8 +12,7 @@ export function Project({ currentStage }) {
             });
             const data = await response.json();
             setDocumentFilePath(data.filePath);
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Error fetching document File_path:', error);
         }
     }
@@ -23,7 +22,7 @@ export function Project({ currentStage }) {
         getDocumentFilePath();
     }, [currentStage]);
 
-    const showNextStage = async () => {}
+    const showNextStage = async () => { }
 
     const uploadFile = async () => {
         try {
