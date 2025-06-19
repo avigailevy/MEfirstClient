@@ -8,6 +8,26 @@
   height: 340px;
   position: relative;
 }
+.edit-02,
+.edit-02 * {
+  box-sizing: border-box;
+}
+.edit-02 {
+  width: 13px;
+  height: 13px;
+  position: relative;
+  overflow: visible;
+}
+.trash-02,
+.trash-02 * {
+  box-sizing: border-box;
+}
+.trash-02 {
+  width: 11px;
+  height: 11px;
+  position: relative;
+  overflow: visible;
+}
 .rectangle-20 {
   border-radius: 12px;
   border-style: solid;
