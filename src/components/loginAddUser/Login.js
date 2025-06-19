@@ -1,35 +1,42 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        if (!username || !password) {
-            setError('password and username are required');
-            return;
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!username || !password) {
+        setError('Username and password are required');
+        return;
+    }
+    try {
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.error || 'Login failed');
         }
-        try {
-            const response = await fetch('http://localhost:3000/login/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
-            if (!response.ok) {
-                const errorData = await response.text();
-                throw new Error(errorData || 'Login failed');
-            }
-            const data = await response.json();
-            localStorage.setItem('token', data.token);
-        } catch (err) {
-            setError(err.message || 'Invalid username or password');
+        if (!data.token) {
+            throw new Error('No token received from server');
         }
-    };
+        localStorage.setItem('token', data.token);
+
+        // כאן אפשר להוסיף ניווט לדף הבית אם את משתמשת ב-React Router
+        // navigate('/home');
+
+    } catch (err) {
+        setError(err.message || 'Invalid username or password');
+    }
+};
 
     return (
         <form onSubmit={handleSubmit} style={{ maxWidth: 300, margin: 'auto' }}>
