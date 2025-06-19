@@ -9,11 +9,11 @@ export const Login = () => {
         e.preventDefault();
         setError('');
         if (!username || !password) {
-            setError('יש למלא שם משתמש וסיסמה');
+            setError('password and username are required');
             return;
         }
         try {
-            const response = await fetch('/login', {
+            const response = await fetch('http://localhost:3000/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -21,21 +21,22 @@ export const Login = () => {
                 body: JSON.stringify({ username, password }),
             });
             if (!response.ok) {
-                throw new Error('Login failed');
+                const errorData = await response.text();
+                throw new Error(errorData || 'Login failed');
             }
             const data = await response.json();
             localStorage.setItem('token', data.token);
         } catch (err) {
-            setError('שם משתמש או סיסמה שגויים');
+            setError(err.message || 'Invalid username or password');
         }
     };
 
     return (
         <form onSubmit={handleSubmit} style={{ maxWidth: 300, margin: 'auto' }}>
-            <h2>התחברות</h2>
+            <h2>Login</h2>
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div>
-                <label>שם משתמש:</label>
+                <label>Username:</label>
                 <input
                     type="text"
                     value={username}
@@ -44,7 +45,7 @@ export const Login = () => {
                 />
             </div>
             <div>
-                <label>סיסמה:</label>
+                <label>Password:</label>
                 <input
                     type="password"
                     value={password}
@@ -52,7 +53,7 @@ export const Login = () => {
                     autoComplete="current-password"
                 />
             </div>
-            <button type="submit">התחבר</button>
+            <button type="submit">Submit</button>
         </form>
     );
 };
