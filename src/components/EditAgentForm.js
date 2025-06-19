@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './EditAgentForm.css'; 
 
 export function EditAgentForm({ agent, onUpdate, onClose }) {
     const [formData, setFormData] = useState({
@@ -39,7 +40,6 @@ export function EditAgentForm({ agent, onUpdate, onClose }) {
                     <input type="text" name="birthdate" value={formData.birthdate} onChange={handleChange} />
                     <input type="text" name="profile_picture" value={formData.profile_picture} onChange={handleChange} />
                     <button type="submit">Update</button>
-                    <button type="submit">שמור</button>
                 </form>
             </div>
         </div>
