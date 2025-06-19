@@ -1,5 +1,5 @@
 import { EditAgentForm } from "../EditAgentForm";
-import { Projects } from "../projects/Projects";
+import { Project } from "../projects/Project";
 import React, { useState } from 'react';
 import '../../css/ContactOrUser.css'; 
 
@@ -9,7 +9,7 @@ export function Agent({ agent }) {
 
     const showAgentProjects = () => {
         return (
-            <Projects userId={agent.user_id} />
+            <Project agentId={agent.user_id} />
         );
     }
 

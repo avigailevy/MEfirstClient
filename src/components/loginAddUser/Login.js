@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-const Login = ({ onLogin }) => {
+export const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -8,14 +8,23 @@ const Login = ({ onLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        // כאן תוכל להוסיף קריאה ל-API או לוגיקה לאימות
         if (!username || !password) {
             setError('יש למלא שם משתמש וסיסמה');
             return;
         }
         try {
-            // דוגמה: קריאה לפונקציית התחברות
-            await onLogin({ username, password });
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+            if (!response.ok) {
+                throw new Error('Login failed');
+            }
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
         } catch (err) {
             setError('שם משתמש או סיסמה שגויים');
         }
