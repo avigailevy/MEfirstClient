@@ -132,7 +132,7 @@ export function Todos() {
       {todos.length > 0 ? (
         todos.map(todo => (
           <div key={todo.todo_id} className="todo-container">
-            <Todo td={todo} alltd={todos} setTodo={setTodos} />
+            <Todo td={todo}  setTodo={setTodos} />
           </div>
         ))
       ) : (
