@@ -3,11 +3,11 @@ import { Project } from "../projects/Project";
 
 export function DashBoard() {
 
-    showRecentProjects = () =>{
-        return(
-            <Project  />
-        );
-    }
+    // showRecentProjects = () =>{
+    //     return(
+    //         <Project  />
+    //     );
+    // }
 
     return (
         <div className="dashboard-container">
@@ -15,3 +15,4 @@ export function DashBoard() {
         </div>
     );
 }                    
+export default DashBoard;
