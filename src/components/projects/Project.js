@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-export function Project({ userId, currentStage }) {
+export function Project({ currentStage }) {
 
     const [documentFilePath, setDocumentFilePath] = useState('');
 
     const getDocumentFilePath = async () => {
         try {
-            const response = await fetch(`http://localhost:3333/openProjects/${currentStage}/getFile_path`, {
+            const response = await fetch(`http://localhost:3333/open/${currentStage}/getFile_path`, {
                 method: 'GET',
 
             });
@@ -26,7 +26,7 @@ export function Project({ userId, currentStage }) {
 
     const uploadFile = async () => {
         try {
-            const response = await fetch(`http://localhost:3333/openProjects/${currentStage}/uploadFile`, {
+            const response = await fetch(`http://localhost:3333/open/${currentStage}/uploadFile`, {
                 method: 'POST',
                 body: JSON.stringify({ filePath: documentFilePath }),
                 headers: {

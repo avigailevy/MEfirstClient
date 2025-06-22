@@ -12,12 +12,15 @@ export function Projects({ agentId }) {
     const [searchValue, setSearchValue] = useState('');
     const [newProjectTitle, setNewProjectTitle] = useState('');
     const [userId, setUserId] = useState(null);
+    const [value, setValue] = useState(35); 
+    const percent = Math.max(0, Math.min(100, (value / 12) * 100));
+
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             const decoded = jwtDecode(token);
-            setUserId(decoded.userId);
+            setUserId(decoded.userId);            
             if (decoded.role === 'admin') {
                 fetchProjectsForAdmin(decoded.userId);
             } else {
@@ -28,12 +31,13 @@ export function Projects({ agentId }) {
 
     const fetchProjects = async (uid) => {
         try {
-            const res = await fetch(`http://localhost:3001/projects/open/${uid}`, {
+            const res = await fetch(`http://localhost:3333/projects/open/${uid}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
+            if (!res.ok) throw new Error("Failed to fetch projects");
             const data = await res.json();
             setAllProjects(data);
             const filtered = data.filter(p => p.user_id === uid);
@@ -45,12 +49,13 @@ export function Projects({ agentId }) {
 
     const fetchProjectsForAdmin = async () => {
         try {
-            const res = await fetch(`http://localhost:3001/projects/open/${agentId}`, {
+            const res = await fetch(`http://localhost:3333/projects/open/${agentId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
+            if (!res.ok) throw new Error("Failed to fetch project");
             const data = await res.json();
             setAllProjects(data);
             const filtered = data.filter(p => p.user_id === agentId);
@@ -63,7 +68,7 @@ export function Projects({ agentId }) {
     const addProject = async () => {
         if (!newProjectTitle.trim()) return;
         try {
-            const res = await fetch('http://localhost:3001/projects', {
+            const res = await fetch('http://localhost:3333/projects', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +79,6 @@ export function Projects({ agentId }) {
                     user_id: userId
                 })
             });
-
             if (!res.ok) throw new Error("Failed to add project");
             const newProject = await res.json();
             setProjects(prev => [...prev, newProject]);
@@ -84,6 +88,58 @@ export function Projects({ agentId }) {
             console.error("Error adding project:", error);
         }
     };
+
+    getCustomerOrSupplierName = (contactId, customerOrSupplier) => {
+        try {
+            const response = fetch(`http://localhost:3333/contacts/${customerOrSupplier}/contactName/${contactId}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch customer name");
+            }
+            return response;
+        } catch (error) {
+            console.log("Error fetching customer name:", error);
+        }
+    }
+
+    getProjectOwnerName = (ownerId) => {
+        try {
+            const response = fetch(`http://localhost:3333/users/userName/${ownerId}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch customer name");
+            }
+            return response;
+        } catch (error) {
+            console.log("Error fetching user name:", error);
+        }
+    }
+
+    getProductName = (productId) => {
+        try {
+            const response = fetch(`http://localhost:3333/products/${productId}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            if (!response.ok) {
+                throw new Error("Failed to fetch product name");
+            }
+            return response.product_name;
+        } catch (error) {
+            console.log("Error fetching product name:", error);
+
+        }
+    }
 
     const sorted = SortSomething(projects, sortCriterion);
     const filtered = FilterSomething(searchCriterion, sorted, searchValue);
@@ -122,8 +178,34 @@ export function Projects({ agentId }) {
                 <div>
                     {filtered.map((project) => (
                         <div className="project-container" key={project.project_id}>
-                            <h4>{project.title}</h4>
-                            {/* אפשר להוסיף עוד מידע כאן בעתיד */}
+                            <div class="component-1">
+                                <div class="rectangle-20"></div>
+                                <div class="david-shalom">{getCustomerOrSupplierName(project.customer_id, customer)}</div>
+                                <div class="ellipse-19"></div>
+                                <div class="frame-50">
+                                    <div class="frame-46">
+                                        <div class="company">Agent:</div>
+                                        <div class="ivory">{getProjectOwnerName(project.owner_user_id)}</div>
+                                    </div>
+                                    <div class="frame-47">
+                                        <div class="company">Supplier:</div>
+                                        <div class="ivory">{getCustomerOrSupplierName(project.supplier_id, supplier)}</div>
+                                    </div>
+                                    <div class="frame-48">
+                                        <div class="company">Product:</div>
+                                        <div class="ivory">{getProductName(project.product_id)}</div>
+                                    </div>
+                                </div>
+                                <img class="edit-02" src="edit-020.svg" />
+                                <img class="trash-02" src="trash-020.svg" />
+                                <div className="frame-5">
+                                    <div className="frame-75"></div>
+                                    {setValue(project.current_stage)}
+                                    <div className="frame-76" style={{ width: `${percent}%` }}></div>
+                                </div>
+                                <img class="play-03" src="play-030.svg" />
+                            </div>
+
                         </div>
                     ))}
                 </div>
