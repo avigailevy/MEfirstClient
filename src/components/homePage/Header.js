@@ -1,4 +1,4 @@
-
+import { Notification } from './Notification'
 export function Header() {
 
     // showRecentProjects = () =>{
@@ -8,6 +8,7 @@ export function Header() {
 
     return (
         <div className="header-container">
+            <Notification/>
         </div>
     );
 }                    
