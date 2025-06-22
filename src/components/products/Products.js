@@ -8,7 +8,7 @@ export function Products() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3333/products/all");
+      const response = await fetch("http://localhost:3333/products");
       if (!response.ok) throw new Error("Failed to fetch products");
       const data = await response.json();
       setProducts(data);
@@ -25,7 +25,7 @@ export function Products() {
     <div>
         <SearchAndFilter/>
       <button onClick={() => setShowForm(!showForm)}>
-        {showForm ? "בטל" : "הוסף מוצר"}
+        {showForm ? "cancel" : "add"}
       </button>
 
       {showForm && <AddProductForm onSuccess={fetchProducts} />}

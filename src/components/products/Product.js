@@ -10,36 +10,61 @@ export function Product({ product, onUpdated }) {
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("האם אתה בטוח שברצונך למחוק מוצר זה?")) return;
     try {
-      const response = await fetch(`http://localhost:3333/products/${product.product_id}`, {
+      const confirmed = window.confirm("האם את בטוחה שברצונך למחוק את המוצר?");
+      if (!confirmed) return;
+
+      const response = await fetch(`http://localhost:3333/username/products/${product.product_id}`, {
         method: "DELETE"
       });
-      if (!response.ok) throw new Error("מחיקה נכשלה");
-      onUpdated?.(); // רענון רשימה לאחר מחיקה
+      if (!response.ok) throw new Error("Delete failed");
+      onUpdated?.();
     } catch (error) {
       console.error("שגיאה במחיקת מוצר:", error);
     }
   };
 
+  if (isEditing) {
+    return <AddOrEditProductForm product={product} onSuccess={handleSuccess} />;
+  }
+
   return (
-    <div className="product-card">
-      {isEditing ? (
-        <AddOrEditProductForm product={product} onSuccess={handleSuccess} />
-      ) : (
-        <>
-          <h3>{product.product_name}</h3>
-          <p><strong>קטגוריה:</strong> {product.category}</p>
-          <p><strong>תיאור:</strong> {product.description}</p>
-          <p><strong>ספק:</strong> {product.supplier_id}</p>
-          <div className="actions">
-            <button onClick={() => setIsEditing(true)}>ערוך</button>
-            <button onClick={handleDelete} style={{ backgroundColor: "#dc3545" }}>
-              מחק
-            </button>
-          </div>
-        </>
-      )}
+    <div className="component-11">
+      <div className="rectangle-20"></div>
+      <div className="david-shalom">{product.product_name}</div>
+      <div className="ellipse-19"></div>
+      <div className="frame-50">
+        <div className="frame-46">
+          <div className="company">קטגוריה:</div>
+          <div className="ivory">{product.category}</div>
+        </div>
+        <div className="frame-47">
+          <div className="company">תיאור:</div>
+          <div className="ivory">{product.description}</div>
+        </div>
+        <div className="frame-48">
+          <div className="company">ספק:</div>
+          <div className="ivory">{product.supplier_id}</div>
+        </div>
+      </div>
+
+      <img
+        className="edit-02"
+        src="edit-020.svg"
+        alt="ערוך"
+        onClick={() => setIsEditing(true)}
+        style={{ cursor: "pointer" }}
+      />
+      <img
+        className="trash-02"
+        src="trash-020.svg"
+        alt="מחק"
+        onClick={handleDelete}
+        style={{ cursor: "pointer" }}
+      />
+      <div className="frame-5">
+        <div className="details">Show projects</div>
+      </div>
     </div>
   );
 }
