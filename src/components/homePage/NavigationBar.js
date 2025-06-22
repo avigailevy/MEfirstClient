@@ -21,11 +21,11 @@ export function NavigationBar() {
                         </div>
                         <div class="frame-30">
                             <img class="users-profiles-right" src="users-profiles-right0.svg" />
-                            <Link to={`/${username}/customers`} className="home2">CUSTOMERS</Link>
+                            <Link to={`/${username}/contacts/customers`} className="home2">CUSTOMERS</Link>
                         </div>
                         <div class="frame-31">
                             <img class="user-profile-left" src="user-profile-left0.svg" />
-                            <Link to={`/${username}/suppliers`} className="home2">SUPPLIERS</Link>
+                            <Link to={`/${username}/contacts/suppliers`} className="home2">SUPPLIERS</Link>
                         </div>
                         {user && user.role === 'admin' && (
                             <div class="frame-32">
@@ -67,12 +67,12 @@ export function NavigationBar() {
                             </Link>
                         </div>
                         <div class="frame-30">
-                            <Link to={`/${username}/customers`}>
+                            <Link to={`/${username}/contacts/customers`}>
                                 <img class="users-profiles-right" src="users-profiles-right0.svg" />
                             </Link>
                         </div>
                         <div class="frame-31">
-                            <Link to={`/${username}/suppliers`}>
+                            <Link to={`/${username}/contacts/suppliers`}>
                                 <img class="user-profile-left" src="user-profile-left0.svg" />
                             </Link>
                         </div>
