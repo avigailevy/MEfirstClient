@@ -8,7 +8,7 @@ import { Customers } from "./components/contacts/Customers";
 import { Suppliers } from "./components/contacts/Suppliers";
 import { Agents } from "./components/agents/Agents";
 import { Todos } from "./components/todos/Todos";
-
+import { Login } from "./components/loginAddUser/Login";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -18,11 +18,11 @@ function App() {
       {!isLoggedIn && (
         <div className="login-register-links">
           <Link to="/login" className="navbar-link">Login</Link>
-          <Link to="/register" className="navbar-link">Register</Link>
         </div>
       )}
 
       <Routes>
+        <Route path='login' element={<Login/>}/>
         <Route
           path="/"
         />

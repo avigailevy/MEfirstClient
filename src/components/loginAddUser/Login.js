@@ -31,9 +31,7 @@ const handleSubmit = async (e) => {
             throw new Error('No token received from server');
         }
         localStorage.setItem('token', data.token);
-         navigate(`${username}/home`); // ניווט לדף הבית או לדף אחר לאחר התחברות מוצלחת
-
-        // כאן אפשר להוסיף ניווט לדף הבית אם את משתמשת ב-React Router
+        navigate(`${username}/home`);
 
     } catch (err) {
         setError(err.message || 'Invalid username or password');
