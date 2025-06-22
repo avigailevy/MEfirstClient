@@ -1,8 +1,8 @@
-import { usestate } from 'react';
+import { useState } from 'react';
 
 export function Notification({ message, type }) {
 
-    const [notes, setNotes] = usestate([]);
+    const [notes, setNotes] = useState([]);
 
     return (
         <>

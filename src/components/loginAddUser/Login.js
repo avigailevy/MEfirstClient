@@ -32,7 +32,7 @@ const handleSubmit = async (e) => {
             throw new Error('No token received from server');
         }
         localStorage.setItem('token', data.token);
-        navigate(`${username.replaceAll(" ", "_")}/home`);
+        navigate(`/${username.replaceAll(" ", "_")}/home`);
 
     } catch (err) {
         setError(err.message || 'Invalid username or password');
