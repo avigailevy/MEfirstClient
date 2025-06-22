@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import { SortSomething, FilterSomething } from "../Actions";
 import { SearchAndFilter } from "../SearchAndFilter";
 import '../../css/projects.css';
+import { useParams } from "react-router-dom";
 
 export function Projects({ agentId }) {
     const [projects, setProjects] = useState([]);
@@ -12,15 +13,16 @@ export function Projects({ agentId }) {
     const [searchValue, setSearchValue] = useState('');
     const [newProjectTitle, setNewProjectTitle] = useState('');
     const [userId, setUserId] = useState(null);
-    const [value, setValue] = useState(35); 
+    const [value, setValue] = useState(35);
     const percent = Math.max(0, Math.min(100, (value / 12) * 100));
+    const projectStatus = useParams().projectStatus;
 
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
             const decoded = jwtDecode(token);
-            setUserId(decoded.userId);            
+            setUserId(decoded.userId);
             if (decoded.role === 'admin') {
                 fetchProjectsForAdmin(decoded.userId);
             } else {
@@ -31,7 +33,7 @@ export function Projects({ agentId }) {
 
     const fetchProjects = async (uid) => {
         try {
-            const res = await fetch(`http://localhost:3333/projects/open/${uid}`, {
+            const res = await fetch(`http://localhost:3333/projects/${projectStatus}/${uid}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -49,12 +51,12 @@ export function Projects({ agentId }) {
 
     const fetchProjectsForAdmin = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/projects/open/${agentId}`, {
+            const res = await fetch(`http://localhost:3333/projects/${projectStatus}/${agentId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
-            });                                                                             
+            });
             if (!res.ok) throw new Error("Failed to fetch project");
             const data = await res.json();
             setAllProjects(data);
