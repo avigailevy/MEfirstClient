@@ -29,22 +29,8 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={
-            <Login setIsLoggedIn={setIsLoggedIn} users={users} />
-          }
         />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} users={users} />} />
-        <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} users={users} />} />
-
-        {/* Routes protégées */}
-        <Route
-          path="users/:userId"
-          element={
-            <PrivateRoute isLoggedIn={isLoggedIn}>
-              <Navigation setIsLoggedIn={setIsLoggedIn} />
-            </PrivateRoute>
-          }
-        >
+        <Route path=":username">
           <Route path="home" element={<Home />} />
           <Route path="todos" element={<Todos />} />
           <Route path="posts" element={<Posts />} />
