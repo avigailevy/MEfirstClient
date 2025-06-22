@@ -6,7 +6,6 @@ export function Customers() {
 
   const [customers, setCustomers] = useState([]);
   const { user } = useAuth();
-  const username = user && user.username ? user.username : '';
 
   useEffect(() => {
     if (user?.username) {
