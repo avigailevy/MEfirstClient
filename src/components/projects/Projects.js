@@ -178,32 +178,32 @@ export function Projects({ agentId }) {
                 <div>
                     {filtered.map((project) => (
                         <div className="project-container" key={project.project_id}>
-                            <div class="component-1">
-                                <div class="rectangle-20"></div>
-                                <div class="david-shalom">{getCustomerOrSupplierName(project.customer_id, 'customer')}</div>
-                                <div class="ellipse-19"></div>
-                                <div class="frame-50">
-                                    <div class="frame-46">
-                                        <div class="company">Agent:</div>
-                                        <div class="ivory">{getProjectOwnerName(project.owner_user_id)}</div>
+                            <div className="component-1">
+                                <div className="rectangle-20"></div>
+                                <div className="david-shalom">{getCustomerOrSupplierName(project.customer_id, 'customer')}</div>
+                                <div className="ellipse-19"></div>
+                                <div className="frame-50">
+                                    <div className="frame-46">
+                                        <div className="company">Agent:</div>
+                                        <div className="ivory">{getProjectOwnerName(project.owner_user_id)}</div>
                                     </div>
-                                    <div class="frame-47">
-                                        <div class="company">Supplier:</div>
-                                        <div class="ivory">{getCustomerOrSupplierName(project.supplier_id, 'supplier')}</div>
+                                    <div className="frame-47">
+                                        <div className="company">Supplier:</div>
+                                        <div className="ivory">{getCustomerOrSupplierName(project.supplier_id, 'supplier')}</div>
                                     </div>
-                                    <div class="frame-48">
-                                        <div class="company">Product:</div>
-                                        <div class="ivory">{getProductName(project.product_id)}</div>
+                                    <div className="frame-48">
+                                        <div className="company">Product:</div>
+                                        <div className="ivory">{getProductName(project.product_id)}</div>
                                     </div>
                                 </div>
-                                <img class="edit-02" src="edit-020.svg" />
-                                <img class="trash-02" src="trash-020.svg" />
+                                <img className="edit-02" src="edit-020.svg" />
+                                <img className="trash-02" src="trash-020.svg" />
                                 <div className="frame-5">
                                     <div className="frame-75"></div>
                                     {setValue(project.current_stage)}
                                     <div className="frame-76" style={{ width: `${percent}%` }}></div>
                                 </div>
-                                <img class="play-03" src="play-030.svg" />
+                                <img className="play-03" src="play-030.svg" />
                             </div>
 
                         </div>

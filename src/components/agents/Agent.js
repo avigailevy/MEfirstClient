@@ -47,11 +47,11 @@ export function Agent({ agent }) {
 
     return (
         <>
-            <div class="component-1">
+            <div className="component-1">
                 {/* delete */}
-                <img class="trash-02" src="trash-02.svg" onClick={deleteAgent} />
+                <img className="trash-02" src="trash-02.svg" onClick={deleteAgent} />
                 {/* edit */}
-                <img class="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
+                <img className="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
                 {isEditing && (
                     <EditAgentForm
                         agent={agent}
@@ -60,29 +60,29 @@ export function Agent({ agent }) {
                     />
                 )}
                 {/* frame */}
-                <div class="rectangle-20"></div>
-                <div class="ellipse-19">{agent.profile_picture}</div>
-                <div class="david-shalom">{agent.name}</div>
-                <div class="frame-50">
-                    <div class="frame-47">
-                        <div class="company">Tel:</div>
-                        <div class="ivory">{agent.phone}</div>
+                <div className="rectangle-20"></div>
+                <div className="ellipse-19">{agent.profile_picture}</div>
+                <div className="david-shalom">{agent.name}</div>
+                <div className="frame-50">
+                    <div className="frame-47">
+                        <div className="company">Tel:</div>
+                        <div className="ivory">{agent.phone}</div>
                     </div>
-                    <div class="frame-48">
-                        <div class="company">Mail:</div>
-                        <div class="ivory">{agent.email}</div>
+                    <div className="frame-48">
+                        <div className="company">Mail:</div>
+                        <div className="ivory">{agent.email}</div>
                     </div>
-                    <div class="frame-49">
-                        <div class="company">Adress:</div>
-                        <div class="ivory">{agent.address}</div>
+                    <div className="frame-49">
+                        <div className="company">Adress:</div>
+                        <div className="ivory">{agent.address}</div>
                     </div>
                 </div>
-                <img class="edit-02" src="edit-020.svg" />
-                <img class="trash-02" src="trash-020.svg" />
-                <div class="frame-5">
-                    <div class="details" onClick={() => showAgentProjects }>Show projects</div>
+                <img className="edit-02" src="edit-020.svg" />
+                <img className="trash-02" src="trash-020.svg" />
+                <div className="frame-5">
+                    <div className="details" onClick={() => showAgentProjects }>Show projects</div>
                 </div>
-                <img class="play-03" src="play-030.svg" />
+                <img className="play-03" src="play-030.svg" />
             </div>
 
         </>
