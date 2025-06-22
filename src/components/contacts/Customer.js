@@ -1,14 +1,11 @@
 import { useState } from 'react';
+import { EditCusSuppForm } from '../EditCusSuppForm';
+
 
 export function Customer({ customer }) {
 
     const [isEditing, setIsEditing] = useState(false);
 
-    const showCustomerProjects = () => {
-        return (
-            <Projects userId={customer.user_id} />
-        );
-    }
 
     const deleteCustomer = async () => {
         try {
@@ -50,8 +47,8 @@ export function Customer({ customer }) {
                 {/* edit */}
                 <img class="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
                 {isEditing && (
-                    <EditAgentForm
-                        agent={agent}
+                    <EditCusSuppForm
+                        customer={customer}
                         onUpdate={updateCustomer}
                         onClose={() => setIsEditing(false)}
                     />
@@ -76,9 +73,6 @@ export function Customer({ customer }) {
                 </div>
                 <img class="edit-02" src="edit-020.svg" />
                 <img class="trash-02" src="trash-020.svg" />
-                <div class="frame-5">
-                    <div class="details" onClick={() => { showCustomerProjects }}>Show projects</div>
-                </div>
                 <img class="play-03" src="play-030.svg" />
             </div>
 

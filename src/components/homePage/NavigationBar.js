@@ -13,7 +13,7 @@ export function NavigationBar() {
             {barStatus === 'open' ? (
                 <div class="frame-73">
                     <div class="frame-37">
-                        <img class="component-9" src="component-9.svg" onClick={setBarStatus('close')} />
+                        <img class="component-9" src="component-9.svg" onClick={() =>setBarStatus('close')} />
                         <div class="frame-29">
                             <img class="home-02" src="home-020.svg" />
                             <Link to={`/${username}/home `} className="home">HOME</Link>
@@ -59,7 +59,7 @@ export function NavigationBar() {
                 </div>) : (
                 <div class="frame-37">
                     <div class="frame-38">
-                        <img class="component-9" src="component-9.svg" onClick={setBarStatus('open')} />
+                        <img class="component-9" src="component-9.svg" onClick={() =>setBarStatus('open')} />
                         <div class="frame-29">
                             <Link to={`/${username}/home/all`} class="home2">
                                 <img class="home-02" src="home-020.svg" />

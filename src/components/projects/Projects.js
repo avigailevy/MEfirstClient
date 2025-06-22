@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
-import { SortSomething, FilterSomething } from "../Actions";
 import { SearchAndFilter } from "../SearchAndFilter";
-import '../../css/projects.css';
+import '../../css/Projects.css'
 import { useParams } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { SortSomething, FilterSomething } from "../Actions";
 
 export function Projects({ agentId }) {
     const [projects, setProjects] = useState([]);
@@ -16,17 +16,15 @@ export function Projects({ agentId }) {
     const [value, setValue] = useState(35);
     const percent = Math.max(0, Math.min(100, (value / 12) * 100));
     const projectStatus = useParams().projectStatus;
+    const { isLoggedIn, user } = useAuth();
 
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const decoded = jwtDecode(token);
-            setUserId(decoded.userId);
-            if (decoded.role === 'admin') {
-                fetchProjectsForAdmin(decoded.userId);
+        if (isLoggedIn) {
+            if (user.role === 'admin') {
+                fetchProjectsForAdmin(user.userId);
             } else {
-                fetchProjects(decoded.userId);
+                fetchProjects(user.userId);
             }
         }
     }, []);
@@ -91,7 +89,7 @@ export function Projects({ agentId }) {
         }
     };
 
-    getCustomerOrSupplierName = (contactId, customerOrSupplier) => {
+    const getCustomerOrSupplierName = (contactId, customerOrSupplier) => {
         try {
             const response = fetch(`http://localhost:3333/contacts/${customerOrSupplier}/contactName/${contactId}`, {
                 method: 'GET',
@@ -108,7 +106,7 @@ export function Projects({ agentId }) {
         }
     }
 
-    getProjectOwnerName = (ownerId) => {
+    const getProjectOwnerName = (ownerId) => {
         try {
             const response = fetch(`http://localhost:3333/users/userName/${ownerId}`, {
                 method: 'GET',
@@ -125,7 +123,7 @@ export function Projects({ agentId }) {
         }
     }
 
-    getProductName = (productId) => {
+    const getProductName = (productId) => {
         try {
             const response = fetch(`http://localhost:3333/products/${productId}`, {
                 method: 'GET',
@@ -182,7 +180,7 @@ export function Projects({ agentId }) {
                         <div className="project-container" key={project.project_id}>
                             <div class="component-1">
                                 <div class="rectangle-20"></div>
-                                <div class="david-shalom">{getCustomerOrSupplierName(project.customer_id, customer)}</div>
+                                <div class="david-shalom">{getCustomerOrSupplierName(project.customer_id, 'customer')}</div>
                                 <div class="ellipse-19"></div>
                                 <div class="frame-50">
                                     <div class="frame-46">
@@ -191,7 +189,7 @@ export function Projects({ agentId }) {
                                     </div>
                                     <div class="frame-47">
                                         <div class="company">Supplier:</div>
-                                        <div class="ivory">{getCustomerOrSupplierName(project.supplier_id, supplier)}</div>
+                                        <div class="ivory">{getCustomerOrSupplierName(project.supplier_id, 'supplier')}</div>
                                     </div>
                                     <div class="frame-48">
                                         <div class="company">Product:</div>

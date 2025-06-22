@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Product } from "./Product";
-import { AddProductForm } from "./AddProductForm";
+import { AddOrEditProductForm } from "./AddOrEditProductForm";
+import { SearchAndFilter } from "../SearchAndFilter";
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -23,12 +24,12 @@ export function Products() {
 
   return (
     <div>
-        <SearchAndFilter/>
+      <SearchAndFilter />
       <button onClick={() => setShowForm(!showForm)}>
         {showForm ? "cancel" : "add"}
       </button>
 
-      {showForm && <AddProductForm onSuccess={fetchProducts} />}
+      {showForm && <AddOrEditProductForm onSuccess={fetchProducts} />}
 
       {products.length > 0 ? (
         <div>

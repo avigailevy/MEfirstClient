@@ -1,5 +1,4 @@
 
-import '../css/searchAndFilter.css'
 export function SearchAndFilter({
     sortCriterion,
     setSortCriterion,

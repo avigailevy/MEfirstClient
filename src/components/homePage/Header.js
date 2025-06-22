@@ -12,4 +12,3 @@ export function Header() {
         </div>
     );
 }                    
-export default DashBoard;
