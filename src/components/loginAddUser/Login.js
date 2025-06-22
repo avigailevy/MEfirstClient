@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../../context/AuthContext';
 
 export const Login = () => {
      const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const { user } = useAuth();
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const handleSubmit = async (e) => {
             throw new Error('No token received from server');
         }
         localStorage.setItem('token', data.token);
-        navigate(`${username}/home`);
+        navigate(`${username.replaceAll(" ", "_")}/home`);
 
     } catch (err) {
         setError(err.message || 'Invalid username or password');
