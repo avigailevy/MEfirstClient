@@ -14,10 +14,12 @@ const handleSubmit = async (e) => {
         return;
     }
     try {
-        const response = await fetch('http://localhost:3000/login', {
-            method: 'GET',
-            body: JSON.stringify({ username, password })
-
+        const response = await fetch('http://localhost:3333/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
         });
         const data = await response.json();
         if (!response.ok) {
@@ -34,6 +36,7 @@ const handleSubmit = async (e) => {
     } catch (err) {
         setError(err.message || 'Invalid username or password');
     }
+    
 };
 
     return (
