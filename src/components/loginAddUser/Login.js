@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 export const Login = () => {
+     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -29,13 +31,14 @@ const handleSubmit = async (e) => {
             throw new Error('No token received from server');
         }
         localStorage.setItem('token', data.token);
+         navigate('/dashBoard'); // ניווט לדף הבית או לדף אחר לאחר התחברות מוצלחת
 
         // כאן אפשר להוסיף ניווט לדף הבית אם את משתמשת ב-React Router
-        // navigate('/home');
 
     } catch (err) {
         setError(err.message || 'Invalid username or password');
     }
+
 
 };
 
