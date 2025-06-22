@@ -2,6 +2,8 @@
 import { BrowserRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { PublicRoutes } from "./routes/PublicRoutes";
+import { Login } from "./components/loginAddUser/Login";
+
 // import { AdminRoutes } from "./routes/AdminRoutes";
 // import { AgentRoutes } from "./routes/AgentRoutes";
 
@@ -20,13 +22,7 @@ function App() {
     }
   }, []);
 
-  return (
-    <BrowserRouter>
-      {/* {userRole === "admin" && <AdminRoutes isLoggedIn={isLoggedIn} />}
-      {userRole === "agent" && <AgentRoutes isLoggedIn={isLoggedIn} />} */}
-      {!userRole && <PublicRoutes />}
-    </BrowserRouter>
-  );
+  return <Login/>
 }
 
 export default App;
