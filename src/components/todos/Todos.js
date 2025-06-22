@@ -27,7 +27,7 @@ export function Todos() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:3001/todos/users');
+        const response = await fetch('http://localhost:3333/todos/users');
         if (!response.ok) throw new Error('Failed to fetch users');
         const data = await response.json();
         setUsers(data);
@@ -42,7 +42,7 @@ export function Todos() {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch('http://localhost:3001/todos', {
+        const response = await fetch('http://localhost:3333/todos', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
@@ -68,7 +68,7 @@ export function Todos() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/todos', {
+      const response = await fetch('http://localhost:3333/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
