@@ -54,7 +54,7 @@ export function Projects({ agentId }) {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
-            });
+            });                                                                             
             if (!res.ok) throw new Error("Failed to fetch project");
             const data = await res.json();
             setAllProjects(data);

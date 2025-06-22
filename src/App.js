@@ -1,40 +1,57 @@
 import {  Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import  Login  from './components/loginAddUser/Login';
-import Navigation  from './components/homePage/NavigationBar';
-import DashBoard  from './components/homePage/DashBoard';
-
-
+import { PublicRoutes } from "./routes/PublicRoutes";
+import { AdminRoutes } from "./routes/AdminRoutes";
+import { AgentRoutes } from "./routes/AgentRoutes";
+import { useAuth } from '../context/AuthContext';
 
 function App() {
+  const [userRole, setUserRole] = useState(null);
   const [userName, setUserName] = useState(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      setUserName(payload?.username); 
-    }
-  }, []);
+  const { isLoggedIn, user } = useAuth();
 
   return (
-      <Routes>
+    // <BrowserRouter>
+    //   {userRole === "admin" && <AdminRoutes  userName={userName}/>}
+    //   {userRole === "agent" && <AgentRoutes userName={userName} />}
+    //   {!userRole && <PublicRoutes />}
+    // </BrowserRouter>
 
-        <Route path="/" element={ <Login/> }/>
-        <Route path="/login" element={<Login />} />
-       
-          <Route
-          path="/:userName"
+    <>
+      {!isLoggedIn && (
+        <div className="login-register-links">
+          <Link to="/login" className="navbar-link">Login</Link>
+          <Link to="/register" className="navbar-link">Register</Link>
+        </div>
+      )}
+
+      <Routes>
+        <Route
+          path="/"
           element={
-           
-              <Navigation  username={userName} />
-          
+            <Login setIsLoggedIn={setIsLoggedIn} users={users} />
+          }
+        />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} users={users} />} />
+        <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} users={users} />} />
+
+        {/* Routes protégées */}
+        <Route
+          path="users/:userId"
+          element={
+            <PrivateRoute isLoggedIn={isLoggedIn}>
+              <Navigation setIsLoggedIn={setIsLoggedIn} />
+            </PrivateRoute>
           }
         >
-          <Route path="dashBoard" element={<DashBoard />} />
-
+          <Route path="home" element={<Home />} />
+          <Route path="todos" element={<Todos />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="albums" element={<Albums />} />
+          <Route path="albums/:albumId/photos" element={<Photos />} />
         </Route>
       </Routes>
+    </>
   );
 }
 
