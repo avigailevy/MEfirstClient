@@ -1,3 +1,15 @@
+.component-9,
+.component-9 * {
+  box-sizing: border-box;
+}
+.component-9 {
+  width: 18px;
+  height: 8px;
+  position: relative;
+  overflow: visible;
+}
+
+
 .frame-73,
 .frame-73 * {
   box-sizing: border-box;
