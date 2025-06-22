@@ -21,21 +21,21 @@ export function NavigationBar() {
                         </div>
                         <div class="frame-30">
                             <img class="users-profiles-right" src="users-profiles-right0.svg" />
-                            <Link to={`/${username}/customers/all`} className="home2">CUSTOMERS</Link>
+                            <Link to={`/${username}/customers`} className="home2">CUSTOMERS</Link>
                         </div>
                         <div class="frame-31">
                             <img class="user-profile-left" src="user-profile-left0.svg" />
-                            <Link to={`/${username}/suppliers/all`} className="home2">SUPPLIERS</Link>
+                            <Link to={`/${username}/suppliers`} className="home2">SUPPLIERS</Link>
                         </div>
                         {user && user.role === 'admin' && (
                             <div class="frame-32">
                                 <img class="users-profiles-01" src="users-profiles-010.svg" />
-                                <Link to={`/${username}/agents/all`} className="home2">AGENTS</Link>
+                                <Link to={`/${username}/agents`} className="home2">AGENTS</Link>
                             </div>
                         )}
                         <div class="frame-33">
                             <img class="check-broken" src="check-broken0.svg" />
-                            <Link to={`/${username}/todos/all`} className="home2">TODOS</Link>
+                            <Link to={`/${username}/todos`} className="home2">TODOS</Link>
                         </div>
                         <div class="frame-34">
                             <img class="arrow-rotate-right-01" src="arrow-rotate-right-010.svg" />
@@ -62,29 +62,29 @@ export function NavigationBar() {
                     <div class="frame-38">
                         <img class="component-9" src="component-9.svg" onClick={() =>setBarStatus('open')} />
                         <div class="frame-29">
-                            <Link to={`/${username}/home/all`} class="home2">
+                            <Link to={`/${username}/home`} class="home2">
                                 <img class="home-02" src="home-020.svg" />
                             </Link>
                         </div>
                         <div class="frame-30">
-                            <Link to={`/${username}/customers/all`}>
+                            <Link to={`/${username}/customers`}>
                                 <img class="users-profiles-right" src="users-profiles-right0.svg" />
                             </Link>
                         </div>
                         <div class="frame-31">
-                            <Link to={`/${username}/suppliers/all`}>
+                            <Link to={`/${username}/suppliers`}>
                                 <img class="user-profile-left" src="user-profile-left0.svg" />
                             </Link>
                         </div>
                         {user && user.role === 'admin' && (
                             <div class="frame-32">
-                                <Link to={`/${username}/agents/all`}>
+                                <Link to={`/${username}/agents`}>
                                     <img class="users-profiles-01" src="users-profiles-010.svg" />
                                 </Link>
                             </div>
                         )}
                         <div class="frame-33">
-                            <Link to={`/${username}/todos/all`}>
+                            <Link to={`/${username}/todos`}>
                                 <img class="check-broken" src="check-broken0.svg" />
                             </Link>
                         </div>
