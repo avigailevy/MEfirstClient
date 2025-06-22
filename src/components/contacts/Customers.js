@@ -7,7 +7,7 @@ export function Customers() {
 
   const fetchCustomers = async () => {
     try{
-        const response = await fetch('http://localhost:3333/contacts/customers/all');
+        const response = await fetch('http://localhost:3333/contacts/customer/all');
         if(!response.ok) throw new Error('Failed to fetch customers');
         const data = await response.json();
         setCustomers(data);

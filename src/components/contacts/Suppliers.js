@@ -7,7 +7,7 @@ export function Suppliers() {
 
   const fetchSuppliers = async () => {
     try{
-        const response = await fetch('http://localhost:3333/contacts/suppliers/all');
+        const response = await fetch('http://localhost:3333/contacts/supplier/all');
         if(!response.ok) throw new Error('Failed to fetch suppliers');
         const data = await response.json();
         setSuppliers(data);
