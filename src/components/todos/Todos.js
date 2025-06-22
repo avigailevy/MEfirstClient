@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { Todo } from "./Todo";
-import '../../css/todos.css';
+import '../../css/Todos.css';
 
 export function Todos() {
   const [todos, setTodos] = useState([]);
@@ -132,7 +132,7 @@ export function Todos() {
       {todos.length > 0 ? (
         todos.map(todo => (
           <div key={todo.todo_id} className="todo-container">
-            <Todo td={todo}  setTodo={setTodos} />
+            <Todo td={todo} setTodo={setTodos} />
           </div>
         ))
       ) : (

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import jwtDecode from 'jwt-decode'; // תוודאי שהתקנת את החבילה הזו: npm install jwt-decode
+import {jwtDecode} from 'jwt-decode'; // תוודאי שהתקנת את החבילה הזו: npm install jwt-decode
 
 // יצירת קונטקסט חדש לניהול התחברות
 const AuthContext = createContext();

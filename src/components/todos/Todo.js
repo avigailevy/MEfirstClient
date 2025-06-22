@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/todo.css';
+import '../../css/Todos.css';
 
 export function Todo({ todo, onUpdate, onDelete }) {
     const [isCompleted, setIsCompleted] = useState(todo.completed);

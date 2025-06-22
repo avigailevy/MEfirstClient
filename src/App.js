@@ -1,23 +1,19 @@
-import { Routes, Route, useParams } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import { PublicRoutes } from "./routes/PublicRoutes";
-import { AdminRoutes } from "./routes/AdminRoutes";
-import { AgentRoutes } from "./routes/AgentRoutes";
-import { useAuth } from '../context/AuthContext';
+import { Routes, Route } from 'react-router-dom';
+import { useAuth } from '../src/context/AuthContext';
 import { Products } from "./components/products/Products";
+import { Link } from "react-router-dom";
+import { HomePage } from "./components/homePage/HomePage";
+import { Projects } from "./components/projects/Projects";
+import { Customers } from "./components/contacts/Customers";
+import { Suppliers } from "./components/contacts/Suppliers";
+import { Agents } from "./components/agents/Agents";
+import { Todos } from "./components/todos/Todos";
+
 
 function App() {
-  const [userRole, setUserRole] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   return (
-    // <BrowserRouter>
-    //   {userRole === "admin" && <AdminRoutes  userName={userName}/>}
-    //   {userRole === "agent" && <AgentRoutes userName={userName} />}
-    //   {!userRole && <PublicRoutes />}
-    // </BrowserRouter>
-
     <>
       {!isLoggedIn && (
         <div className="login-register-links">

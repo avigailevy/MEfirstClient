@@ -80,7 +80,7 @@ export function Agent({ agent }) {
                 <img class="edit-02" src="edit-020.svg" />
                 <img class="trash-02" src="trash-020.svg" />
                 <div class="frame-5">
-                    <div class="details" onClick={() => { showAgentProjects }}>Show projects</div>
+                    <div class="details" onClick={() => showAgentProjects }>Show projects</div>
                 </div>
                 <img class="play-03" src="play-030.svg" />
             </div>

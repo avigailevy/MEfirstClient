@@ -1,14 +1,9 @@
 import { useState } from 'react';
+import { EditCusSuppForm } from '../EditCusSuppForm';
 
 export function Supplier({ supplier }) {
 
     const [isEditing, setIsEditing] = useState(false);
-
-    const showSupplierProjects = () => {
-        return (
-            <Projects userId={supplier.user_id} />
-        );
-    }
 
     const deleteSupplier = async () => {
         try {
@@ -50,8 +45,8 @@ export function Supplier({ supplier }) {
                 {/* edit */}
                 <img class="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
                 {isEditing && (
-                    <EditAgentForm
-                        agent={agent}
+                    <EditCusSuppForm
+                        supplier={supplier}
                         onUpdate={updateSupplier}
                         onClose={() => setIsEditing(false)}
                     />
@@ -76,9 +71,6 @@ export function Supplier({ supplier }) {
                 </div>
                 <img class="edit-02" src="edit-020.svg" />
                 <img class="trash-02" src="trash-020.svg" />
-                <div class="frame-5">
-                    <div class="details" onClick={() => { showSupplierProjects }}>Show projects</div>
-                </div>
                 <img class="play-03" src="play-030.svg" />
             </div>
 

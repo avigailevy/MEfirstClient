@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './EditAgentForm.css'; 
+import '../css/EditAgentForm.css'; 
 
 export function EditAgentForm({ agent, onUpdate, onClose }) {
     const [formData, setFormData] = useState({
