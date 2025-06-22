@@ -15,7 +15,7 @@ export function Agent({ agent }) {
 
     const deleteAgent = async () => {
         try {
-            const response = await fetch(`/delete/${agent.user_id}`, {
+            const response = await fetch(`http://localhost:3333/users/delete/${agent.user_id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {

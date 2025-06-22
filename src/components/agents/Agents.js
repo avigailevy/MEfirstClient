@@ -7,7 +7,7 @@ export function Agents() {
 
   const fetchAgents = async () => {
     try{
-        const response = await fetch('/agents/all');
+        const response = await fetch('http://localhost:3333/users/agents/all');
         if(!response.ok) throw new Error('Failed to fetch agents');
         const data = await response.json();
         setAgents(data);

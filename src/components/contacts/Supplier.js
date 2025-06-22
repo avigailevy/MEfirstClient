@@ -12,7 +12,7 @@ export function Supplier({ supplier }) {
 
     const deleteSupplier = async () => {
         try {
-            const response = await fetch(`/delete/${supplier.user_id}`, {
+            const response = await fetch(`http://localhost:3333/contacts/suppluers/delete/${supplier.user_id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {

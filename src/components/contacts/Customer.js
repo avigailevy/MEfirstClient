@@ -12,7 +12,7 @@ export function Customer({ customer }) {
 
     const deleteCustomer = async () => {
         try {
-            const response = await fetch(`/delete/${customer.user_id}`, {
+            const response = await fetch(`http://localhost:3333/contacts/customers/delete/${customer.user_id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
