@@ -26,7 +26,7 @@ export function NavigationBar() {
                             <img class="user-profile-left" src="user-profile-left0.svg" />
                             <Link to={`/${username}/suppliers/all`} className="home2">SUPPLIERS</Link>
                         </div>
-                        {user.role === 'admin' && (
+                        {user && user.role === 'admin' && (
                             <div class="frame-32">
                                 <img class="users-profiles-01" src="users-profiles-010.svg" />
                                 <Link to={`/${username}/agents/all`} className="home2">AGENTS</Link>
@@ -44,7 +44,7 @@ export function NavigationBar() {
                             <img class="arrow-refresh-04" src="arrow-refresh-040.svg" />
                             <Link to={`/${username}/opened`} className="home2">OPEN PROJECTS</Link>
                         </div>
-                        {user.role === 'admin' && (
+                        {user && user.role === 'admin' && (
                             <div class="frame-36">
                                 <img class="trend-up-01" src="trend-up-010.svg" />
                                 {/* לא יודעת מה לכתוב בניתוב של זה */}
@@ -75,7 +75,7 @@ export function NavigationBar() {
                                 <img class="user-profile-left" src="user-profile-left0.svg" />
                             </Link>
                         </div>
-                        {user.role === 'admin' && (
+                        {user && user.role === 'admin' && (
                             <div class="frame-32">
                                 <Link to={`/${username}/agents/all`}>
                                     <img class="users-profiles-01" src="users-profiles-010.svg" />
@@ -97,7 +97,7 @@ export function NavigationBar() {
                                 <img class="arrow-refresh-04" src="arrow-refresh-040.svg" />
                             </Link>
                         </div>
-                        {user.role === 'admin' && (
+                        {user && user.role === 'admin' && (
                             <div class="frame-36">
                                 {/* לא יודעת מה לכתוב בניתוב של זה */}
                                 <Link>
