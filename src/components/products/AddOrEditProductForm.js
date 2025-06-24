@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; 
 
 export function AddOrEditProductForm({ onSuccess, product = null }) {
+      const { username } = useParams();
+
   const [formProduct, setFormProduct] = useState({
     product_name: "",
     category: "dry",
@@ -20,11 +23,12 @@ export function AddOrEditProductForm({ onSuccess, product = null }) {
 
     try {
       const response = await fetch(
-        `http://localhost:3333/products${isEdit ? `/${product.product_id}` : ""}`,
+        `http://localhost:3333/${username}/products${isEdit ? `/${product.product_id}` : ""}`,
         {
           method: isEdit ? "PUT" : "POST",
           headers: {
-            "Content-Type": "application/json"
+              'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          'Content-Type': 'application/json'
           },
           body: JSON.stringify(formProduct)
         }

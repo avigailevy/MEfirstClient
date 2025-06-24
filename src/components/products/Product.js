@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { AddOrEditProductForm } from "./AddOrEditProductForm";
+import { useParams } from "react-router-dom"; 
 
-export function Product({ product, onUpdated }) {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleSuccess = () => {
-    setIsEditing(false);
-    onUpdated?.();
-  };
+export function Product({ product, onUpdated, onEdit }) {
+    const { username } = useParams();
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3333/products/${product.product_id}`, {
-        method: "DELETE"
+      const response = await fetch(`http://localhost:3333/${username}/products/${product.product_id}`, {
+        method: "DELETE",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          'Content-Type': 'application/json'
+        }
       });
       if (!response.ok) throw new Error("Delete failed");
-      onUpdated?.(); // רענון רשימה לאחר מחיקה
+      onUpdated?.();
     } catch (error) {
       console.error("שגיאה במחיקת מוצר:", error);
     }
@@ -23,22 +22,14 @@ export function Product({ product, onUpdated }) {
 
   return (
     <div className="product-card">
-      {isEditing ? (
-        <AddOrEditProductForm product={product} onSuccess={handleSuccess} />
-      ) : (
-        <>
-          <h3>{product.product_name}</h3>
-          <p><strong>קטגוריה:</strong> {product.category}</p>
-          <p><strong>תיאור:</strong> {product.description}</p>
-          <p><strong>ספק:</strong> {product.supplier_id}</p>
-          <div className="actions">
-            <button onClick={() => setIsEditing(true)}>ערוך</button>
-            <button onClick={handleDelete} style={{ backgroundColor: "#dc3545" }}>
-              מחק
-            </button>
-          </div>
-        </>
-      )}
+      <h3>{product.product_name}</h3>
+      <p><strong>קטגוריה:</strong> {product.category}</p>
+      <p><strong>תיאור:</strong> {product.description}</p>
+      <p><strong>ספק:</strong> {product.supplier_id}</p>
+      <div className="actions">
+        <button onClick={onEdit}>ערוך</button>
+        <button onClick={handleDelete} className="btn-danger">מחק</button>
+      </div>
     </div>
   );
 }
