@@ -203,8 +203,10 @@ export function Projects({ projectStatus }) {
                                     {setValue(project.current_stage)}
                                     <div className="frame-76" style={{ width: `${percent}%` }}></div>
                                 </div>
-                                <Link to={`/${username}/projects/open/display`}>Display Project</Link>
-                                <Outlet />
+                                <div className="frame-5">
+                                    <Link to={`/${username}/projects/open/display`}>Display Project</Link>
+                                    <Outlet />
+                                </div>
                             </div>
                         </div>
                     ))}
