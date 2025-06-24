@@ -7,7 +7,7 @@ export function Todo({ todo, onUpdate, onDelete }) {
 
     const handleToggleComplete = async () => {
         try {
-            const res = await fetch(`http://localhost:3001/todos/${todo.todo_id}`, {
+            const res = await fetch(`http://localhost:3333/todos/${todo.todo_id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export function Todo({ todo, onUpdate, onDelete }) {
 
     const handleDelete = async () => {
         try {
-            const res = await fetch(`http://localhost:3001/todos/${todo.todo_id}`, {
+            const res = await fetch(`http://localhost:3333/todos/${todo.todo_id}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
