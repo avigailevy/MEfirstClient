@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "../products/Modal";
-import { AddOrEditProject} from "./AddOrEditProject";
+import { AddOrEditProject} from "./addOrEditProject";
 import { Project } from "./Project";
 import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
@@ -27,7 +27,7 @@ export function Projects({ projectStatus, username }) {
 
   const fetchProjects = async () => {
     try {
-      const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}`, {
+      const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}/all`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
