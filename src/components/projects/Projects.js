@@ -3,8 +3,8 @@ import { SearchAndFilter } from "../SearchAndFilter";
 import '../../css/Projects.css'
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
-import { useParams } from "react-router-dom";
-import { PencilLine, Trash2 } from 'lucide-react';
+import { Outlet, useParams } from "react-router-dom";
+import { Link, PencilLine, Trash2 } from 'lucide-react';
 
 export function Projects({ projectStatus }) {
     const [projects, setProjects] = useState([]);
@@ -15,13 +15,13 @@ export function Projects({ projectStatus }) {
     const [value, setValue] = useState(35);
     const percent = Math.max(0, Math.min(100, (value / 12) * 100));
     const { isLoggedIn, user } = useAuth();
-    const { username, agentName } = useParams();   
-    
+    const { username, agentName } = useParams();
+
 
     useEffect(() => {
         if (isLoggedIn && !agentName) {
             fetchProjects(user.user_id);
-            console.log('fetchProjects');            
+            console.log('fetchProjects');
         }
         else {
             fetchProjectsForAdmin();
@@ -99,7 +99,7 @@ export function Projects({ projectStatus }) {
                 throw new Error("Failed to fetch customer name");
             }
             console.log(response);
-            
+
             return response;
         } catch (error) {
             console.log("Error fetching customer name:", error);
@@ -196,15 +196,16 @@ export function Projects({ projectStatus }) {
                                         <div className="ivory">{getProductName(project.product_id)}</div>
                                     </div>
                                 </div>
-                                <PencilLine  />
+                                <PencilLine />
                                 <Trash2 />
                                 <div className="frame-5">
                                     <div className="frame-75"></div>
                                     {setValue(project.current_stage)}
                                     <div className="frame-76" style={{ width: `${percent}%` }}></div>
                                 </div>
+                                <Link to={`/${username}/projects/open/display`}>Display Project</Link>
+                                <Outlet />
                             </div>
-
                         </div>
                     ))}
                 </div>

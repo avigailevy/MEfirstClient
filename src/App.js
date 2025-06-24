@@ -29,10 +29,14 @@ function App() {
         <Route path="/:username">
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />
-          <Route path="projects/open" element={<Projects projectStatus={'open'} />} />
-          <Route path="projects/close" element={<Projects projectStatus={'close'} />} />
-          <Route path="contacts/customers" element={<Customers />} />
-          <Route path="contacts/Suppliers" element={<Suppliers />} />
+          <Route path="projects" >
+            <Route path="open" element={<Projects projectStatus={'open'} />} />
+            <Route path="close" element={<Projects projectStatus={'close'} />} />
+          </Route>
+          <Route path="contacts" >
+            <Route path="customers" element={<Customers />} />
+            <Route path="Suppliers" element={<Suppliers />} />
+          </Route>
           <Route path="todos" element={<Todos />} />
           <Route path="users" >
             <Route path="agents" element={<Agents />} >
