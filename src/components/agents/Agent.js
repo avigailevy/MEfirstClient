@@ -2,6 +2,7 @@ import { EditAgentForm } from "../EditAgentForm";
 import { Projects } from "../projects/Projects";
 import { useEffect, useState } from 'react';
 import '../../css/ContactOrUser.css';
+import { Trash2, UserPen } from 'lucide-react';
 
 export function Agent({ agent }) {
 
@@ -75,9 +76,9 @@ export function Agent({ agent }) {
         <>
             <div className="component-1">
                 {/* delete */}
-                <img className="trash-02" src="trash-02.svg" onClick={deleteAgent} />
+                <Trash2 className="trash-02" src="trash-02.svg" onClick={deleteAgent} />
                 {/* edit */}
-                <img className="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
+                <UserPen className="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
                 {isEditing && (
                     <EditAgentForm
                         agent={agent}

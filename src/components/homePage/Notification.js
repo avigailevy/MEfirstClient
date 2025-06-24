@@ -1,3 +1,4 @@
+import { BellRing } from 'lucide-react';
 import { useState } from 'react';
 
 export function Notification({ userRole }) {
@@ -21,7 +22,7 @@ export function Notification({ userRole }) {
     return (
         <div className="relative inline-block text-right">
             <div className="flex items-center gap-2 cursor-pointer" onClick={() => setOpen(!open)}>
-                <div className="w-6 h-6 text-gray-700 hover:text-black" >bell</div>
+                <BellRing className="w-6 h-6 text-gray-700 hover:text-black" />
                 {userRole === 'admin' && (
                     <div 
                         className="w-4 h-4 text-green-600 hover:text-green-800" 

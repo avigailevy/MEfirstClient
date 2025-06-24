@@ -10,7 +10,6 @@ export function Projects({  projectStatus }) {
     const [searchCriterion, setSearchCriterion] = useState('title');
     const [searchValue, setSearchValue] = useState('');
     const [newProjectTitle, setNewProjectTitle] = useState('');
-    const [userId, setUserId] = useState(null);
     const [value, setValue] = useState(35);
     const percent = Math.max(0, Math.min(100, (value / 12) * 100));
     const { isLoggedIn, user } = useAuth();
@@ -50,7 +49,7 @@ export function Projects({  projectStatus }) {
                 },
                 body: JSON.stringify({
                     title: newProjectTitle,
-                    user_id: userId
+                    user_id: user.user_id
                 })
             });
             if (!res.ok) throw new Error("Failed to add project");
