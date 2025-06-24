@@ -3,6 +3,12 @@ import { Product } from "./Product";
 import { AddOrEditProductForm } from "./AddOrEditProductForm";
 import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "./Modal";  // ייבוא מודל
+import { NavigationBar } from '../homePage/NavigationBar';
+import { Header } from '../homePage/Header';
+import '../../css/Product.css';
+
+
+
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -56,13 +62,13 @@ export function Products() {
     setEditingProduct(null);
   };
 
-  return (
-    <div className="products-page">
+return (
+  <div className="layout">
+    <NavigationBar />
+    <div className="main-content">
+      <Header />
       <SearchAndFilter />
-
-      <button onClick={openAddForm}>
-        הוספת מוצר
-      </button>
+      <button onClick={openAddForm}>+</button>
 
       {showForm && (
         <Modal onClose={closeForm}>
@@ -79,10 +85,11 @@ export function Products() {
             key={product.product_id}
             product={product}
             onUpdated={handleUpdated}
-            onEdit={() => openEditForm(product)} // Pass the edit handler
+            onEdit={() => openEditForm(product)}
           />
         ))}
       </div>
     </div>
-  );
+  </div>
+);
 }

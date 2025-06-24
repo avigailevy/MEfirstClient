@@ -31,7 +31,7 @@ export function Projects({ projectStatus }) {
 
     const fetchProjects = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}/all`, {
+            const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,

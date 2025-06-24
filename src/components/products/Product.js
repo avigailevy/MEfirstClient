@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom"; 
+import { Trash2, UserPen } from 'lucide-react';
+import '../../css/ContactOrUser.css';
+
+
 
 export function Product({ product, onUpdated, onEdit }) {
     const { username } = useParams();
@@ -21,15 +25,29 @@ export function Product({ product, onUpdated, onEdit }) {
   };
 
   return (
-    <div className="product-card">
-      <h3>{product.product_name}</h3>
-      <p><strong>קטגוריה:</strong> {product.category}</p>
-      <p><strong>תיאור:</strong> {product.description}</p>
-      <p><strong>ספק:</strong> {product.supplier_id}</p>
-      <div className="actions">
-        <button onClick={onEdit}>ערוך</button>
-        <button onClick={handleDelete} className="btn-danger">מחק</button>
-      </div>
-    </div>
+   <div className="component-1">
+       <UserPen onClick={onEdit} />
+        <Trash2 onClick={handleDelete} />
+          
+                <div className="ellipse-19">{}</div>
+                <div className="david-shalom">{product.product_name}</div>
+                <div className="frame-50">
+                    <div className="frame-47">
+                        <div className="company">category:</div>
+                        <div className="ivory">{product.category}</div>
+                    </div>
+                    <div className="frame-48">
+                        <div className="company">description:</div>
+                        <div className="ivory">{product.description}</div>
+                    </div>
+                    <div className="frame-49">
+                        <div className="company">supplier:</div>
+                        <div className="ivory">{product.supplier_id}</div>
+                    </div>
+                </div>
+                         
+            </div>
+
   );
 }
+
