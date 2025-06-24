@@ -1,17 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Notification } from './Notification'
+import { LogOut } from 'lucide-react';
+import '../../css/Header.css'
+
 export function Header() {
 
     const deleteToken = () => {
-        localStorage.clear();
+        if (localStorage.getItem("token")) {
+            localStorage.removeItem("token");
+        }
     }
 
     return (
-        <div className="header-container">
-            <Notification userRole={'admin'} />
-            <div>
-                <Link to={`http://localhost:3000`} onClick={deleteToken}>Log out</Link>
+        <div className="header-container">            
+            <div className="logout-button">
+                <Link to={`/login`} onClick={deleteToken}><LogOut /></Link>
+                <Outlet />
             </div>
+            <Notification userRole={'admin'} />
         </div>
     );
 }                    

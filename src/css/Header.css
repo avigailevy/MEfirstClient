@@ -1,0 +1,17 @@
+.logout-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #dc2626; /* אדום */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+.logout-button:hover {
+  background-color: #b91c1c;
+  transform: scale(1.05);
+}
