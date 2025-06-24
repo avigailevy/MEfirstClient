@@ -1,65 +1,154 @@
-import { BellRing } from 'lucide-react';
+// import { BellPlus, BellRing } from 'lucide-react';
+// import { useState } from 'react';
+// import '../../css/Notification.css'
+
+// export function Notification({ userRole }) {
+//   const [notes, setNotes] = useState([
+//     { id: 1, text: "welcome to the ERP system" }
+//   ]);
+//   const [open, setOpen] = useState(false);
+
+//   const handleDelete = (id) => {
+//     setNotes(notes.filter(note => note.id !== id));
+//   };
+
+//   const handleAddNote = () => {
+//     const newNote = prompt("הכנס טקסט ההתראה:");
+//     if (newNote) {
+//       const id = Date.now();
+//       setNotes([...notes, { id, text: newNote }]);
+//     }
+//   };
+
+//   return (
+//     <div className="notification-container">
+//       <div className="notification-icon" onClick={() => setOpen(!open)}>
+//         <BellRing />
+//         {userRole === 'admin' && (
+//           <BellPlus 
+//             className="notification-add"
+//             onClick={(e) => {
+//               e.stopPropagation();
+//               handleAddNote();
+//             }}
+//           />
+//         )}
+//       </div>
+
+//       {/* תפריט ההתראות (אם פתוח) */}
+//       {open && (
+//         <div className="notification-popup">
+//           {notes.length === 0 ? (
+//             <div className="notification-empty">אין התראות</div>
+//           ) : (
+//             notes.map(note => (
+//               <div
+//                 key={note.id}
+//                 className="notification-note"
+//                 onClick={() => handleDelete(note.id)}
+//                 title="לחץ כדי למחוק"
+//               >
+//                 {note.text}
+//               </div>
+//             ))
+//           )}
+//         </div>
+//       )}
+//     </div>
+//   );
+
+// }
+
+
+import { BellMinus, BellPlus, BellRing } from 'lucide-react';
 import { useState } from 'react';
-import '../../css/Notification.css'
+import '../../css/Notification.css';
 
 export function Notification({ userRole }) {
-    const [notes, setNotes] = useState([
-        { id: 1, text: "ברוך הבא למערכת!" }
-    ]);
-    const [open, setOpen] = useState(false);
+  const [notes, setNotes] = useState([
+    { id: 1, text: "Welcome to the ERP system" }
+  ]);
+  const [open, setOpen] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [newUsername, setNewUsername] = useState('');
+  const [newText, setNewText] = useState('');
 
-    const handleDelete = (id) => {
-        setNotes(notes.filter(note => note.id !== id));
-    };
+  const handleDelete = (id) => {
+    setNotes(notes.filter(note => note.id !== id));
+  };
 
-    const handleAddNote = () => {
-        const newNote = prompt("הכנס טקסט ההתראה:");
-        if (newNote) {
-            const id = Date.now();
-            setNotes([...notes, { id, text: newNote }]);
-        }
-    };
+  const handleAddNote = () => {
+    setShowForm(true);
+  };
 
-    return (
-  <div className="notification-container">
-    {/* אייקון פעמון + כפתור הוספה (רק למנהלים) */}
-    <div className="notification-icon" onClick={() => setOpen(!open)}>
-      <BellRing />
-      {userRole === 'admin' && (
-        <div
-          className="notification-add"
-          onClick={(e) => {
-            e.stopPropagation(); // שלא יפתח את הפופאפ
-            handleAddNote();
-          }}
-        >
-          הוסף התראה
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (newUsername.trim() && newText.trim()) {
+      const id = Date.now();
+      setNotes([...notes, { id, text: `${newUsername}: ${newText}` }]);
+      setNewUsername('');
+      setNewText('');
+      setShowForm(false);
+    }
+  };
+
+  return (
+    <div className="notification-container">
+      <div className="notification-icon" onClick={() => setOpen(!open)}>
+        <BellRing />
+        {userRole === 'admin' && (
+          <BellPlus
+            className="notification-add"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddNote();
+            }}
+          />
+        )}
+      </div>
+
+      {/* טופס הוספה של התראה */}
+      {showForm && (
+        <div className="notification-form-popup" onClick={(e) => e.stopPropagation()}>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Username"
+              value={newUsername}
+              onChange={(e) => setNewUsername(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Content"
+              value={newText}
+              onChange={(e) => setNewText(e.target.value)}
+            />
+            <button type="submit">Add</button>
+            <button type="button" onClick={() => setShowForm(false)}>Cancle</button>
+          </form>
+        </div>
+      )}
+
+      {/* תפריט ההתראות */}
+      {open && (
+        <div className="notification-popup">
+          {notes.length === 0 ? (
+            <div className="notification-empty">No notifications</div>
+          ) : (
+            notes.map(note => (
+              
+              <div
+                key={note.id}
+                className="notification-note"
+                onClick={() => handleDelete(note.id)}
+                title="Click to delete"
+              ><BellMinus />
+                {note.text}
+              </div>
+            ))
+          )}
         </div>
       )}
     </div>
-
-    {/* תפריט ההתראות (אם פתוח) */}
-    {open && (
-      <div className="notification-popup">
-        {notes.length === 0 ? (
-          <div className="notification-empty">אין התראות</div>
-        ) : (
-          notes.map(note => (
-            <div
-              key={note.id}
-              className="notification-note"
-              onClick={() => handleDelete(note.id)}
-              title="לחץ כדי למחוק"
-            >
-              {note.text}
-            </div>
-          ))
-        )}
-      </div>
-    )}
-  </div>
-);
-
+  );
 }
-
-

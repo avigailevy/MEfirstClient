@@ -4,6 +4,7 @@ import '../../css/Projects.css'
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 import { useParams } from "react-router-dom";
+import { PencilLine, Trash2 } from 'lucide-react';
 
 export function Projects({ projectStatus }) {
     const [projects, setProjects] = useState([]);
@@ -97,6 +98,8 @@ export function Projects({ projectStatus }) {
             if (!response.ok) {
                 throw new Error("Failed to fetch customer name");
             }
+            console.log(response);
+            
             return response;
         } catch (error) {
             console.log("Error fetching customer name:", error);
@@ -193,14 +196,13 @@ export function Projects({ projectStatus }) {
                                         <div className="ivory">{getProductName(project.product_id)}</div>
                                     </div>
                                 </div>
-                                <img className="edit-02" src="edit-020.svg" />
-                                <img className="trash-02" src="trash-020.svg" />
+                                <PencilLine  />
+                                <Trash2 />
                                 <div className="frame-5">
                                     <div className="frame-75"></div>
                                     {setValue(project.current_stage)}
                                     <div className="frame-76" style={{ width: `${percent}%` }}></div>
                                 </div>
-                                <img className="play-03" src="play-030.svg" />
                             </div>
 
                         </div>
