@@ -4,9 +4,8 @@ import '../../css/Projects.css'
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 
-export function Projects({ agentId , projectStatus}) {
+export function Projects({  projectStatus }) {
     const [projects, setProjects] = useState([]);
-    const [allProjects, setAllProjects] = useState([]);
     const [sortCriterion, setSortCriterion] = useState('id');
     const [searchCriterion, setSearchCriterion] = useState('title');
     const [searchValue, setSearchValue] = useState('');
@@ -19,11 +18,7 @@ export function Projects({ agentId , projectStatus}) {
 
     useEffect(() => {
         if (isLoggedIn) {
-            if (user.role === 'admin') {
-                fetchProjectsForAdmin(user.userId);
-            } else {
-                fetchProjects(user.userId);
-            }
+            fetchProjects(user.userId);
         }
     }, []);
 
@@ -37,26 +32,7 @@ export function Projects({ agentId , projectStatus}) {
             });
             if (!res.ok) throw new Error("Failed to fetch projects");
             const data = await res.json();
-            setAllProjects(data);
             const filtered = data.filter(p => p.user_id === uid);
-            setProjects(filtered);
-        } catch (error) {
-            console.error("Error fetching projects:", error);
-        }
-    };
-
-    const fetchProjectsForAdmin = async () => {
-        try {
-            const res = await fetch(`http://localhost:3333/:username/projects/${projectStatus}/${agentId}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                }
-            });
-            if (!res.ok) throw new Error("Failed to fetch project");
-            const data = await res.json();
-            setAllProjects(data);
-            const filtered = data.filter(p => p.user_id === agentId);
             setProjects(filtered);
         } catch (error) {
             console.error("Error fetching projects:", error);
@@ -80,7 +56,6 @@ export function Projects({ agentId , projectStatus}) {
             if (!res.ok) throw new Error("Failed to add project");
             const newProject = await res.json();
             setProjects(prev => [...prev, newProject]);
-            setAllProjects(prev => [...prev, newProject]);
             setNewProjectTitle('');
         } catch (error) {
             console.error("Error adding project:", error);

@@ -30,7 +30,7 @@ export function NavigationBar() {
                         {user && user.role === 'admin' && (
                             <div className="frame-32">
                                 <img className="users-profiles-01" src="users-profiles-010.svg" />
-                                <Link to={`/${username}/agents`} className="home2">AGENTS</Link>
+                                <Link to={`/${username}/users/agents`} className="home2">AGENTS</Link>
                             </div>
                         )}
                         <div className="frame-33">
@@ -78,7 +78,7 @@ export function NavigationBar() {
                         </div>
                         {user && user.role === 'admin' && (
                             <div className="frame-32">
-                                <Link to={`/${username}/agents`}>
+                                <Link to={`/${username}/users/agents`}>
                                     <img className="users-profiles-01" src="users-profiles-010.svg" />
                                 </Link>
                             </div>
