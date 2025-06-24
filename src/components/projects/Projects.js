@@ -7,6 +7,7 @@ import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 import { useParams } from "react-router-dom";
+import { NavigationBar } from '../homePage/NavigationBar'
 
 export function Projects({ projectStatus, username }) {
   const [projects, setProjects] = useState([]);
@@ -104,6 +105,7 @@ export function Projects({ projectStatus, username }) {
 
   return (
     <div className="projects-page">
+      <NavigationBar/>
       <h3 className="projectsTitle">Projects Manager</h3>
 
       <SearchAndFilter
