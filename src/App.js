@@ -33,9 +33,12 @@ function App() {
           <Route path="projects/close" element={<Projects projectStatus={'close'} />} />
           <Route path="contacts/customers" element={<Customers />} />
           <Route path="contacts/Suppliers" element={<Suppliers />} />
-          <Route path="users" element={<Agents />} />
           <Route path="todos" element={<Todos />} />
-          <Route path="users/agents" element={<Agents />} />
+          <Route path="users" >
+            <Route path="agents" element={<Agents />} >
+              <Route path=":agentId/projects" element={<Projects projectStatus={'open'} />} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </>

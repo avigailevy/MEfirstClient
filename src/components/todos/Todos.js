@@ -14,59 +14,59 @@ export function Todos() {
 
 
   useEffect(() => {
-    
+
     fetchTodos();
     //  fetchUsers();
-   
+
   }, []);
-  
 
- const fetchUsers = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) throw new Error("No token found");
 
-     const response = await fetch(`http://localhost:3333/${username}/users`,{
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    });
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error("No token found");
 
-    if (!response.ok) throw new Error("Failed to fetch todo");
+      const response = await fetch(`http://localhost:3333/${username}/users`, {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+      });
 
-    const data = await response.json();
-    setUsers(data);
-    console.log("Fetched todo:", data);
+      if (!response.ok) throw new Error("Failed to fetch todo");
 
-  } catch (error) {
-    console.error("Error fetching todo:", error);
-  }
+      const data = await response.json();
+      // setUsers(data);
+      console.log("Fetched todo:", data);
+
+    } catch (error) {
+      console.error("Error fetching todo:", error);
+    }
   };
 
   const fetchTodos = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) throw new Error("No token found");
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error("No token found");
 
-    const response = await fetch("http://localhost:3333/:userName/todos", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    });
+      const response = await fetch("http://localhost:3333/:userName/todos", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+      });
 
-    if (!response.ok) throw new Error("Failed to fetch todo");
+      if (!response.ok) throw new Error("Failed to fetch todo");
 
-    const data = await response.json();
-    setTodos(data);
-    console.log("Fetched todo:", data);
+      const data = await response.json();
+      setTodos(data);
+      console.log("Fetched todo:", data);
 
-  } catch (error) {
-    console.error("Error fetching todo:", error);
-  }
+    } catch (error) {
+      console.error("Error fetching todo:", error);
+    }
   };
 
   const addTodo = async () => {
@@ -115,12 +115,12 @@ export function Todos() {
           onChange={(e) => setSelectedUserId(e.target.value)}
           required
         >
-          <option value="" disabled>send to</option>
-          {users.map(user => (
-            <option key={user.user_id} value={user.user_id}>
-              {user.username}
-            </option>
-          ))}
+        //   <option value="" disabled>send to</option>
+          {/* //   {users.map(user => ( */}
+          {/* <option key={user.user_id} value={user.user_id}> */}
+          {/* {user.username} */}
+          {/* </option> */}
+          {/* ))} */}
         </select>
 
         <input
@@ -144,7 +144,7 @@ export function Todos() {
       {todos.length > 0 ? (
         todos.map(todo => (
           <div key={todo.todo_id} className="todo-container">
-           <Todo todo={todo} setTodo={setTodos} />
+            <Todo todo={todo} setTodo={setTodos} />
           </div>
         ))
       ) : (
