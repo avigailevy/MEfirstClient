@@ -3,8 +3,9 @@ import { SearchAndFilter } from "../SearchAndFilter";
 import '../../css/Projects.css'
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
+import { useParams } from "react-router-dom";
 
-export function Projects({  projectStatus }) {
+export function Projects({ projectStatus }) {
     const [projects, setProjects] = useState([]);
     const [sortCriterion, setSortCriterion] = useState('id');
     const [searchCriterion, setSearchCriterion] = useState('title');
@@ -13,35 +14,59 @@ export function Projects({  projectStatus }) {
     const [value, setValue] = useState(35);
     const percent = Math.max(0, Math.min(100, (value / 12) * 100));
     const { isLoggedIn, user } = useAuth();
-
+    const { username, agentName } = useParams();   
+    
 
     useEffect(() => {
-        if (isLoggedIn) {
-            fetchProjects(user.userId);
+        if (isLoggedIn && !agentName) {
+            fetchProjects(user.user_id);
+            console.log('fetchProjects');            
         }
-    }, []);
+        else {
+            fetchProjectsForAdmin();
+            console.log(agentName);
+        }
+    }, [isLoggedIn, agentName]);
 
-    const fetchProjects = async (uid) => {
+    const fetchProjects = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/projects/${projectStatus}/${uid}`, {
+            const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}/all`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
                 }
             });
             if (!res.ok) throw new Error("Failed to fetch projects");
             const data = await res.json();
-            const filtered = data.filter(p => p.user_id === uid);
-            setProjects(filtered);
+            setProjects(data);
         } catch (error) {
             console.error("Error fetching projects:", error);
         }
     };
 
+    const fetchProjectsForAdmin = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}/${agentName}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!res.ok) throw new Error("Failed to fetch projects");
+            const data = await res.json();
+            setProjects(data);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        }
+    }
+
     const addProject = async () => {
         if (!newProjectTitle.trim()) return;
         try {
-            const res = await fetch('http://localhost:3333/projects', {
+            const res = await fetch(`http://localhost:3333/${username}/projects`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,7 +88,7 @@ export function Projects({  projectStatus }) {
 
     const getCustomerOrSupplierName = (contactId, customerOrSupplier) => {
         try {
-            const response = fetch(`http://localhost:3333/contacts/${customerOrSupplier}/contactName/${contactId}`, {
+            const response = fetch(`http://localhost:3333${username}//contacts/${customerOrSupplier}/contactName/${contactId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -80,7 +105,7 @@ export function Projects({  projectStatus }) {
 
     const getProjectOwnerName = (ownerId) => {
         try {
-            const response = fetch(`http://localhost:3333/users/userName/${ownerId}`, {
+            const response = fetch(`http://localhost:3333/${username}/users/userName/${ownerId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -97,7 +122,7 @@ export function Projects({  projectStatus }) {
 
     const getProductName = (productId) => {
         try {
-            const response = fetch(`http://localhost:3333/products/${productId}`, {
+            const response = fetch(`http://localhost:3333/${username}/products/${productId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -1,48 +1,13 @@
 import { EditAgentForm } from "../EditAgentForm";
-import { Projects } from "../projects/Projects";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import '../../css/ContactOrUser.css';
 import { Trash2, UserPen } from 'lucide-react';
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 
 export function Agent({ agent }) {
 
     const [isEditing, setIsEditing] = useState(false);
-    const [agentProjects, setAgentProjects] = useState();
     const { username } = useParams();
-
-    useEffect(() => {
-        if (agentProjects > 0) {
-            showAgentProjects();
-        }
-    }, [agentProjects]);
-
-    const fetchAgentProjects = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3333/${username}/projects/open/${agent.user_id}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!res.ok) throw new Error("Failed to fetch project");
-            const data = await res.json();
-            setAgentProjects(data);
-            console.log('data',data);
-        } catch (error) {
-            console.error("Error fetching projects:", error);
-        }
-    };
-
-    const showAgentProjects = () => {
-        return (
-            <>
-                {agentProjects.map((project) => (<div id={agent.user_id}><Projects agentId={agent.user_id} projectStatus={'open'} /></div>))}
-            </>
-        );
-    }
 
     const deleteAgent = async () => {
         try {
@@ -104,8 +69,9 @@ export function Agent({ agent }) {
                     </div>
                 </div>
                 <div className="frame-5">
-                    <div className="details" onClick={fetchAgentProjects}>Show projects</div>
-                </div>
+                    <Link className="details" to={`/${username}/users/agents/${agent.username}/projects`}>Show projects</Link>
+                    <Outlet/>
+                </div>                
             </div>
         </>
     );
