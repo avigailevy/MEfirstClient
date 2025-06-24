@@ -1,4 +1,6 @@
+import { BellRing } from 'lucide-react';
 import { useState } from 'react';
+import '../../css/Notification.css'
 
 export function Notification({ userRole }) {
     const [notes, setNotes] = useState([
@@ -19,37 +21,45 @@ export function Notification({ userRole }) {
     };
 
     return (
-        <div className="relative inline-block text-right">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setOpen(!open)}>
-                <div className="w-6 h-6 text-gray-700 hover:text-black" >bell</div>
-                {userRole === 'admin' && (
-                    <div 
-                        className="w-4 h-4 text-green-600 hover:text-green-800" 
-                        onClick={(e) => {
-                            e.stopPropagation(); // כדי שהפופאפ לא ייפתח
-                            handleAddNote();
-                        }}
-                    >add note</div>
-                )}
-            </div>
-
-            {open && (
-                <div className="absolute right-0 mt-2 w-64 bg-white border rounded-lg shadow-lg z-10">
-                    {notes.length === 0 ? (
-                        <div className="p-4 text-gray-500 text-center">אין התראות</div>
-                    ) : (
-                        notes.map(note => (
-                            <div
-                                key={note.id}
-                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer border-b"
-                                onClick={() => handleDelete(note.id)}
-                            >
-                                {note.text}
-                            </div>
-                        ))
-                    )}
-                </div>
-            )}
+  <div className="notification-container">
+    {/* אייקון פעמון + כפתור הוספה (רק למנהלים) */}
+    <div className="notification-icon" onClick={() => setOpen(!open)}>
+      <BellRing />
+      {userRole === 'admin' && (
+        <div
+          className="notification-add"
+          onClick={(e) => {
+            e.stopPropagation(); // שלא יפתח את הפופאפ
+            handleAddNote();
+          }}
+        >
+          הוסף התראה
         </div>
-    );
+      )}
+    </div>
+
+    {/* תפריט ההתראות (אם פתוח) */}
+    {open && (
+      <div className="notification-popup">
+        {notes.length === 0 ? (
+          <div className="notification-empty">אין התראות</div>
+        ) : (
+          notes.map(note => (
+            <div
+              key={note.id}
+              className="notification-note"
+              onClick={() => handleDelete(note.id)}
+              title="לחץ כדי למחוק"
+            >
+              {note.text}
+            </div>
+          ))
+        )}
+      </div>
+    )}
+  </div>
+);
+
 }
+
+

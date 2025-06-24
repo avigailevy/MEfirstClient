@@ -1,15 +1,42 @@
 import { EditAgentForm } from "../EditAgentForm";
-import { Project } from "../projects/Project";
-import React, { useState } from 'react';
-import '../../css/ContactOrUser.css'; 
+import { Projects } from "../projects/Projects";
+import { useEffect, useState } from 'react';
+import '../../css/ContactOrUser.css';
+import { Trash2, UserPen } from 'lucide-react';
 
 export function Agent({ agent }) {
 
     const [isEditing, setIsEditing] = useState(false);
+    const [agentProjects, setAgentProjects] = useState();
+
+    
+    useEffect(() => {
+        if (agentProjects>0) {
+            showAgentProjects();
+        }
+    }, [agentProjects]);
+
+    const fetchAgentProjects = async () => {
+        try {
+            const res = await fetch(`http://localhost:3333/:username/projects/open/${agent.user_id}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
+            if (!res.ok) throw new Error("Failed to fetch project");
+            const data = await res.json();
+            setAgentProjects(data);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        }
+    };
 
     const showAgentProjects = () => {
         return (
-            <Project agentId={agent.user_id} />
+            <>
+                {agentProjects.map((project) => (<div id={agent.user_id}><Projects agentId={agent.user_id} projectStatus={'open'} /></div>))}
+            </>
         );
     }
 
@@ -49,9 +76,9 @@ export function Agent({ agent }) {
         <>
             <div className="component-1">
                 {/* delete */}
-                <img className="trash-02" src="trash-02.svg" onClick={deleteAgent} />
+                <Trash2 className="trash-02" src="trash-02.svg" onClick={deleteAgent} />
                 {/* edit */}
-                <img className="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
+                <UserPen className="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
                 {isEditing && (
                     <EditAgentForm
                         agent={agent}
@@ -80,11 +107,10 @@ export function Agent({ agent }) {
                 <img className="edit-02" src="edit-020.svg" />
                 <img className="trash-02" src="trash-020.svg" />
                 <div className="frame-5">
-                    <div className="details" onClick={() => showAgentProjects }>Show projects</div>
+                    <div className="details" onClick={() => fetchAgentProjects}>Show projects</div>
                 </div>
                 <img className="play-03" src="play-030.svg" />
             </div>
-
         </>
     );
 }

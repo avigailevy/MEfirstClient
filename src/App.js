@@ -22,19 +22,20 @@ function App() {
       )}
 
       <Routes>
-        <Route path='login' element={<Login/>}/>
+        <Route path='login' element={<Login />} />
         <Route
           path="/"
         />
         <Route path="/:username">
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />
-          <Route path="projects/open" element={<Projects projectStatus={'open'}/>} />
-          <Route path="projects/close" element={<Projects projectStatus={'close'}/>} />
+          <Route path="projects/open" element={<Projects projectStatus={'open'} />} />
+          <Route path="projects/close" element={<Projects projectStatus={'close'} />} />
           <Route path="contacts/customers" element={<Customers />} />
           <Route path="contacts/Suppliers" element={<Suppliers />} />
           <Route path="users" element={<Agents />} />
           <Route path="todos" element={<Todos />} />
+          <Route path="users/agents" element={<Agents />} />
         </Route>
       </Routes>
     </>
