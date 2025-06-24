@@ -1,38 +1,42 @@
 import { useEffect, useState } from "react";
 import { Customer } from "./Customer";
+import { useAuth } from "../../context/AuthContext"
 
 export function Customers() {
 
   const [customers, setCustomers] = useState([]);
+  const { user } = useAuth();
 
-  const fetchCustomers = async () => {
-    try{
-        const response = await fetch('http://localhost:3333/contacts/customers/all');
-        if(!response.ok) throw new Error('Failed to fetch customers');
-        const data = await response.json();
-        setCustomers(data);
+  useEffect(() => {
+    if (user?.username) {
+      fetchCustomers(user.username);
+    }
+  }, [user]);
+
+  const fetchCustomers = async (uname) => {
+    try {
+      const response = await fetch(`http://localhost:3333/${uname}/contacts/customer/all`);
+      if (!response.ok) throw new Error('Failed to fetch customers');
+      const data = await response.json();
+      setCustomers(data);
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   }
 
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
-
   return (
     <div>
-        {customers.length > 0 ? (
-            <div>
-                {customers.map((customer) => (
-                    <div className="contact-container" key={customer.user_id}>
-                        <Customer  customer={customer} />
-                    </div>
-                ))}
+      {customers.length > 0 ? (
+        <div>
+          {customers.map((customer) => (
+            <div className="contact-container" key={customer.user_id}>
+              <Customer customer={customer} />
             </div>
-        ) : (
-            <p>No customers found.</p>
-        )}
+          ))}
+        </div>
+      ) : (
+        <p>No customers found.</p>
+      )}
     </div>
   );
 }

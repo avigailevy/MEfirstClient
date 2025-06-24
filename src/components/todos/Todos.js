@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { Todo } from "./Todo";
+import { useAuth } from "../../context/AuthContext"
+
 import '../../css/Todos.css';
 
 export function Todos() {
@@ -9,25 +11,21 @@ export function Todos() {
   const [selectedUserId, setSelectedUserId] = useState('');
   const [newTodoTitle, setNewTodoTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
-  const [userId, setUserId] = useState(null);
+
+  const { user } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setUserId(decoded.userId);
-      } catch (error) {
-        console.error("Invalid token");
-      }
+    if (user?.username) {
+    fetchTodos(user.username);
     }
-  }, []);
+    if(user?.role === 'admin') {
+      fetchUsers(user.username);
+    }
+  }, [user]);
 
-  // טען משתמשים
-  useEffect(() => {
-    const fetchUsers = async () => {
+  const fetchUsers = async (uname) => {
       try {
-        const response = await fetch('http://localhost:3333/todos/users');
+        const response = await fetch(`http://localhost:3333/${uname}/users/agents/all`);
         if (!response.ok) throw new Error('Failed to fetch users');
         const data = await response.json();
         setUsers(data);
@@ -35,14 +33,10 @@ export function Todos() {
         console.error(error);
       }
     };
-    fetchUsers();
-  }, []);
 
-  // טען טודואים שהמשתמש מקבל
-  useEffect(() => {
-    const fetchTodos = async () => {
+  const fetchTodos = async (uname) => {
       try {
-        const response = await fetch('http://localhost:3333/todos', {
+        const response = await fetch(`http://localhost:3333/${uname}/todos`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
@@ -54,8 +48,6 @@ export function Todos() {
         console.error(error);
       }
     };
-    if (userId) fetchTodos();
-  }, [userId]);
 
   const addTodo = async () => {
     if (!selectedUserId) {
