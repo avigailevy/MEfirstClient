@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Customer } from "./Customer";
+import { NavigationBar } from '../homePage/NavigationBar'
 
 export function Customers() {
 
@@ -39,6 +40,7 @@ export function Customers() {
 
   return (
     <div>
+      <NavigationBar/>
       {customers.length > 0 ? (
         <div>
           {customers.map((customer) => (

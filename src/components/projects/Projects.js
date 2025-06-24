@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 import { Outlet, useParams } from "react-router-dom";
 import { Link, PencilLine, Trash2 } from 'lucide-react';
+import { NavigationBar } from '../homePage/NavigationBar'
 
 export function Projects({ projectStatus }) {
     const [projects, setProjects] = useState([]);
@@ -146,6 +147,7 @@ export function Projects({ projectStatus }) {
 
     return (
         <div>
+            <NavigationBar/>
             <h3 className="projectsTitle">Projects Manager</h3>
 
             <SearchAndFilter

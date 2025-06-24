@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Agent } from "./Agent";
+import { NavigationBar } from '../homePage/NavigationBar'
 
 export function Agents() {
 
@@ -33,6 +34,7 @@ export function Agents() {
 
   return (
     <div>
+      <NavigationBar/>
       {agents.length > 0 ? (
         <div>
           {agents.map((agent) => (
