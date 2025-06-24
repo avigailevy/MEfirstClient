@@ -7,7 +7,7 @@ import '../../css/Todos.css';
 export function Todos() {
   const { username } = useParams();
   const [todos, setTodos] = useState([]);
-  // const [users, setUsers] = useState([]);
+   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState('');
   const [newTodoTitle, setNewTodoTitle] = useState('');
   const [newDescription, setNewDescription] = useState('');
