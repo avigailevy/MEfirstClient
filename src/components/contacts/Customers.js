@@ -1,26 +1,22 @@
 import { useEffect, useState } from "react";
 import { Customer } from "./Customer";
-import { useAuth } from "../../context/AuthContext"
 
 export function Customers() {
 
   const [customers, setCustomers] = useState([]);
-  const { user } = useAuth();
 
   useEffect(() => {
-    if (user?.username) {
-      fetchCustomers(user.username);
-    }
-  }, [user]);
+    fetchCustomers();
+  }, []);
 
-  const fetchCustomers = async (uname) => {
+  const fetchCustomers = async (username) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3333/${uname}/contacts/customer/all`,{
+      const response = await fetch(`http://localhost:3333/:username/contacts/customer/all`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer${token}`,
-          'Content-Type': 'application/json'  
+          'Authorization': `Bearer` + token,
+          'Content-Type': 'application/json'
         }
       });
       if (!response.ok) throw new Error('Failed to fetch customers');
