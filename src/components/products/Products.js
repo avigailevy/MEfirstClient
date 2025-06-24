@@ -49,7 +49,7 @@ const fetchProducts = async () => {
         <div>
           {products.map((product) => (
             <div className="product-container" key={product.product_id}>
-              <Product product={product} />
+              <Product product={product}  />
             </div>
           ))}
         </div>
