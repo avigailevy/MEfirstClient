@@ -8,9 +8,7 @@ export function Customers() {
   useEffect(() => {
     fetchCustomers();
   }, []);
-     fetchCustomers();
-    
-  }, []);
+   
   
   
 
