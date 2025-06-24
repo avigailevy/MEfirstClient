@@ -3,12 +3,13 @@ import { Projects } from "../projects/Projects";
 import { useEffect, useState } from 'react';
 import '../../css/ContactOrUser.css';
 import { Trash2, UserPen } from 'lucide-react';
+import { useParams } from "react-router-dom";
 
 export function Agent({ agent }) {
 
     const [isEditing, setIsEditing] = useState(false);
     const [agentProjects, setAgentProjects] = useState();
-
+    const { username } = useParams();
 
     useEffect(() => {
         if (agentProjects > 0) {
@@ -19,7 +20,7 @@ export function Agent({ agent }) {
     const fetchAgentProjects = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3333/:username/projects/open/${agent.user_id}`, {
+            const res = await fetch(`http://localhost:3333/${username}/projects/open/${agent.user_id}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -29,6 +30,7 @@ export function Agent({ agent }) {
             if (!res.ok) throw new Error("Failed to fetch project");
             const data = await res.json();
             setAgentProjects(data);
+            console.log('data',data);
         } catch (error) {
             console.error("Error fetching projects:", error);
         }
@@ -73,14 +75,11 @@ export function Agent({ agent }) {
             console.error("Error updating agent:", error);
         }
     }
-
     return (
         <>
             <div className="component-1">
-                {/* delete */}
-                <Trash2 className="trash-02" src="trash-02.svg" onClick={deleteAgent} />
-                {/* edit */}
-                <UserPen className="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
+                <Trash2 onClick={deleteAgent} />
+                <UserPen onClick={() => setIsEditing(true)} />
                 {isEditing && (
                     <EditAgentForm
                         agent={agent}
@@ -88,8 +87,6 @@ export function Agent({ agent }) {
                         onClose={() => setIsEditing(false)}
                     />
                 )}
-                {/* frame */}
-                <div className="rectangle-20"></div>
                 <div className="ellipse-19">{agent.profile_picture}</div>
                 <div className="david-shalom">{agent.name}</div>
                 <div className="frame-50">
@@ -106,13 +103,11 @@ export function Agent({ agent }) {
                         <div className="ivory">{agent.address}</div>
                     </div>
                 </div>
-                <img className="edit-02" src="edit-020.svg" />
-                <img className="trash-02" src="trash-020.svg" />
                 <div className="frame-5">
                     <div className="details" onClick={fetchAgentProjects}>Show projects</div>
                 </div>
-                <img className="play-03" src="play-030.svg" />
             </div>
         </>
     );
+
 }
