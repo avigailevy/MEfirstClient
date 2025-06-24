@@ -1,57 +1,26 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { PencilLine, Trash2 } from 'lucide-react';
 
-export function Project({ currentStage }) {
+export function Project({ project, onEdit, onDelete }) {
+  return (
+    <div className="project-card">
+      <div className="project-info">
+        <h4 className="project-name">{project.project_name}</h4>
+        <p><strong>Status:</strong> {project.status}</p>
+        <p><strong>Created on:</strong> {new Date(project.creation_date).toLocaleDateString()}</p>
+        {project.last_visit_time && (
+          <p><strong>Last Visit:</strong> {new Date(project.last_visit_time).toLocaleDateString()}</p>
+        )}
+        {/* בעתיד אפשר להוסיף כאן גם product_id, supplier_id, customer_id */}
+      </div>
 
-    const [documentFilePath, setDocumentFilePath] = useState('');
-
-    const getDocumentFilePath = async () => {
-        try {
-            const response = await fetch(`http://localhost:3333/open/${currentStage}/getFile_path`, {
-                method: 'GET',
-
-            });
-            const data = await response.json();
-            setDocumentFilePath(data.filePath);
-        } catch (error) {
-            console.error('Error fetching document File_path:', error);
-        }
-    }
-
-    // Fetch the document file path when the component mounts
-    useEffect(() => {
-        getDocumentFilePath();
-    }, [currentStage]);
-
-    const showNextStage = async () => { }
-
-    const uploadFile = async () => {
-        try {
-            const response = await fetch(`http://localhost:3333/open/${currentStage}/uploadFile`, {
-                method: 'POST',
-                body: JSON.stringify({ filePath: documentFilePath }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const data = await response.json();
-            console.log('File uploaded successfully:', data);
-        } catch (error) {
-            console.error('Error uploading file:', error);
-        }
-    }
-
-    return (
-        <div className="project">
-            <iframe
-                src={`${documentFilePath}/edit`}
-                width="100%"
-                height="800"
-                frameborder="0"
-                allowfullscreen
-            ></iframe>
-            <button className="btn-projects" id="btn-next-stage" onClick={() => showNextStage()}>Stage completed</button>
-            <button className="btn-projects" id="btn-upload-file" onClick={() => uploadFile()}>Upload file</button>
-        </div>
-    );
+      <div className="project-actions">
+        <button className="btn-icon" onClick={onEdit} title="Edit"><PencilLine /></button>
+        <button className="btn-icon" onClick={onDelete} title="Delete"><Trash2 /></button>
+        <Link to={`/projects/${project.project_id}`} className="btn-details">
+          Details
+        </Link>
+      </div>
+    </div>
+  );
 }

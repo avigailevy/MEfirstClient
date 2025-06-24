@@ -1,217 +1,146 @@
 import { useEffect, useState } from "react";
 import { SearchAndFilter } from "../SearchAndFilter";
-import '../../css/Projects.css'
+import { Modal } from "../products/Modal";
+import { Project } from "./Project";
+import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
-import { Outlet, useParams } from "react-router-dom";
-import { Link, PencilLine, Trash2 } from 'lucide-react';
+import { useParams } from "react-router-dom";
+import { AddOrEditProject } from "./AddOrEditProject";
 
 export function Projects({ projectStatus }) {
-    const [projects, setProjects] = useState([]);
-    const [sortCriterion, setSortCriterion] = useState('id');
-    const [searchCriterion, setSearchCriterion] = useState('title');
-    const [searchValue, setSearchValue] = useState('');
-    const [newProjectTitle, setNewProjectTitle] = useState('');
-    const [value, setValue] = useState(35);
-    const percent = Math.max(0, Math.min(100, (value / 12) * 100));
-    const { isLoggedIn, user } = useAuth();
-    const { username, agentName } = useParams();
+  const [projects, setProjects] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
+  const [sortCriterion, setSortCriterion] = useState('project_id');
+  const [searchCriterion, setSearchCriterion] = useState('project_name');
+  const [searchValue, setSearchValue] = useState('');
 
+  const { user, isLoggedIn } = useAuth();
+  const { username,agentName } = useParams();
 
-    useEffect(() => {
-        if (isLoggedIn && !agentName) {
-            fetchProjects(user.user_id);
-            console.log('fetchProjects');
-        }
-        else {
-            fetchProjectsForAdmin();
-            console.log(agentName);
-        }
-    }, [isLoggedIn, agentName]);
-
-    const fetchProjects = async () => {
-        try {
-            const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!res.ok) throw new Error("Failed to fetch projects");
-            const data = await res.json();
-            setProjects(data);
-        } catch (error) {
-            console.error("Error fetching projects:", error);
-        }
-    };
-
-    const fetchProjectsForAdmin = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}/${agentName}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (!res.ok) throw new Error("Failed to fetch projects");
-            const data = await res.json();
-            setProjects(data);
-        } catch (error) {
-            console.error("Error fetching projects:", error);
-        }
+  useEffect(() => {
+    if (isLoggedIn) {
+      agentName ? fetchProjectsForAdmin() : fetchProjects();
     }
+  }, [isLoggedIn, agentName]);
 
-    const addProject = async () => {
-        if (!newProjectTitle.trim()) return;
-        try {
-            const res = await fetch(`http://localhost:3333/${username}/projects`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-                body: JSON.stringify({
-                    title: newProjectTitle,
-                    user_id: user.user_id
-                })
-            });
-            if (!res.ok) throw new Error("Failed to add project");
-            const newProject = await res.json();
-            setProjects(prev => [...prev, newProject]);
-            setNewProjectTitle('');
-        } catch (error) {
-            console.error("Error adding project:", error);
+
+  const fetchProjects = async () => {
+    try {
+      const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
         }
-    };
-
-    const getCustomerOrSupplierName = (contactId, customerOrSupplier) => {
-        try {
-            const response = fetch(`http://localhost:3333${username}//contacts/${customerOrSupplier}/contactName/${contactId}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                }
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch customer name");
-            }
-            console.log(response);
-
-            return response;
-        } catch (error) {
-            console.log("Error fetching customer name:", error);
-        }
+      });
+      if (!res.ok) throw new Error("Failed to fetch projects");
+      const data = await res.json();
+      setProjects(data);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
     }
+  };
 
-    const getProjectOwnerName = (ownerId) => {
-        try {
-            const response = fetch(`http://localhost:3333/${username}/users/userName/${ownerId}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                }
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch customer name");
-            }
-            return response;
-        } catch (error) {
-            console.log("Error fetching user name:", error);
+  const fetchProjectsForAdmin = async () => {
+    try {
+      const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}/${agentName}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
         }
+      });
+      if (!res.ok) throw new Error("Failed to fetch admin projects");
+      const data = await res.json();
+      setProjects(data);
+    } catch (error) {
+      console.error("Error fetching admin projects:", error);
     }
+  };
 
-    const getProductName = (productId) => {
-        try {
-            const response = fetch(`http://localhost:3333/${username}/products/${productId}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                }
-            });
-            if (!response.ok) {
-                throw new Error("Failed to fetch product name");
-            }
-            return response.product_name;
-        } catch (error) {
-            console.log("Error fetching product name:", error);
+  const deleteProject = async (projectId) => {
+    if (!window.confirm("Are you sure you want to delete this project?")) return;
 
+    try {
+      const res = await fetch(`http://localhost:3333/projects/${projectId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
         }
+      });
+
+      if (!res.ok) throw new Error("Failed to delete project");
+
+      setProjects(prev => prev.filter(p => p.project_id !== projectId));
+    } catch (error) {
+      alert("Error deleting project: " + error.message);
     }
+  };
 
-    const sorted = SortSomething(projects, sortCriterion);
-    const filtered = FilterSomething(searchCriterion, sorted, searchValue);
+  const handleUpdated = () => {
+    agentName ? fetchProjectsForAdmin() : fetchProjects();
+    setShowForm(false);
+    setEditingProject(null);
+  };
 
-    return (
-        <div>
-            <h3 className="projectsTitle">Projects Manager</h3>
+  const openAddForm = () => {
+    setEditingProject(null);
+    setShowForm(true);
+  };
 
-            <SearchAndFilter
-                sortCriterion={sortCriterion}
-                setSortCriterion={setSortCriterion}
-                searchCriterion={searchCriterion}
-                setSearchCriterion={setSearchCriterion}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
+  const openEditForm = (project) => {
+    setEditingProject(project);
+    setShowForm(true);
+  };
+
+  const closeForm = () => {
+    setShowForm(false);
+    setEditingProject(null);
+  };
+
+  const filtered = FilterSomething(searchCriterion, SortSomething(projects, sortCriterion), searchValue);
+
+  return (
+    <div className="projects-page">
+      <h3 className="projectsTitle">Projects Manager</h3>
+
+      <SearchAndFilter
+        sortCriterion={sortCriterion}
+        setSortCriterion={setSortCriterion}
+        searchCriterion={searchCriterion}
+        setSearchCriterion={setSearchCriterion}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
+
+      <button className="btn-add" onClick={openAddForm}>+</button>
+
+      {showForm && (
+        <Modal onClose={closeForm}>
+          <AddOrEditProject
+            project={editingProject}
+            onSuccess={handleUpdated}
+          />
+        </Modal>
+      )}
+
+      <div className="projects-list">
+        {filtered.length > 0 ? (
+          filtered.map(project => (
+            <Project
+              key={project.project_id}
+              project={project}
+              onEdit={() => openEditForm(project)}
+              onDelete={() => deleteProject(project.project_id)}
             />
-
-            <form>
-                <input
-                    type="text"
-                    placeholder="New project..."
-                    value={newProjectTitle}
-                    onChange={(e) => setNewProjectTitle(e.target.value)}
-                />
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        addProject();
-                    }}
-                >
-                    +
-                </button>
-            </form>
-
-            {filtered.length > 0 ? (
-                <div>
-                    {filtered.map((project) => (
-                        <div className="project-container" key={project.project_id}>
-                            <div className="component-1">
-                                <div className="rectangle-20"></div>
-                                <div className="david-shalom">{getCustomerOrSupplierName(project.customer_id, 'customer')}</div>
-                                <div className="ellipse-19"></div>
-                                <div className="frame-50">
-                                    <div className="frame-46">
-                                        <div className="company">Agent:</div>
-                                        <div className="ivory">{getProjectOwnerName(project.owner_user_id)}</div>
-                                    </div>
-                                    <div className="frame-47">
-                                        <div className="company">Supplier:</div>
-                                        <div className="ivory">{getCustomerOrSupplierName(project.supplier_id, 'supplier')}</div>
-                                    </div>
-                                    <div className="frame-48">
-                                        <div className="company">Product:</div>
-                                        <div className="ivory">{getProductName(project.product_id)}</div>
-                                    </div>
-                                </div>
-                                <PencilLine />
-                                <Trash2 />
-                                <div className="frame-5">
-                                    <div className="frame-75"></div>
-                                    {setValue(project.current_stage)}
-                                    <div className="frame-76" style={{ width: `${percent}%` }}></div>
-                                </div>
-                                <Link to={`/${username}/projects/open/display`}>Display Project</Link>
-                                <Outlet />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <p>No projects found.</p>
-            )}
-        </div>
-    );
+          ))
+        ) : (
+          <p>No projects found.</p>
+        )}
+      </div>
+    </div>
+  );
 }
