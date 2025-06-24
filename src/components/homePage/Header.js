@@ -8,7 +8,7 @@ export function Header() {
 
     return (
         <div className="header-container">
-            <Notification/>
+            <Notification userRole={'admin'}/>
         </div>
     );
 }                    

@@ -61,3 +61,40 @@
 .notification-add:hover {
   color: darkgreen;
 }
+
+.notification-form-popup {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 250px;
+}
+
+.notification-form-popup input {
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.notification-form-popup button {
+  padding: 6px;
+  border: none;
+  background-color: #19d241;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.notification-form-popup button[type="button"] {
+  background-color: #888;
+}
