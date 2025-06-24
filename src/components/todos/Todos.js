@@ -1,155 +1,79 @@
 import { useEffect, useState } from "react";
-import { Todo } from "./Todo";
 import { useParams } from "react-router-dom";
-import '../../css/Todos.css';
-
+import { Todo } from "./Todo";
+import { AddOrEditTodoForm } from "./AddOrEditTodoForm";
+import { Modal } from "../products/Modal";
 
 export function Todos() {
   const { username } = useParams();
   const [todos, setTodos] = useState([]);
-   const [users, setUsers] = useState([]);
-  const [selectedUserId, setSelectedUserId] = useState('');
-  const [newTodoTitle, setNewTodoTitle] = useState('');
-  const [newDescription, setNewDescription] = useState('');
-
+  const [showForm, setShowForm] = useState(false);
+  const [editingTodo, setEditingTodo] = useState(null);
 
   useEffect(() => {
-    
     fetchTodos();
-    //  fetchUsers();
-   
   }, []);
-  
-
- const fetchUsers = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) throw new Error("No token found");
-
-     const response = await fetch(`http://localhost:3333/${username}/users`,{
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch todo");
-
-    const data = await response.json();
-    setUsers(data);
-    console.log("Fetched todo:", data);
-
-  } catch (error) {
-    console.error("Error fetching todo:", error);
-  }
-  };
 
   const fetchTodos = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) throw new Error("No token found");
-
-    const response = await fetch("http://localhost:3333/:userName/todos", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch todo");
-
-    const data = await response.json();
-    setTodos(data);
-    console.log("Fetched todo:", data);
-
-  } catch (error) {
-    console.error("Error fetching todo:", error);
-  }
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://localhost:3333/${username}/todos`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) throw new Error("Failed to fetch todos");
+      const data = await res.json();
+      setTodos(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const addTodo = async () => {
-    if (!selectedUserId) {
-      alert('Please select a user to assign the task');
-      return;
-    }
-    if (!newTodoTitle.trim()) {
-      alert('Title is required');
-      return;
-    }
+  const handleUpdated = () => {
+    fetchTodos();
+    setShowForm(false);
+    setEditingTodo(null);
+  };
 
-    try {
-      const response = await fetch('http://localhost:3333/todos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify({
-          to_user_id: selectedUserId,
-          title: newTodoTitle,
-          description: newDescription,
-        }),
-      });
+  const openAddForm = () => {
+    setEditingTodo(null);
+    setShowForm(true);
+  };
 
-      if (!response.ok) throw new Error('Failed to add todo');
+  const openEditForm = (todo) => {
+    setEditingTodo(todo);
+    setShowForm(true);
+  };
 
-      const newTodo = await response.json();
-      setTodos(prev => [...prev, newTodo]);
-      setNewTodoTitle('');
-      setNewDescription('');
-      setSelectedUserId('');
-    } catch (error) {
-      console.error("Error adding todo:", error);
-    }
+  const closeForm = () => {
+    setShowForm(false);
+    setEditingTodo(null);
   };
 
   return (
     <div>
-      <h3 className="todosTitle">Todos Manager</h3>
+      <h2>ניהול משימות</h2>
+      <button onClick={openAddForm}>הוסף משימה</button>
 
-      <form onSubmit={(e) => { e.preventDefault(); addTodo(); }}>
-        <select
-          value={selectedUserId}
-          onChange={(e) => setSelectedUserId(e.target.value)}
-          required
-        >
-          <option value="" disabled>send to</option>
-          {users.map(user => (
-            <option key={user.user_id} value={user.user_id}>
-              {user.username}
-            </option>
-          ))}
-        </select>
-
-        <input
-          type="text"
-          placeholder="New Todo Title"
-          value={newTodoTitle}
-          onChange={(e) => setNewTodoTitle(e.target.value)}
-          required
-        />
-
-        <input
-          type="text"
-          placeholder="Description"
-          value={newDescription}
-          onChange={(e) => setNewDescription(e.target.value)}
-        />
-
-        <button type="submit">+</button>
-      </form>
-
-      {todos.length > 0 ? (
-        todos.map(todo => (
-          <div key={todo.todo_id} className="todo-container">
-           <Todo todo={todo} setTodo={setTodos} />
-          </div>
-        ))
-      ) : (
-        <p>no todos</p>
+      {showForm && (
+        <Modal onClose={closeForm}>
+          <AddOrEditTodoForm
+            todo={editingTodo}
+            onSuccess={handleUpdated}
+          />
+        </Modal>
       )}
+
+      {todos.map((todo) => (
+        <Todo
+          key={todo.todo_id}
+          todo={todo}
+          onUpdate={handleUpdated}
+          onEdit={() => openEditForm(todo)}
+        />
+      ))}
     </div>
   );
 }
