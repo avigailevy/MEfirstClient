@@ -29,17 +29,15 @@ export function AddOrEditProductForm({ onSuccess, product = null }) {
           body: JSON.stringify(formProduct)
         }
       );
-
-      if (!response.ok)
-        throw new Error(isEdit ? "Failed to update product" : "Failed to add product");
-
+      if (!response.ok) {
+        throw new Error(isEdit ? "Failed to update product" : "Failed to add product");      
+      }
       setFormProduct({
         product_name: "",
         category: "dry",
         description: "",
         supplier_id: ""
       });
-
       onSuccess?.(); // טען מחדש את הרשימה או סגור טופס
     } catch (error) {
       console.error(error);

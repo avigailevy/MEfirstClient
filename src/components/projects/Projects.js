@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { SearchAndFilter } from "../SearchAndFilter";
 import '../../css/Projects.css'
-import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 
-export function Projects({ agentId }) {
+export function Projects({ agentId , projectStatus}) {
     const [projects, setProjects] = useState([]);
     const [allProjects, setAllProjects] = useState([]);
     const [sortCriterion, setSortCriterion] = useState('id');
@@ -15,7 +14,6 @@ export function Projects({ agentId }) {
     const [userId, setUserId] = useState(null);
     const [value, setValue] = useState(35);
     const percent = Math.max(0, Math.min(100, (value / 12) * 100));
-    const projectStatus = useParams().projectStatus;
     const { isLoggedIn, user } = useAuth();
 
 
@@ -49,7 +47,7 @@ export function Projects({ agentId }) {
 
     const fetchProjectsForAdmin = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/projects/${projectStatus}/${agentId}`, {
+            const res = await fetch(`http://localhost:3333/:username/projects/${projectStatus}/${agentId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,

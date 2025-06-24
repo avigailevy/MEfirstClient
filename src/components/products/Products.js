@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Product } from "./Product";
 import { AddOrEditProductForm } from "./AddOrEditProductForm";
 import { SearchAndFilter } from "../SearchAndFilter";
-import { useParams } from "react-router-dom";
 
 export function Products() {
   const [products, setProducts] = useState([]);

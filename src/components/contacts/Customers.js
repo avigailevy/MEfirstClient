@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Customer } from "./Customer";
-import { useAuth } from "../../context/AuthContext"
 
 export function Customers() {
 
   const [customers, setCustomers] = useState([]);
-  const { user } = useAuth();
 
   useEffect(() => {
+    fetchCustomers();
+  }, []);
      fetchCustomers();
     
   }, []);

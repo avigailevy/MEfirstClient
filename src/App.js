@@ -29,7 +29,8 @@ function App() {
         <Route path="/:username">
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />
-          <Route path="projects/:projectStatus" element={<Projects />} />
+          <Route path="projects/open" element={<Projects projectStatus={'open'}/>} />
+          <Route path="projects/close" element={<Projects projectStatus={'close'}/>} />
           <Route path="contacts/customers" element={<Customers />} />
           <Route path="contacts/Suppliers" element={<Suppliers />} />
           <Route path="users" element={<Agents />} />

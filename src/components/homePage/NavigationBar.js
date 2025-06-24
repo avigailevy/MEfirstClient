@@ -39,11 +39,11 @@ export function NavigationBar() {
                         </div>
                         <div className="frame-34">
                             <img className="arrow-rotate-right-01" src="arrow-rotate-right-010.svg" />
-                            <Link to={`/${username}/closed`} className="home2">CLOSED PROJECTS</Link>
+                            <Link to={`/${username}/projects/close`} className="home2">CLOSED PROJECTS</Link>
                         </div>
                         <div className="frame-35">
                             <img className="arrow-refresh-04" src="arrow-refresh-040.svg" />
-                            <Link to={`/${username}/opened`} className="home2">OPEN PROJECTS</Link>
+                            <Link to={`/${username}/projects/open`} className="home2">OPEN PROJECTS</Link>
                         </div>
                         {user && user.role === 'admin' && (
                             <div className="frame-36">
@@ -89,12 +89,12 @@ export function NavigationBar() {
                             </Link>
                         </div>
                         <div className="frame-34">
-                            <Link to={`/${username}/closed`}>
+                            <Link to={`/${username}/projects/close`}>
                                 <img className="arrow-rotate-right-01" src="arrow-rotate-right-010.svg" />
                             </Link>
                         </div>
                         <div className="frame-35">
-                            <Link to={`/${username}/opened`}>
+                            <Link to={`/${username}/projects/open`}>
                                 <img className="arrow-refresh-04" src="arrow-refresh-040.svg" />
                             </Link>
                         </div>

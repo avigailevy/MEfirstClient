@@ -15,7 +15,14 @@ export function Suppliers() {
 
   const fetchSuppliers = async (uname) => {
     try {
-      const response = await fetch(`http://localhost:3333/${uname}/contacts/supplier/all`);
+      const token = localStorage.getItem("token"); 
+      const response = await fetch(`http://localhost:3333/${uname}/contacts/supplier/all`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json' 
+        }
+      });
       if (!response.ok) throw new Error('Failed to fetch suppliers');
       const data = await response.json();
       setSuppliers(data);

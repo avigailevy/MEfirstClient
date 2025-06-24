@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../../css/Todos.css';
 
 export function Todo({ todo, onUpdate, onDelete }) {
     const [isCompleted, setIsCompleted] = useState(todo.completed);
-    const [isSeen, setIsSeen] = useState(todo.seen);
 
     const handleToggleComplete = async () => {
         try {
@@ -58,7 +57,6 @@ export function Todo({ todo, onUpdate, onDelete }) {
                             <input type="checkbox" checked={isCompleted} onChange={handleToggleComplete} />
                             <span className="status-label">הושלם</span>
                         </label>
-                        {isSeen && <span className="seen-badge">נצפה 👁️</span>}
                         <span className="sent-time"> {new Date(todo.sent_time).toLocaleString()}</span>
                     </div>
                     <div className="actions">
