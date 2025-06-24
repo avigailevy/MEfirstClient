@@ -8,24 +8,34 @@ export function Customers() {
   useEffect(() => {
     fetchCustomers();
   }, []);
+   
+  
+  
 
-  const fetchCustomers = async (username) => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3333/:username/contacts/customer/all`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer` + token,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!response.ok) throw new Error('Failed to fetch customers');
-      const data = await response.json();
-      setCustomers(data);
-    } catch (error) {
-      console.error(error);
-    }
+  const fetchCustomers = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error("No token found");
+
+    const response = await fetch("http://localhost:3333/:userName/contacts/customers", {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch customers");
+
+    const data = await response.json();
+    setCustomers(data);
+    console.log("Fetched customers:", data);
+
+  } catch (error) {
+    console.error("Error fetching customers:", error);
   }
+};
+
 
   return (
     <div>
