@@ -15,7 +15,14 @@ export function Customers() {
 
   const fetchCustomers = async (uname) => {
     try {
-      const response = await fetch(`http://localhost:3333/${uname}/contacts/customer/all`);
+      const token = localStorage.getItem("token");
+      const response = await fetch(`http://localhost:3333/${uname}/contacts/customer/all`,{
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer${token}`,
+          'Content-Type': 'application/json'  
+        }
+      });
       if (!response.ok) throw new Error('Failed to fetch customers');
       const data = await response.json();
       setCustomers(data);
