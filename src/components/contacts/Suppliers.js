@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Supplier } from "./Supplier";
+import { NavigationBar } from '../homePage/NavigationBar'
 
 export function Suppliers() {
 
@@ -7,9 +8,7 @@ export function Suppliers() {
 
   useEffect(() => {
     fetchSuppliers();
-  }, []);
-   
-  
+  }, []); 
   
 
   const fetchSuppliers = async () => {
@@ -39,6 +38,7 @@ export function Suppliers() {
 
   return (
     <div>
+      <NavigationBar/>
       {suppliers.length > 0 ? (
         <div>
           {suppliers.map((supplier) => (

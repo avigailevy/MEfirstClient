@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import { Summary } from "./Summary"; // קומפוננטת הבן
+import { Summary } from "./Summary"; 
 import "../../css/summaries.css";
 
 export function ProjectSummaries({ projectId }) {

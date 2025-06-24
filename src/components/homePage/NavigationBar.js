@@ -35,35 +35,35 @@ export function NavigationBar() {
         </Link>
 
         {user?.role === 'admin' && (
-          <Link to={`/${username}/users/agents`} className="menu-item">
+          <Link to={`/${username}/users/agents`} className="menu-item" title='Agents'>
             <UserRound />
             <span className="menu-text">Agents</span>
           </Link>
         )}
 
-        <Link to={`/${username}/todos`} className="menu-item">
+        <Link to={`/${username}/todos`} className="menu-item" title='Todos'>
           <CircleCheckBig />
           <span className="menu-text">Todos</span>
         </Link>
 
-        <Link to={`/${username}/projects/close`} className="menu-item">
+        <Link to={`/${username}/projects/close`} className="menu-item" title='Closed Projects'>
           <Package />
           <span className="menu-text">Closed Projects</span>
         </Link>
 
-        <Link to={`/${username}/projects/open`} className="menu-item">
+        <Link to={`/${username}/projects/open`} className="menu-item" title='Open Projects'>
           <PackageOpen />
           <span className="menu-text">Open Projects</span>
         </Link>
 
         {user?.role === 'admin' && (
-          <Link to={`/${username}/transactions/completed`} className="menu-item">
+          <Link to={`/${username}/transactions/completed`} className="menu-item" title='Completed Transactions'>
             <CircleX />
             <span className="menu-text">Completed Transactions</span>
           </Link>
         )}
 
-        <Link to={`/${username}/products`} className="menu-item">
+        <Link to={`/${username}/products`} className="menu-item" title='Products'>
           <ShoppingCart />
           <span className="menu-text">Products</span>
         </Link>

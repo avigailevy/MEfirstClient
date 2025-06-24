@@ -5,6 +5,9 @@ import { Project } from "./Project";
 import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
+import { Outlet, useParams } from "react-router-dom";
+import { Link, PencilLine, Trash2 } from 'lucide-react';
+import { NavigationBar } from '../homePage/NavigationBar'
 import { useParams } from "react-router-dom";
 import { AddOrEditProject } from "./AddOrEditProject";
 
@@ -103,6 +106,10 @@ export function Projects({ projectStatus }) {
 
   const filtered = FilterSomething(searchCriterion, SortSomething(projects, sortCriterion), searchValue);
 
+    return (
+        <div>
+            <NavigationBar/>
+            <h3 className="projectsTitle">Projects Manager</h3>
   return (
     <div className="projects-page">
       <h3 className="projectsTitle">Projects Manager</h3>
@@ -116,6 +123,65 @@ export function Projects({ projectStatus }) {
         setSearchValue={setSearchValue}
       />
 
+            <form>
+                <input
+                    type="text"
+                    placeholder="New project..."
+                    value={newProjectTitle}
+                    onChange={(e) => setNewProjectTitle(e.target.value)}
+                />
+                <button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        addProject();
+                    }}
+                >
+                    +
+                </button>
+            </form>
+
+            {filtered.length > 0 ? (
+                <div>
+                    {filtered.map((project) => (
+                        <div className="project-container" key={project.project_id}>
+                            <div className="component-1">
+                                <div className="rectangle-20"></div>
+                                <div className="david-shalom">{getCustomerOrSupplierName(project.customer_id, 'customer')}</div>
+                                <div className="ellipse-19"></div>
+                                <div className="frame-50">
+                                    <div className="frame-46">
+                                        <div className="company">Agent:</div>
+                                        <div className="ivory">{getProjectOwnerName(project.owner_user_id)}</div>
+                                    </div>
+                                    <div className="frame-47">
+                                        <div className="company">Supplier:</div>
+                                        <div className="ivory">{getCustomerOrSupplierName(project.supplier_id, 'supplier')}</div>
+                                    </div>
+                                    <div className="frame-48">
+                                        <div className="company">Product:</div>
+                                        <div className="ivory">{getProductName(project.product_id)}</div>
+                                    </div>
+                                </div>
+                                <PencilLine />
+                                <Trash2 />
+                                <div className="frame-5">
+                                    <div className="frame-75"></div>
+                                    {setValue(project.current_stage)}
+                                    <div className="frame-76" style={{ width: `${percent}%` }}></div>
+                                </div>
+                                <div className="frame-5">
+                                    <Link to={`/${username}/projects/open/display`}>Display Project</Link>
+                                    <Outlet />
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p>No projects found.</p>
+            )}
+        </div>
+    );
       <button className="btn-add" onClick={openAddForm}>+</button>
 
       {showForm && (
