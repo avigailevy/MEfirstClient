@@ -20,6 +20,7 @@ export function Projects({ projectStatus }) {
     useEffect(() => {
         if (isLoggedIn && !agentName) {
             fetchProjects(user.user_id);
+            console.log('fetchProjects');            
         }
         else {
             fetchProjectsForAdmin();
@@ -33,6 +34,7 @@ export function Projects({ projectStatus }) {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Content-Type': 'application/json'
                 }
             });
             if (!res.ok) throw new Error("Failed to fetch projects");
