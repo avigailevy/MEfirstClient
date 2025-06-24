@@ -9,19 +9,21 @@ export function Agent({ agent }) {
     const [isEditing, setIsEditing] = useState(false);
     const [agentProjects, setAgentProjects] = useState();
 
-    
+
     useEffect(() => {
-        if (agentProjects>0) {
+        if (agentProjects > 0) {
             showAgentProjects();
         }
     }, [agentProjects]);
 
     const fetchAgentProjects = async () => {
         try {
+            const token = localStorage.getItem("token");
             const res = await fetch(`http://localhost:3333/:username/projects/open/${agent.user_id}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
                 }
             });
             if (!res.ok) throw new Error("Failed to fetch project");
@@ -107,7 +109,7 @@ export function Agent({ agent }) {
                 <img className="edit-02" src="edit-020.svg" />
                 <img className="trash-02" src="trash-020.svg" />
                 <div className="frame-5">
-                    <div className="details" onClick={() => fetchAgentProjects}>Show projects</div>
+                    <div className="details" onClick={fetchAgentProjects}>Show projects</div>
                 </div>
                 <img className="play-03" src="play-030.svg" />
             </div>
