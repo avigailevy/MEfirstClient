@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "../products/Modal";
-import { AddOrEditProject} from "./addOrEditProject";
+import { AddOrEditProject} from "./AddOrEditProject";
 import { Project } from "./Project";
 import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 import { useParams } from "react-router-dom";
 
-export function Projects({ projectStatus, username }) {
+export function Projects({ projectStatus }) {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
   const [sortCriterion, setSortCriterion] = useState('project_id');
   const [searchCriterion, setSearchCriterion] = useState('project_name');
   const [searchValue, setSearchValue] = useState('');
-
   const { user, isLoggedIn } = useAuth();
-  const { agentName } = useParams();
 
-  useEffect(() => {
+
+
+  const { username,agentName } = useParams();
+
+useEffect(() => {
     if (isLoggedIn) {
       agentName ? fetchProjectsForAdmin() : fetchProjects();
     }

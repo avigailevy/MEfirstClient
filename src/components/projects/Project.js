@@ -25,6 +25,7 @@ export function Project({ project, onEdit, onDelete }) {
                     
                 </div>
                       <Link to={`/projects/${project.project_id}`} className="btn-details">
+                   
           Details
         </Link>      
             </div>
