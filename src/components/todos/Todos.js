@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Todo } from "./Todo";
 import { AddOrEditTodoForm } from "./AddOrEditTodoForm";
 import { Modal } from "../products/Modal";
+import { NavigationBar } from "../homePage/NavigationBar";
 
 export function Todos() {
   const { username } = useParams();
@@ -54,7 +55,7 @@ export function Todos() {
 
   return (
     <div>
-      <h2>ניהול משימות</h2>
+      <NavigationBar />
       <button onClick={openAddForm}>הוסף משימה</button>
 
       {showForm && (
