@@ -16,20 +16,18 @@ export function ProjectDisplay({ }) {
     const fetchProject = async () => {
         try {
             const response = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Barear ${localStorage.getItem("token")}`,
-
-                }
-            })
-            if (!response.ok) {
-
-            }
-            const data = await response.json();
-            setProject(data);
-        } catch (error) {
-
+               method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
         }
+      });
+      if (!res.ok) throw new Error("Failed to fetch project");
+      const data = await res.json();
+      setProject(data);
+    } catch (error) {
+      console.error("Error fetching project:", error);
+    }
     }
 
     return (
@@ -39,7 +37,7 @@ export function ProjectDisplay({ }) {
             <Stages projectId={project.id} />
             <input type='button'>Summaries</input>
             <input type='button'>Documents</input>
-            <TextBox />
+            <TextBox projectId={project.id} />
         </>
     );
 }
