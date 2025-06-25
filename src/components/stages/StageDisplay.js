@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { GoogleDocViewer } from "../documents/GoogleDocViewer";
+import { StageChecklist } from './StageChecklist'
 
 export function StageDisplay() {
     const { stageId } = useParams();
@@ -30,7 +31,7 @@ export function StageDisplay() {
 
     const choosePresentation = () => {
         switch (stage.stage_number) {
-            case 0:
+            case 1:
                 <AddGoogleDoc
                     stageId={stageId}
                     projectId={projectId}
@@ -38,9 +39,11 @@ export function StageDisplay() {
                     onSuccess={() => console.log("doc added")}
                 />
                 break;
-            case 1:
-                
-                return (<GoogleDocViewer StageId={stage.stage_id} />);
+            case 2:
+                return (<StageChecklist StageId={stage.stage_id} />);
+            // return (<GoogleDocViewer StageId={stage.stage_id} />);
+            case 3:
+
             default:
                 break;
         }

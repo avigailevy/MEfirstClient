@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 
-const checklistItems = [
-  "Accurate Product definition",
-  "Quantities",
-  "Packing size",
-  "Shipping Terms",
-  "Country of Destination",
-  "Payment Terms",
-  "Private Label or Producer Label",
-  "Regulatory issues at the country of destination",
-  "Any other possible obstacles",
-];
-
 export function StageChecklist({ stageId }) {
   const [checkedItems, setCheckedItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState(null);
+
+  const checklistItems = [
+    "Accurate Product definition",
+    "Quantities",
+    "Packing size",
+    "Shipping Terms",
+    "Country of Destination",
+    "Payment Terms",
+    "Private Label or Producer Label",
+    "Regulatory issues at the country of destination",
+    "Any other possible obstacles",
+  ];
 
   // פונקציה לפרסר מחרוזת '1,3,5' למערך מספרים
   const parseChecked = (str) => {
