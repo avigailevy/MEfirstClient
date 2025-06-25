@@ -25,7 +25,7 @@ export function AddDocument({ projectId, stageId, onUpload }) {
 
       if (!res.ok) throw new Error("Failed to upload document");
       const data = await res.json();
-      onUpload && onUpload(data); // אפשר לעדכן רשימה או הודעה
+      onUpload && onUpload(data); 
     } catch (err) {
       console.error("Upload failed:", err);
     }
