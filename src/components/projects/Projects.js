@@ -8,6 +8,8 @@ import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 import { Navigate, useParams } from "react-router-dom";
 import { NavigationBar } from '../homePage/NavigationBar'
+import { useNavigate } from "react-router-dom";
+
 
 export function Projects({ projectStatus }) {
   const [projects, setProjects] = useState([]);
@@ -17,6 +19,7 @@ export function Projects({ projectStatus }) {
   const [searchCriterion, setSearchCriterion] = useState('project_name');
   const [searchValue, setSearchValue] = useState('');
   const { user, isLoggedIn } = useAuth();
+const navigate = useNavigate();
 
 
 
@@ -133,7 +136,7 @@ useEffect(() => {
       <div className="projects-list">
         {filtered.length > 0 ? (
           filtered.map(project => (
-            <div onClick={() => Navigate(`/projects/${project.status}/${project.project_id}`)} key={project.project_id}>
+            <div onClick={() => navigate(`/projects/${project.status}/${project.project_id}`)} key={project.project_id}>
               <Project                
                 project={project}
                 onEdit={() => openEditForm(project)}
