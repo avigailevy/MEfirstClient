@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "../products/Modal";
-import { AddOrEditProject } from "./addOrEditProject";
+import { AddOrEditProject } from "./AddOrEditProject";
 import { Project } from "./Project";
 import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
@@ -131,13 +131,11 @@ export function Projects({ projectStatus, username }) {
       <div className="projects-list">
         {filtered.length > 0 ? (
           filtered.map(project => (
-            <div onClick={() => Navigate(`/projects/${project.id}`)}>
-              <Project
-                key={project.project_id}
+            <div onClick={() => Navigate(`/projects/${project.status}/${project.project_id}`)} key={project.project_id}>
+              <Project                
                 project={project}
                 onEdit={() => openEditForm(project)}
                 onDelete={() => deleteProject(project.project_id)}
-
               />
             </div>
           ))

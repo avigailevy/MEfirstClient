@@ -1,0 +1,15 @@
+.frame-65,
+.frame-65 * {
+  box-sizing: border-box;
+}
+.frame-65 {
+  background: #d9d9d9;
+  border-radius: 5px;
+  padding: 8px 16px 8px 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 39px;
+  position: relative;
+}
