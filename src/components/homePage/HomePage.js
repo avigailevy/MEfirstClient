@@ -43,7 +43,7 @@ export function HomePage() {
 
     return (
         <>
-            <Header />
+            <Header title={'Home Page'}/>
             <NavigationBar />
             {projects.length > 0 ? (
                 projects.map((project) => (

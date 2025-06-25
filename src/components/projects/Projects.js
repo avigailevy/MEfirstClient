@@ -6,7 +6,8 @@ import { Project } from "./Project";
 import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
+import { NavigationBar } from '../homePage/NavigationBar'
 
 export function Projects({ projectStatus }) {
   const [projects, setProjects] = useState([]);
@@ -106,6 +107,7 @@ useEffect(() => {
 
   return (
     <div className="projects-page">
+      <NavigationBar />
       <h3 className="projectsTitle">Projects Manager</h3>
 
       <SearchAndFilter
@@ -131,12 +133,15 @@ useEffect(() => {
       <div className="projects-list">
         {filtered.length > 0 ? (
           filtered.map(project => (
-            <Project
-              key={project.project_id}
-              project={project}
-              onEdit={() => openEditForm(project)}
-              onDelete={() => deleteProject(project.project_id)}
-            />
+            <div onClick={() => Navigate(`/projects/${project.id}`)}>
+              <Project
+                key={project.project_id}
+                project={project}
+                onEdit={() => openEditForm(project)}
+                onDelete={() => deleteProject(project.project_id)}
+
+              />
+            </div>
           ))
         ) : (
           <p>No projects found.</p>
