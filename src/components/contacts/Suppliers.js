@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Supplier } from "./Supplier";
-import { NavigationBar } from '../homePage/NavigationBar'
+import { CirclePlus } from "lucide-react";
 
 export function Suppliers() {
 
@@ -41,6 +41,8 @@ export function Suppliers() {
      
       {suppliers.length > 0 ? (
         <div>
+                <CirclePlus />
+
           {suppliers.map((supplier) => (
             <div className="contact-container" key={supplier.user_id}>
               <Supplier supplier={supplier} />

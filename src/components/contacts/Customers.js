@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Customer } from "./Customer";
 import { useParams } from "react-router-dom";
 import '../../css/ContactOrUser.css';
+import { CirclePlus } from "lucide-react";
+
 
 export function Customers() {
 
@@ -43,7 +45,8 @@ export function Customers() {
 
   return (
     <div>
-     
+           <CirclePlus />
+
       {customers.length > 0 ? (
         <div>
           {customers.map((customer) => (
