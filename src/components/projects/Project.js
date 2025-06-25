@@ -19,7 +19,7 @@ export function Project({ project, onEdit, onDelete }) {
                         <div className="ivory">{new Date(project.creation_date).toLocaleDateString()}</div>
                     </div>
                     <div className="frame-49">
-                        <div className="company">Last Visit::</div>
+                        <div className="company">Last Visit:</div>
                         <div className="ivory">{new Date(project.last_visit_time).toLocaleDateString()}</div>
                     </div>
                     

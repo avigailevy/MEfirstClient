@@ -10,7 +10,6 @@ import { Agents } from "./components/agents/Agents";
 import { Todos } from "./components/todos/Todos";
 import { Login } from "./components/loginAddUser/Login";
 import { ProjectDisplay } from "./components/projects/ProjectDisplay";
-
 import {NavigationBar} from './components/homePage/NavigationBar';
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
         <Route
           path="/"
         />
-
         <Route path="/:username" element={<NavigationBar/>}>
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />

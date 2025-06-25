@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom'
 import { NavigationBar } from '../homePage/NavigationBar'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Stage } from './Stage'
 export function Stages({ projectId }) {
 
@@ -21,7 +21,7 @@ export function Stages({ projectId }) {
                 }
             })
             if (!res.ok) throw new Error("Failed to fetch project stages");
-            const data = await response.json();
+            const data = await res.json();
             setProjectStages(data);
         } catch (error) {
 
