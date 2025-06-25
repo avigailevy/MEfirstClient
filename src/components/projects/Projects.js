@@ -22,12 +22,33 @@ export function Projects() {
   const navigate = useNavigate();
 
   const { username, agentName, projectStatus } = useParams();
+console.log("Username:", username, "Agent Name:", agentName, "Project Status:", projectStatus);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      agentName ? fetchProjectsForAdmin() : fetchProjects();
+ 
+useEffect(() => {
+  if (typeof projectStatus === 'undefined') {
+    fetchAagentProjects();
+  } else {
+    fetchProjects();
+  }
+}, [username, projectStatus]);
+
+    const fetchAagentProjects = async () => {
+    try {
+      const res = await fetch(`http://localhost:3333/${username}/projects/${agentName}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      if (!res.ok) throw new Error("Failed to fetch projects");
+      const data = await res.json();
+      setProjects(data);
+    } catch (error) {
+      console.error("Error fetching projects:", error);
     }
-  }, [isLoggedIn, agentName]);
+  };
 
   const fetchProjects = async () => {
     try {
@@ -46,22 +67,6 @@ export function Projects() {
     }
   };
 
-  const fetchProjectsForAdmin = async () => {
-    try {
-      const res = await fetch(`http://localhost:3333/${username}/projects/${projectStatus}/${agentName}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!res.ok) throw new Error("Failed to fetch admin projects");
-      const data = await res.json();
-      setProjects(data);
-    } catch (error) {
-      console.error("Error fetching admin projects:", error);
-    }
-  };
 
   const deleteProject = async (projectId) => {
     if (!window.confirm("Are you sure you want to delete this project?")) return;
@@ -83,11 +88,13 @@ export function Projects() {
     }
   };
 
+
+  
   const handleUpdated = () => {
-    agentName ? fetchProjectsForAdmin() : fetchProjects();
+    fetchProjects();
     setShowForm(false);
     setEditingProject(null);
-  };
+   };
 
   const openAddForm = () => {
     setEditingProject(null);

@@ -41,7 +41,7 @@ function App() {
           <Route path="todos" element={<Todos />} />
           <Route path="users" >
             <Route path="agents" element={<Agents />} >
-              <Route path=":agentName/projects" element={<Projects projectStatus={'open'} />} />
+              <Route path=":agentName/projects" element={<Projects />} />
             </Route>
           </Route>
         </Route>
