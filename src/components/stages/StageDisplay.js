@@ -7,7 +7,8 @@ export function StageDisplay() {
 
     useEffect(() => {
         fetchStage();
-    }, [])
+        if (stage > 0) choosePresentation();
+    }, [stage])
 
     const fetchStage = async () => {
         try {
@@ -23,6 +24,18 @@ export function StageDisplay() {
             setStage(data);
         } catch (error) {
             console.error("Error fetching projects:", error);
+        }
+    }
+
+    const choosePresentation = () => {
+        switch (stage.stage_number) {
+            case 0:
+
+                break;
+            case 1:
+                return (<iframe src="https://docs.google.com/document/d/FILE_ID/edit" width="100%" height="600" allowfullscreen></iframe>);
+            default:
+                break;
         }
     }
 

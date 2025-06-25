@@ -9,6 +9,7 @@ import { SortSomething, FilterSomething } from "../Actions";
 import { Navigate, useParams } from "react-router-dom";
 import { NavigationBar } from '../homePage/NavigationBar'
 import { useNavigate } from "react-router-dom";
+import { CirclePlus } from "lucide-react";
 
 
 export function Projects({ projectStatus }) {
@@ -148,6 +149,7 @@ useEffect(() => {
           <p>No projects found.</p>
         )}
       </div>
+      <CirclePlus />
     </div>
   );
 }
