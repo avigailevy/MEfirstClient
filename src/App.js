@@ -29,7 +29,6 @@ function App() {
         <Route
           path="/"
         />
-        <Route path="/:username">
 
         <Route path="/:username" element={<NavigationBar/>}>
           <Route path="home" element={<HomePage />} />
