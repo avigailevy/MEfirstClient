@@ -12,23 +12,24 @@ export function ProjectDisplay({ }) {
     useEffect(() => {
         fetchProject();
     }, [project]);
+const fetchProject = async () => {
+  try {
+    const response = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      }
+    });
 
-    const fetchProject = async () => {
-        try {
-            const response = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
-               method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!res.ok) throw new Error("Failed to fetch project");
-      const data = await res.json();
-      setProject(data);
-    } catch (error) {
-      console.error("Error fetching project:", error);
-    }
-    }
+    if (!response.ok) throw new Error("Failed to fetch project");
+
+    const data = await response.json();
+    setProject(data);
+  } catch (error) {
+    console.error("Error fetching project:", error);
+  }
+};
 
     return (
         <>

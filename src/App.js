@@ -9,6 +9,8 @@ import { Suppliers } from "./components/contacts/Suppliers";
 import { Agents } from "./components/agents/Agents";
 import { Todos } from "./components/todos/Todos";
 import { Login } from "./components/loginAddUser/Login";
+import { ProjectDisplay } from "./components/projects/ProjectDisplay";
+
 import {NavigationBar} from './components/homePage/NavigationBar';
 
 function App() {
@@ -27,12 +29,16 @@ function App() {
         <Route
           path="/"
         />
+        <Route path="/:username">
+
         <Route path="/:username" element={<NavigationBar/>}>
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />
           <Route path="projects" >
             <Route path="open" element={<Projects projectStatus={'open'} />} />
             <Route path="close" element={<Projects projectStatus={'close'} />} />
+              <Route path=":status/:projectId" element={<ProjectDisplay />} />
+
           </Route>
           <Route path="contacts" >
             <Route path="customers" element={<Customers />} />
