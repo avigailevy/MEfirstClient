@@ -38,7 +38,7 @@ export function Suppliers() {
 
   return (
     <div>
-      <NavigationBar/>
+     
       {suppliers.length > 0 ? (
         <div>
           {suppliers.map((supplier) => (

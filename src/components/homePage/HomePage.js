@@ -44,7 +44,6 @@ export function HomePage() {
     return (
         <>
             <Header title={'Home Page'}/>
-            <NavigationBar />
             {projects.length > 0 ? (
                 projects.map((project) => (
                     <Project key={project.id} project={project} />

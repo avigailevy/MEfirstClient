@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Customer } from "./Customer";
-import { NavigationBar } from '../homePage/NavigationBar'
+import { useParams } from "react-router-dom";
+import '../../css/ContactOrUser.css';
 
 export function Customers() {
 
   const [customers, setCustomers] = useState([]);
+    const { username } = useParams();
+
 
   useEffect(() => {
     fetchCustomers();
@@ -18,7 +21,7 @@ export function Customers() {
     const token = localStorage.getItem('token');
     if (!token) throw new Error("No token found");
 
-    const response = await fetch("http://localhost:3333/:userName/contacts/customers", {
+    const response = await fetch(`http://localhost:3333/${username}/contacts/customers`, {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token,
@@ -40,7 +43,7 @@ export function Customers() {
 
   return (
     <div>
-      <NavigationBar/>
+     
       {customers.length > 0 ? (
         <div>
           {customers.map((customer) => (

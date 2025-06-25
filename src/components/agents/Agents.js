@@ -34,7 +34,7 @@ export function Agents() {
 
   return (
     <div>
-      <NavigationBar/>
+      
       {agents.length > 0 ? (
         <div>
           {agents.map((agent) => (

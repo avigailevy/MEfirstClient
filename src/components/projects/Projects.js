@@ -111,7 +111,7 @@ useEffect(() => {
 
   return (
     <div className="projects-page">
-      <NavigationBar />
+    
       <h3 className="projectsTitle">Projects Manager</h3>
 
       <SearchAndFilter
