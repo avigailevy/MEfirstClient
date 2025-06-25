@@ -1,13 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { NavigationBar } from '../homePage/NavigationBar'
 import { Stages } from '../stages/Stages'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Header } from '../homePage/Header'
+import { TextBox } from '../summaries/TextBox'
 
 export function ProjectDisplay({ }) {
     const { username, projectId } = useParams();
     const [project, setProject] = useState();
 
-    const fetchProjec = async () => {
+    useEffect(() => {
+        fetchProject();
+    }, [project]);
+
+    const fetchProject = async () => {
         try {
             const response = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
                 method: 'GET',
@@ -16,9 +22,11 @@ export function ProjectDisplay({ }) {
 
                 }
             })
-            if(!response.ok){
+            if (!response.ok) {
 
             }
+            const data = await response.json();
+            setProject(data);
         } catch (error) {
 
         }
@@ -27,7 +35,11 @@ export function ProjectDisplay({ }) {
     return (
         <>
             <NavigationBar />
-            <Stages projectId={project.id}/>
+            <Header title={project} />
+            <Stages projectId={project.id} />
+            <input type='button'>Summaries</input>
+            <input type='button'>Documents</input>
+            <TextBox />
         </>
     );
 }
