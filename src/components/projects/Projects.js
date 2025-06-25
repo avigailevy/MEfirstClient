@@ -17,9 +17,6 @@ export function Projects({ projectStatus }) {
   const [searchCriterion, setSearchCriterion] = useState('project_name');
   const [searchValue, setSearchValue] = useState('');
   const { user, isLoggedIn } = useAuth();
-
-
-
   const { username,agentName } = useParams();
 
 useEffect(() => {
