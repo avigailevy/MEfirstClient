@@ -9,18 +9,20 @@ import { SortSomething, FilterSomething } from "../Actions";
 import { Navigate, useParams } from "react-router-dom";
 import { NavigationBar } from '../homePage/NavigationBar'
 
-export function Projects({ projectStatus, username }) {
+export function Projects({ projectStatus }) {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
   const [sortCriterion, setSortCriterion] = useState('project_id');
   const [searchCriterion, setSearchCriterion] = useState('project_name');
   const [searchValue, setSearchValue] = useState('');
-
   const { user, isLoggedIn } = useAuth();
-  const { agentName } = useParams();
 
-  useEffect(() => {
+
+
+  const { username,agentName } = useParams();
+
+useEffect(() => {
     if (isLoggedIn) {
       agentName ? fetchProjectsForAdmin() : fetchProjects();
     }
