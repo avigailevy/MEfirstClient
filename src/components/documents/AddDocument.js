@@ -1,51 +1,67 @@
-import { useState } from 'react';
+export function AddGoogleDoc({ stageId, projectId, docType, onSuccess }) {
+  const [title, setTitle] = useState('');
+  const [docVersion, setDocVersion] = useState('');
+  const [loading, setLoading] = useState(false);
 
-export function AddDocument({ projectId, stageId, onUpload }) {
-  const [docType, setDocType] = useState("follow-up");
-  const [docVersion, setDocVersion] = useState("v1");
-  const [filePath, setFilePath] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleAdd = async () => {
     try {
-      const res = await fetch("http://localhost:3333/documents", {
-        method: "POST",
+      setLoading(true);
+      const token = localStorage.getItem('token');
+      const res = await fetch(`http://localhost:3333/documents/${stageId}/create`, {
+        method: 'POST',
         headers: {
+          'Authorization': 'Bearer ' + token,
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         body: JSON.stringify({
-          project_id: projectId,
-          stage_id: stageId,
-          doc_type: docType,
-          doc_version: docVersion,
-          file_path: filePath
-        })
+          title,
+          docType,
+          projectId,
+          docVersion,
+          uploadedBy: JSON.parse(localStorage.getItem('user')).user_id,
+        }),
       });
 
-      if (!res.ok) throw new Error("Failed to upload document");
+      if (!res.ok) {
+        const error = await res.json();
+        alert(error.error || "Error uploading document");
+        return;
+      }
+
       const data = await res.json();
-      onUpload && onUpload(data); 
+      alert("Document created successfully!");
+      onSuccess?.(data);
     } catch (err) {
-      console.error("Upload failed:", err);
+      console.error("Upload error:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <select value={docType} onChange={(e) => setDocType(e.target.value)}>
-        <option value="follow-up">Follow-Up</option>
-        <option value="RFQ">RFQ</option>
-        <option value="LOI">LOI</option>
-        <option value="FCO">FCO</option>
-        <option value="SPA">SPA</option>
-        <option value="ICPO">ICPO</option>
-        <option value="ProFormaInvoice">ProForma</option>
-        <option value="Invoice">Invoice</option>
-      </select>
-      <input value={docVersion} onChange={(e) => setDocVersion(e.target.value)} placeholder="Version (e.g. v1)" />
-      <input value={filePath} onChange={(e) => setFilePath(e.target.value)} placeholder="Google Docs link" />
-      <button type="submit">Upload</button>
-    </form>
+    <div className="add-doc-form">
+      <h3>Add Document ({docType})</h3>
+      <input
+        type="text"
+        placeholder="Title for Google Doc"
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Version (e.g., v1.0)"
+        value={docVersion}
+        onChange={e => setDocVersion(e.target.value)}
+      />
+      <button onClick={handleAdd} disabled={loading}>
+        {loading ? 'Creating...' : 'Add Document'}
+      </button>
+    </div>
   );
 }
+<AddGoogleDoc
+  stageId={stageId}
+  projectId={projectId}
+  docType="LOI" // כאן את שולטת איזה סוג מסמך
+  onSuccess={() => console.log("doc added")}
+/>
