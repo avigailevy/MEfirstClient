@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function GoogleDocViewer({ StageId }) {
+export function GoogleDocViewer({ StageId }) {
 
     const [docUrl, setDocUrl] = useState(null);
 
@@ -37,5 +37,3 @@ function GoogleDocViewer({ StageId }) {
         </div>
     );
 }
-
-export default GoogleDocViewer;

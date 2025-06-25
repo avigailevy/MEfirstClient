@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { GoogleDocViewer } from "../documents/GoogleDocViewer";
 
 export function StageDisplay() {
     const { stageId } = useParams();
@@ -33,7 +34,7 @@ export function StageDisplay() {
 
                 break;
             case 1:
-                return (<iframe src="https://docs.google.com/document/d/FILE_ID/edit" width="100%" height="600" allowfullscreen></iframe>);
+                return (<GoogleDocViewer StageId={stage.stage_id} />);
             default:
                 break;
         }
