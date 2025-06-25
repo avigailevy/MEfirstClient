@@ -7,12 +7,11 @@ import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
 import { Navigate, useParams } from "react-router-dom";
-import { NavigationBar } from '../homePage/NavigationBar'
 import { useNavigate } from "react-router-dom";
-import { CirclePlus } from "lucide-react";
+import { CirclePlus, Eye } from "lucide-react";
 
 
-export function Projects({ projectStatus }) {
+export function Projects() {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
@@ -20,13 +19,11 @@ export function Projects({ projectStatus }) {
   const [searchCriterion, setSearchCriterion] = useState('project_name');
   const [searchValue, setSearchValue] = useState('');
   const { user, isLoggedIn } = useAuth();
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
+  const { username, agentName, projectStatus } = useParams();
 
-
-  const { username,agentName } = useParams();
-
-useEffect(() => {
+  useEffect(() => {
     if (isLoggedIn) {
       agentName ? fetchProjectsForAdmin() : fetchProjects();
     }
@@ -70,7 +67,7 @@ useEffect(() => {
     if (!window.confirm("Are you sure you want to delete this project?")) return;
 
     try {
-      const res = await fetch(`http://localhost:3333/projects/${projectId}`, {
+      const res = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -111,7 +108,7 @@ useEffect(() => {
 
   return (
     <div className="projects-page">
-    
+
       <h3 className="projectsTitle">Projects Manager</h3>
 
       <SearchAndFilter
@@ -123,7 +120,7 @@ useEffect(() => {
         setSearchValue={setSearchValue}
       />
 
-      <button className="btn-add" onClick={openAddForm}>+</button>
+      <CirclePlus className="btn-add" onClick={openAddForm} />
 
       {showForm && (
         <Modal onClose={closeForm}>
@@ -137,19 +134,23 @@ useEffect(() => {
       <div className="projects-list">
         {filtered.length > 0 ? (
           filtered.map(project => (
-            <div onClick={() => navigate(`/projects/${project.status}/${project.project_id}`)} key={project.project_id}>
-              <Project                
+            <div key={project.project_id}>
+              <Project
                 project={project}
                 onEdit={() => openEditForm(project)}
                 onDelete={() => deleteProject(project.project_id)}
               />
+              <div onClick={() => navigate(`/${username}/projects/${project.status}/${project.project_id}`)}>
+                <Eye />
+                Show details
+              </div>
             </div>
           ))
         ) : (
           <p>No projects found.</p>
         )}
       </div>
-      <CirclePlus />
+
     </div>
   );
 }
