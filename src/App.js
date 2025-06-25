@@ -9,6 +9,7 @@ import { Suppliers } from "./components/contacts/Suppliers";
 import { Agents } from "./components/agents/Agents";
 import { Todos } from "./components/todos/Todos";
 import { Login } from "./components/loginAddUser/Login";
+import {NavigationBar} from './components/homePage/NavigationBar';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -26,7 +27,7 @@ function App() {
         <Route
           path="/"
         />
-        <Route path="/:username">
+        <Route path="/:username" element={<NavigationBar/>}>
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />
           <Route path="projects" >
