@@ -59,9 +59,4 @@ export function AddGoogleDoc({ stageId, projectId, docType, onSuccess }) {
     </div>
   );
 }
-<AddGoogleDoc
-  stageId={stageId}
-  projectId={projectId}
-  docType="LOI" // כאן את שולטת איזה סוג מסמך
-  onSuccess={() => console.log("doc added")}
-/>
+

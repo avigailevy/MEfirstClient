@@ -31,9 +31,15 @@ export function StageDisplay() {
     const choosePresentation = () => {
         switch (stage.stage_number) {
             case 0:
-
+                <AddGoogleDoc
+                    stageId={stageId}
+                    projectId={projectId}
+                    docType="RFQ"
+                    onSuccess={() => console.log("doc added")}
+                />
                 break;
             case 1:
+                
                 return (<GoogleDocViewer StageId={stage.stage_id} />);
             default:
                 break;
