@@ -55,7 +55,7 @@ export function Todos() {
 
   return (
     <div>
-      <NavigationBar />
+    
       <button onClick={openAddForm}>הוסף משימה</button>
 
       {showForm && (

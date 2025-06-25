@@ -64,7 +64,7 @@ export function Products() {
 
 return (
   <div className="layout">
-    <NavigationBar />
+ 
     <div className="main-content">
       <Header />
       <SearchAndFilter />
