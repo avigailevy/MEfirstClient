@@ -1,32 +1,52 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
-const Login = ({ onLogin }) => {
+export const Login = () => {
+     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const { user } = useAuth();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        // כאן תוכל להוסיף קריאה ל-API או לוגיקה לאימות
-        if (!username || !password) {
-            setError('יש למלא שם משתמש וסיסמה');
-            return;
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    if (!username || !password) {
+        setError('Username and password are required');
+        return;
+    }
+    try {
+        const response = await fetch('http://localhost:3333/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error(data.error || 'Login failed');
         }
-        try {
-            // דוגמה: קריאה לפונקציית התחברות
-            await onLogin({ username, password });
-        } catch (err) {
-            setError('שם משתמש או סיסמה שגויים');
+        if (!data.token) {
+            throw new Error('No token received from server');
         }
-    };
+        localStorage.setItem('token', data.token);
+        navigate(`/${username.replaceAll(" ", "_")}/home`);
+
+    } catch (err) {
+        setError(err.message || 'Invalid username or password');
+    }
+
+
+};
 
     return (
         <form onSubmit={handleSubmit} style={{ maxWidth: 300, margin: 'auto' }}>
-            <h2>התחברות</h2>
+            <h2>Login</h2>
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div>
-                <label>שם משתמש:</label>
+                <label>Username:</label>
                 <input
                     type="text"
                     value={username}
@@ -35,7 +55,7 @@ const Login = ({ onLogin }) => {
                 />
             </div>
             <div>
-                <label>סיסמה:</label>
+                <label>Password:</label>
                 <input
                     type="password"
                     value={password}
@@ -43,8 +63,9 @@ const Login = ({ onLogin }) => {
                     autoComplete="current-password"
                 />
             </div>
-            <button type="submit">התחבר</button>
+            <button type="submit">Submit</button>
         </form>
+        
     );
 };
 

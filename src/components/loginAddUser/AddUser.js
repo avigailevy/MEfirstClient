@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { NavigationBar } from '../homePage/NavigationBar'
 
 const AddUser = () => {
     const [agent, setAgent] = useState({
@@ -51,8 +52,9 @@ const AddUser = () => {
         });
     };
 
-    return (
+    return (        
         <div style={{ maxWidth: 400, margin: 'auto', padding: 20, border: '1px solid #ccc', borderRadius: 8 }}>
+            <NavigationBar/>
             <h2>הוספת סוכן חדש</h2>
             <form onSubmit={handleSubmit}>
                 <div>

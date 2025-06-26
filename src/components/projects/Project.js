@@ -1,57 +1,28 @@
-import { useState } from "react";
+import { PencilLine, Trash2 } from 'lucide-react';
 
-export function Project({ currentStage }) {
-
-    const [documentFilePath, setDocumentFilePath] = useState('');
-
-    const getDocumentFilePath = async () => {
-        try {
-            const response = await fetch(`http://localhost:3333/openProjects/${currentStage}/getFile_path`, {
-                method: 'GET',
-
-            });
-            const data = await response.json();
-            setDocumentFilePath(data.filePath);
-        }
-        catch (error) {
-            console.error('Error fetching document File_path:', error);
-        }
-    }
-
-    // Fetch the document file path when the component mounts
-    useEffect(() => {
-        getDocumentFilePath();
-    }, [currentStage]);
-
-    const showNextStage = async () => {}
-
-    const uploadFile = async () => {
-        try {
-            const response = await fetch(`http://localhost:3333/openProjects/${currentStage}/uploadFile`, {
-                method: 'POST',
-                body: JSON.stringify({ filePath: documentFilePath }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            const data = await response.json();
-            console.log('File uploaded successfully:', data);
-        } catch (error) {
-            console.error('Error uploading file:', error);
-        }
-    }
-
+export function Project({ project, onEdit, onDelete }) {
     return (
-        <div className="project">
-            <iframe
-                src={`${documentFilePath}/edit`}
-                width="100%"
-                height="800"
-                frameborder="0"
-                allowfullscreen
-            ></iframe>
-            <button className="btn-projects" id="btn-next-stage" onClick={() => showNextStage()}>Stage completed</button>
-            <button className="btn-projects" id="btn-upload-file" onClick={() => uploadFile()}>Upload file</button>
+        <div className="component-1">
+            <PencilLine onClick={onEdit} />
+            <Trash2 onClick={onDelete} />
+
+            <div className="ellipse-19"></div>
+            <div className="david-shalom">{project.project_name}</div>
+            <div className="frame-50">
+                <div className="frame-47">
+                    <div className="company">Status:</div>
+                    <div className="ivory">{project.status}</div>
+                </div>
+                <div className="frame-48">
+                    <div className="company">Created on:</div>
+                    <div className="ivory">{new Date(project.creation_date).toLocaleDateString()}</div>
+                </div>
+                <div className="frame-49">
+                    <div className="company">Last Visit:</div>
+                    <div className="ivory">{new Date(project.last_visit_time).toLocaleDateString()}</div>
+                </div>
+            </div>
+
         </div>
     );
 }

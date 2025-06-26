@@ -1,0 +1,24 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.navigation-bar {
+  width: 220px; /* או כמה שהסרגל שלך צריך */
+  background-color: #f4f4f4;
+  padding: 1rem;
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
