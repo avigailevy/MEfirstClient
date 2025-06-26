@@ -67,7 +67,7 @@ export function AddOrEditProject({ project, onSuccess }) {
         }),
       })
     } catch (error) {
-
+            console.error("Error creating a folder:", error);
     }
   }
 
