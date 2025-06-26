@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 export function AddOrEditProject({ project, onSuccess }) {
   const { username = "", projectStatus = "open" } = useParams();
