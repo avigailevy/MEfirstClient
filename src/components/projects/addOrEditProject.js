@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export function AddOrEditProject({ project, onSuccess }) {
   const { username = "", projectStatus = "open" } = useParams();
@@ -52,6 +53,24 @@ export function AddOrEditProject({ project, onSuccess }) {
       alert("שגיאה: " + err.message);
     }
   };
+
+  const createFolderForProjectDocs = async () => {
+    try {
+      await fetch(`http://localhost:3333/${username}/documents/newFolder`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: `${}`,
+          parentName: 'abc123def456'
+        }),
+      })
+    } catch (error) {
+
+    }
+  }
 
   return (
     <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "400px" }}>
