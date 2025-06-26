@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Todo } from "./Todo";
 import { AddOrEditTodoForm } from "./AddOrEditTodoForm";
-import { Modal } from "../products/Modal";
+import { Modal } from "../Modal";
 import { NavigationBar } from "../homePage/NavigationBar";
 
 export function Todos() {

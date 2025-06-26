@@ -87,9 +87,7 @@ useEffect(() => {
       alert("Error deleting project: " + error.message);
     }
   };
-
-
-  
+    
   const handleUpdated = () => {
     fetchProjects();
     setShowForm(false);

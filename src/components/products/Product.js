@@ -1,9 +1,6 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom"; 
 import { Trash2, UserPen } from 'lucide-react';
 import '../../css/ContactOrUser.css';
-
-
 
 export function Product({ product, onUpdated, onEdit }) {
     const { username } = useParams();

@@ -2,18 +2,16 @@ import { useEffect, useState } from "react";
 import { Product } from "./Product";
 import { AddOrEditProductForm } from "./AddOrEditProductForm";
 import { SearchAndFilter } from "../SearchAndFilter";
-import { Modal } from "./Modal";  // ייבוא מודל
-import { NavigationBar } from '../homePage/NavigationBar';
+import { Modal } from "../Modal";
 import { Header } from '../homePage/Header';
 import '../../css/Product.css';
-
-
-
+import { useParams } from "react-router-dom";
 
 export function Products({ fromProject }) {
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
+  const { username } = useParams();
 
   const fetchProducts = async () => {
     try {
@@ -71,10 +69,11 @@ export function Products({ fromProject }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ completed: !todo.completed }),
+        //
+        body: JSON.stringify(),
       });
       if (!res.ok) throw new Error("Failed to toggle complete");
-      onUpdate();
+      // onUpdate();
     } catch (err) {
       console.error(err);
     }
@@ -102,7 +101,7 @@ export function Products({ fromProject }) {
             <div>
               {fromProject && (<input
                 type="checkbox"
-                checked={todo.completed}
+                // checked={todo.completed}
                 onChange={toggleChoosed}
               />)}
               <Product

@@ -1,5 +1,3 @@
- //components/Modal.js
-import React from "react";
 
 export function Modal({ children, onClose }) {
   const handleOverlayClick = (e) => {

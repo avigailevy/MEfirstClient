@@ -5,7 +5,7 @@ import { Project } from "../projects/Project";
 import { SortSomething, FilterSomething } from "../Actions";
 import { Header } from "./Header";
 import { NavigationBar } from "./NavigationBar";
-import { Modal } from "../products/Modal";
+import { Modal } from "../Modal";
 import { AddOrEditProject } from "../projects/AddOrEditProject";
 import { Eye, CirclePlus } from "lucide-react";
 import "../../css/Projects.css";

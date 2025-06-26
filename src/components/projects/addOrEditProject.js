@@ -36,7 +36,7 @@ export function AddOrEditProject({ project, onSuccess }) {
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Project title"
+        placeholder="Project name"
         value={title}
         onChange={e => setTitle(e.target.value)}
         required
