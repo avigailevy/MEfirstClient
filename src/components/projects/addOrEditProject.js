@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 export function AddOrEditProject({ project, onSuccess }) {
   const { username = "", projectStatus = "open" } = useParams();
@@ -51,7 +50,7 @@ export function AddOrEditProject({ project, onSuccess }) {
       onSuccess(); // ← הודעה לאב שהסתיים
     } catch (err) {
       alert("שגיאה: " + err.message);
-    }
+    } 
   };
 
   const createFolderForProjectDocs = async () => {
@@ -63,7 +62,7 @@ export function AddOrEditProject({ project, onSuccess }) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: `${}`,
+          // name: `${}`,
           parentName: 'abc123def456'
         }),
       })
