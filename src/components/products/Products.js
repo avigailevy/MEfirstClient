@@ -10,7 +10,7 @@ import '../../css/Product.css';
 
 
 
-export function Products() {
+export function Products({ fromProject }) {
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -62,34 +62,59 @@ export function Products() {
     setEditingProduct(null);
   };
 
-return (
-  <div className="layout">
- 
-    <div className="main-content">
-      <Header />
-      <SearchAndFilter />
-      <button onClick={openAddForm}>+</button>
+  const toggleChoosed = async (product) => {
+    try {
+      //הפונקציה צריכה לגשת לטבלת קשר בין פרוייקט ומוצר
+      const res = await fetch(`http://localhost:3333/${username}/products/${product.product_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ completed: !todo.completed }),
+      });
+      if (!res.ok) throw new Error("Failed to toggle complete");
+      onUpdate();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-      {showForm && (
-        <Modal onClose={closeForm}>
-          <AddOrEditProductForm
-            product={editingProduct}
-            onSuccess={handleUpdated}
-          />
-        </Modal>
-      )}
+  return (
+    <div className="layout">
 
-      <div className="products-grid">
-        {products.map(product => (
-          <Product
-            key={product.product_id}
-            product={product}
-            onUpdated={handleUpdated}
-            onEdit={() => openEditForm(product)}
-          />
-        ))}
+      <div className="main-content">
+        <Header />
+        <SearchAndFilter />
+        <button onClick={openAddForm}>+</button>
+
+        {showForm && (
+          <Modal onClose={closeForm}>
+            <AddOrEditProductForm
+              product={editingProduct}
+              onSuccess={handleUpdated}
+            />
+          </Modal>
+        )}
+
+        <div className="products-grid">
+          {products.map(product => (
+            <div>
+              {fromProject && (<input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={toggleChoosed}
+              />)}
+              <Product
+                key={product.product_id}
+                product={product}
+                onUpdated={handleUpdated}
+                onEdit={() => openEditForm(product)}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

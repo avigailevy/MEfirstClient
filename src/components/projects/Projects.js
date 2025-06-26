@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SearchAndFilter } from "../SearchAndFilter";
-import { Modal } from "../products/Modal";
+import { Modal } from "../Modal";
 import { AddOrEditProject } from "./AddOrEditProject";
 import { Project } from "./Project";
 import '../../css/Projects.css';

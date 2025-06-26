@@ -3,7 +3,7 @@ import '../../css/Todos.css';
 import { useParams } from "react-router-dom";
 
 export function Todo({ todo, onUpdate, onEdit }) {
-          const { username } = useParams();
+  const { username } = useParams();
 
   const toggleComplete = async () => {
 
