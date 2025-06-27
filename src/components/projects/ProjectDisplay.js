@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { NavigationBar } from '../homePage/NavigationBar'
+import { StageDisplay } from '../stages/StageDisplay'
 import { Stages } from '../stages/Stages'
 import { useEffect, useState } from 'react';
 import { Header } from '../homePage/Header'
@@ -22,7 +22,7 @@ export function ProjectDisplay() {
       const response = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
         }
       });
@@ -39,7 +39,7 @@ if (!project || !project.project_id) return <p>Loading project...</p>;
 
   return (
     <>project display
-    
+     <StageDisplay/>
       <Header title={project} />
       <Stages projectId={project.id} />
       <input type='button'>Summaries</input>

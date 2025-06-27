@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { StageChecklist } from './StageChecklist'
-import { Products } from '../projects/Projects'
 import { Modal } from "../Modal";
+import { Products } from "../products/Products";
 import { Product } from "../products/Product";
-import { AddDocument } from '../documents/AddDocument'
 import { UploadFile } from '../documents/UploadFile'
+import { AddDocument } from "../documents/AddDocument";
 
 export function StageDisplay() {
     const { username, stageId, projectId } = useParams();

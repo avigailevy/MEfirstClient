@@ -22,18 +22,19 @@ export function Projects() {
   const navigate = useNavigate();
 
   const { username, agentName, projectStatus } = useParams();
-console.log("Username:", username, "Agent Name:", agentName, "Project Status:", projectStatus);
+  console.log("Username:", username, "Agent Name:", agentName, "Project Status:", projectStatus);
 
 
-useEffect(() => {
-  if (typeof agentName !== 'undefined') {
-    fetchAagentProjects();
-  } else {
-    fetchProjects();
-  }
-}, [username, projectStatus]);
+  useEffect(() => {
+    console.log(typeof agentName);
+    if (typeof agentName !== 'undefined') {
+      fetchAagentProjects();
+    } else {
+      fetchProjects();
+    }
+  }, [username, agentName ]);
 
-    const fetchAagentProjects = async () => {
+  const fetchAagentProjects = async () => {
     try {
       const res = await fetch(`http://localhost:3333/${username}/projects/${agentName}`, {
         method: 'GET',
@@ -93,7 +94,7 @@ useEffect(() => {
     fetchProjects();
     setShowForm(false);
     setEditingProject(null);
-   };
+  };
 
   const openAddForm = () => {
     setEditingProject(null);
@@ -146,8 +147,8 @@ useEffect(() => {
                 onEdit={() => openEditForm(project)}
                 onDelete={() => deleteProject(project.project_id)}
               />
-              <div onClick={() => navigate(`/${username}/projects/${project.project_id}`)}>
-                {console.log("👁️ Navigating to:", `/${username}/projects/${project.project_id}`)}
+              <div onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
+                {console.log("👁️ Navigating to:", `/${username}/projects/projectDisplay/${project.project_id}`)}
                 <Eye />
                 Show details
               </div>

@@ -1,4 +1,6 @@
-export function AddGoogleDoc({ stageId, projectId, docType, onSuccess }) {
+import { useState } from "react";
+
+export function AddDocument({ stageId, projectId, docType, onSuccess }) {
   const [title, setTitle] = useState('');
   const [docVersion, setDocVersion] = useState('');
   const [loading, setLoading] = useState(false);
