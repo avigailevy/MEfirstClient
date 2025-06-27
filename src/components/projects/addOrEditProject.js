@@ -47,8 +47,10 @@ export function AddOrEditProject({ project, onSuccess }) {
         throw new Error(err.error || "Failed to save project");
       }
 
+        const result = await res.json(); 
+
       onSuccess(); // ← הודעה לאב שהסתיים
-      if (method == 'POST') createFolderForProjectDocs(res.project_id);
+      if (method == 'POST') createFolderForProjectDocs(result.project_id);
     } catch (err) {
       alert("שגיאה: " + err.message);
     }
@@ -67,6 +69,8 @@ export function AddOrEditProject({ project, onSuccess }) {
           parentName: 'Projects'
         }),
       })
+      console.log(`folder ${project_id} created`);
+      
     } catch (error) {
       console.error("Error creating a folder:", error);
     }
