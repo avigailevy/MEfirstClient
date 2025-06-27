@@ -6,7 +6,7 @@ import { Project } from "./Project";
 import '../../css/Projects.css';
 import { useAuth } from "../../context/AuthContext";
 import { SortSomething, FilterSomething } from "../Actions";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { CirclePlus, Eye } from "lucide-react";
 
@@ -26,7 +26,7 @@ console.log("Username:", username, "Agent Name:", agentName, "Project Status:", 
 
  
 useEffect(() => {
-  if (typeof projectStatus === 'undefined') {
+  if (typeof agentName !== 'undefined') {
     fetchAagentProjects();
   } else {
     fetchProjects();
@@ -146,7 +146,8 @@ useEffect(() => {
                 onEdit={() => openEditForm(project)}
                 onDelete={() => deleteProject(project.project_id)}
               />
-              <div onClick={() => navigate(`/${username}/projects/${projectStatus}/${project.project_id}`)}>
+              <div onClick={() => navigate(`/${username}/projects/${project.project_id}`)}>
+                {console.log("👁️ Navigating to:", `/${username}/projects/${project.project_id}`)}
                 <Eye />
                 Show details
               </div>

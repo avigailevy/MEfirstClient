@@ -7,11 +7,15 @@ import { TextBox } from '../summaries/TextBox'
 
 export function ProjectDisplay() {
   const { username, projectId } = useParams();
-  const [project, setProject] = useState();
+  const [project, setProject] = useState("כככככ");
 
   useEffect(() => {
     fetchProject();
-  }, [project]);
+    console.log("🧩 ProjectDisplay mounted!");
+    return () => {
+      console.log("🧩 ProjectDisplay unmounted!");
+    };
+  }, []);
 
   const fetchProject = async () => {
     try {
@@ -31,6 +35,7 @@ export function ProjectDisplay() {
       console.error("Error fetching project:", error);
     }
   };
+if (!project || !project.project_id) return <p>Loading project...</p>;
 
   return (
     <>project display

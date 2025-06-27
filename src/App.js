@@ -28,10 +28,12 @@ function App() {
         <Route
           path="/"
         />
+        {/* <Route path="/:username/projects/:projectStatus/:projectId" element={<ProjectDisplay />} /> */}
         <Route path="/:username" element={<NavigationBar />}>
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />
-          <Route path="projects/:projectStatus" element={<Projects />} >
+          <Route path="projects"  >
+            <Route path=":projectStatus" element={<Projects />} />
             <Route path=":projectId" element={<ProjectDisplay />} />
           </Route>
           <Route path="contacts" >
