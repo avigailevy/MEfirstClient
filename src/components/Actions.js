@@ -1,26 +1,26 @@
 
-export const DeleteSomething = async (resource, somethings, setSomethings, id) => {
+// export const DeleteSomething = async (resource, somethings, setSomethings, id) => {
 
-    try {
-        console.log("Resource:", resource);
-        console.log("Something:", somethings);
-        console.log("ID:", id);
+//     try {
+//         console.log("Resource:", resource);
+//         console.log("Something:", somethings);
+//         console.log("ID:", id);
 
-        const url = `http://localhost:3001/${resource}/${id}`;
+//         const url = `http://localhost:3001/${resource}/${id}`;
 
-        const response = await fetch(url, {
-            method: 'DELETE',
-        });
+//         const response = await fetch(url, {
+//             method: 'DELETE',
+//         });
 
-        if (!response.ok) {
-            throw new Error(`Failed to delete. Status: ${response.status}`);
-        }
+//         if (!response.ok) {
+//             throw new Error(`Failed to delete. Status: ${response.status}`);
+//         }
 
-        setSomethings(somethings.filter((s) => s.id !== id));
-    } catch (error) {
-        console.error("Error deleting something:", error);
-    }
-}
+//         setSomethings(somethings.filter((s) => s.id !== id));
+//     } catch (error) {
+//         console.error("Error deleting something:", error);
+//     }
+// }
 
 export const SortSomething = (somethings, sortCriterion) => {
 

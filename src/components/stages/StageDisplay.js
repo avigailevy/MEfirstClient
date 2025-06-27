@@ -6,11 +6,13 @@ import { Products } from '../projects/Projects'
 import { Modal } from "../Modal";
 import { Product } from "../products/Product";
 import { AddDocument } from '../documents/AddDocument'
+import { UploadFile } from '../documents/UploadFile'
 
 export function StageDisplay() {
-    const { stageId } = useParams();
+    const { username, stageId, projectId } = useParams();
     const [stage, setStage] = useState();
     const [projectProducts, setProjectProducts] = useState();
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         fetchStage();
@@ -22,7 +24,7 @@ export function StageDisplay() {
             const res = await fetch(`http://localhost:3333/${username}/stages/${stageId}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
@@ -40,7 +42,7 @@ export function StageDisplay() {
             const res = await fetch(`http://localhost:3333/${username}/stages/${stageId}`, {
                 method: 'GET',
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
@@ -52,12 +54,15 @@ export function StageDisplay() {
         }
     }
 
+   
+
     const choosePresentation = () => {
         switch (stage.stage_number) {
             case 1:
                 //אמור להיות קבלת קובץ מקורי של RFQ
-
-                break;
+                return (
+                    <UploadFile projectId={projectId} docType={'RFQ'} token={token}/>
+                );
             case 2:
                 return (<StageChecklist StageId={stage.stage_id} />);
             // return (<GoogleDocViewer StageId={stage.stage_id} />);
@@ -82,12 +87,12 @@ export function StageDisplay() {
             case 4:
                 return (
                     <>
-                    <AddDocument
-                        stageId={stageId}
-                        projectId={projectId}
-                        docType="RFQ"
-                        onSuccess={() => console.log("doc added")}
-                    />
+                        <AddDocument
+                            stageId={stageId}
+                            projectId={projectId}
+                            docType="RFQ"
+                            onSuccess={() => console.log("doc added")}
+                        />
                     </>
                 );
             default:

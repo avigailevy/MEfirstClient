@@ -81,7 +81,8 @@ useEffect(() => {
       });
 
       if (!res.ok) throw new Error("Failed to delete project");
-
+      console.log(`deleted successfully`);
+      
       setProjects(prev => prev.filter(p => p.project_id !== projectId));
     } catch (error) {
       alert("Error deleting project: " + error.message);
