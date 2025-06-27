@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { GoogleDocViewer } from "../documents/GoogleDocViewer";
 import { StageChecklist } from './StageChecklist'
 import { Products } from '../projects/Projects'
 import { Modal } from "../Modal";

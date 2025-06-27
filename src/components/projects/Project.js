@@ -26,3 +26,31 @@ export function Project({ project, onEdit, onDelete }) {
         </div>
     );
 }
+
+// import { PencilLine, Trash2 } from "lucide-react";
+// import "../../css/Projects.css";
+
+// export function Project({ project, onEdit, onDelete }) {
+//   return (
+//     <div className="project-card">
+//       <div className="project-header">
+//         <h3>{project.project_name}</h3>
+//         <div className="project-controls">
+//           <PencilLine onClick={onEdit} className="icon-edit" />
+//           <Trash2 onClick={onDelete} className="icon-delete" />
+//         </div>
+//       </div>
+//       <div className="project-details">
+//         <div className="detail">
+//           <span>Status:</span> <strong>{project.status}</strong>
+//         </div>
+//         <div className="detail">
+//           <span>Created:</span> <strong>{new Date(project.creation_date).toLocaleDateString()}</strong>
+//         </div>
+//         <div className="detail">
+//           <span>Last Visit:</span> <strong>{new Date(project.last_visit_time).toLocaleDateString()}</strong>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }

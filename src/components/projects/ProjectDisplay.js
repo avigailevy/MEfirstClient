@@ -34,6 +34,7 @@ export function ProjectDisplay() {
 
   return (
     <>project display
+    
       <Header title={project} />
       <Stages projectId={project.id} />
       <input type='button'>Summaries</input>
