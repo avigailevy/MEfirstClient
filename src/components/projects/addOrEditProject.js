@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export function AddOrEditProject({ project, onSuccess }) {
-  const { username = "", projectStatus = "open" } = useParams();
+  const { username , projectStatus} = useParams();
 
   const [title, setTitle] = useState('');
   const [customer_id, setCustomerId] = useState('');
@@ -26,18 +26,18 @@ export function AddOrEditProject({ project, onSuccess }) {
 
     const body = {
       project_name: title,
-      status,
-      customer_id,
-      supplier_id: null
-
+      status: status,
+      customer_id: customer_id,
+      supplier_id: null,
+      owner_user_id: username
     };
 
     try {
       const res = await fetch(url, {
-        method,
+        method: method,
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'          
         },
         body: JSON.stringify(body),
       });
