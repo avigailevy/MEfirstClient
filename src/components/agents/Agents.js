@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Agent } from "./Agent";
-import { NavigationBar } from '../homePage/NavigationBar'
+import { useParams } from "react-router-dom";
 
 export function Agents() {
 
   const [agents, setAgents] = useState([]);
+  const {username} = useParams();
 
   const fetchAgents = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch('http://localhost:3333/:username/users/agents/all',
+      const response = await fetch(`http://localhost:3333/${username}/users/agents/all`,
         {
           method: 'GET',
           headers: {

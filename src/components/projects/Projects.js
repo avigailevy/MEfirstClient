@@ -139,14 +139,14 @@ useEffect(() => {
 
       <div className="projects-list">
         {filtered.length > 0 ? (
-          filtered.map(project => (
+          filtered.map((project) => (
             <div key={project.project_id}>
               <Project
                 project={project}
                 onEdit={() => openEditForm(project)}
                 onDelete={() => deleteProject(project.project_id)}
               />
-              <div onClick={() => navigate(`/${username}/projects/${project.status}/${project.project_id}`)}>
+              <div onClick={() => navigate(`/${username}/projects/${projectStatus}/${project.project_id}`)}>
                 <Eye />
                 Show details
               </div>

@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SearchAndFilter } from "../SearchAndFilter";
 import { Project } from "../projects/Project";
-import { SortSomething, FilterSomething } from "../Actions";
 import { Header } from "./Header";
-import { NavigationBar } from "./NavigationBar";
 import { Modal } from "../Modal";
 import { AddOrEditProject } from "../projects/AddOrEditProject";
-import { Eye, CirclePlus } from "lucide-react";
+import { Eye } from "lucide-react";
 import "../../css/Projects.css";
 import { useParams } from "react-router-dom";
 
