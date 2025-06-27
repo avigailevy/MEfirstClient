@@ -39,6 +39,7 @@ if (!project || !project.project_id) return <p>Loading project...</p>;
 
   return (
     <>project display
+    
       <Header title={project} />
       <Stages projectId={project.id} />
       <input type='button'>Summaries</input>
