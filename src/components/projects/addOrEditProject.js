@@ -28,7 +28,7 @@ export function AddOrEditProject({ project, onSuccess }) {
       project_name: title,
       status,
       customer_id,
-      supplier_id: null  
+      supplier_id: null
 
     };
 
@@ -48,12 +48,13 @@ export function AddOrEditProject({ project, onSuccess }) {
       }
 
       onSuccess(); // ← הודעה לאב שהסתיים
+      if (method == 'POST') createFolderForProjectDocs(res.project_id);
     } catch (err) {
       alert("שגיאה: " + err.message);
-    } 
+    }
   };
 
-  const createFolderForProjectDocs = async () => {
+  const createFolderForProjectDocs = async (project_id) => {
     try {
       await fetch(`http://localhost:3333/${username}/documents/newFolder`, {
         method: 'POST',
@@ -62,12 +63,12 @@ export function AddOrEditProject({ project, onSuccess }) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          // name: `${}`,
-          parentName: 'abc123def456'
+          name: `${project_id}`,
+          parentName: 'Projects'
         }),
       })
     } catch (error) {
-            console.error("Error creating a folder:", error);
+      console.error("Error creating a folder:", error);
     }
   }
 
