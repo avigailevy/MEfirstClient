@@ -3,28 +3,39 @@ import { CopyDocToFolder } from '../documents/CopyDocToFolder';
 
 export function GoogleDocViewer({ projectId, docType, stageId, token, username, user_id }) {
 
+    console.log(`projectId: ${projectId}, docType: ${docType}, stageId: ${stageId}, token: ${token}, username: ${username}, user_id: ${user_id}`);
+
     const [docUrl, setDocUrl] = useState(null);
     const [newDocUrl, setNewDocUrl] = useState(null);
 
     useEffect(() => {
         fetchDocUrl();
-    }, []);
+    }, [projectId, docType, username]);
 
     const fetchDocUrl = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/documents/${stageId}`);
+            const res = await fetch(`http://localhost:3333/${username}/documents/getFilePath/${projectId}/${docType}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             if (!res.ok) throw new Error('Doc not found');
             const data = await res.json();
-            setDocUrl(data);
+            setDocUrl(data.file_path);
         } catch (err) {
             console.error('Error loading doc:', err);
         }
     };
 
-    const handleEdit = () => {
-        const newDoc = CopyDocToFolder(projectId, docType, stageId, token, username, user_id);
-        setNewDocUrl(`https://docs.google.com/document/d/${newDoc.fileId}/edit`);
-    }
+    const handleEdit = async () => {
+        try {
+            const newDoc = await CopyDocToFolder(projectId, docType, stageId, token, username, user_id);
+            setNewDocUrl(`https://docs.google.com/document/d/${newDoc.fileId}/edit`);
+        } catch (err) {
+            console.error('Error copying doc:', err);
+        }
+    };
 
     return (
         <div>

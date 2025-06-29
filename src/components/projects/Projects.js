@@ -148,7 +148,6 @@ export function Projects() {
               <div
                 className="project-show-details"
                 onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
-                {console.log("👁️ Navigating to:", `/${username}/projects/projectDisplay/${project.project_id}`)}
                 <Eye className="eye-icon"/>
                 Show details
               </div>

@@ -60,7 +60,7 @@ export function StageDisplay({ username, projectId, stageId }) {
 
     const choosePresentation = () => {
         console.log('in choosePresentation');
-        console.log(stage.stage_number);
+        console.log('stage number:'+ stage.stage_number);
         switch (stage.stage_number) {
             case 1:             
 
@@ -72,7 +72,7 @@ export function StageDisplay({ username, projectId, stageId }) {
                             stageId={stageId}
                             token={token}
                             username={username}
-                            user_id={user.user_id}
+                            user_id={ user.user_id}
                         />
                     </>
                 );

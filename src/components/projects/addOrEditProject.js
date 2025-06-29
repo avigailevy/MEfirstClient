@@ -69,8 +69,7 @@ export function AddOrEditProject({ project, onSuccess }) {
           parentName: 'Projects'
         }),
       })
-      console.log(`folder ${project_id} created`);
-      
+      console.log(`folder ${project_id} created`);      
     } catch (error) {
       console.error("Error creating a folder:", error);
     }
