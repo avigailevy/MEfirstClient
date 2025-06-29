@@ -13,7 +13,7 @@ export function ProjectDisplay() {
     fetchProject();
     console.log("🧩 ProjectDisplay mounted!");
     return () => {
-      console.log("🧩 ProjectDisplay unmounted!");
+      console.log("🧩 Pr ojectDisplay unmounted!");
     };
   }, []);
 
