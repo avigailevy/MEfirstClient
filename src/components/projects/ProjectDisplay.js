@@ -3,7 +3,8 @@ import { StageDisplay } from '../stages/StageDisplay'
 import { Stages } from '../stages/Stages'
 import { useEffect, useState } from 'react';
 import { Header } from '../homePage/Header'
-import { TextBox } from '../summaries/TextBox'
+import { SummTextBox } from '../summaries/SummTextBox';
+
 
 export function ProjectDisplay() {
   const { username, projectId } = useParams();
@@ -44,7 +45,7 @@ if (!project) return <p>Loading project...</p>;
       <Stages projectId={project.project_id} />
       <input type='button'></input>
       <input type='button'></input>
-      <TextBox projectId={project.id} username={username}/>
+      <SummTextBox projectId={project.id} username={username}/>
     </>
   );
 }

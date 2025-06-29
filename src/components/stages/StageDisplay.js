@@ -6,6 +6,7 @@ import { Products } from "../products/Products";
 import { Product } from "../products/Product";
 import { UploadFile } from '../documents/UploadFile'
 import { AddDocument } from "../documents/AddDocument";
+import { CopyDocToFolder } from '../documents/CopyDocToFolder';
 
 export function StageDisplay() {
     const { username, stageId, projectId } = useParams();
@@ -53,13 +54,14 @@ export function StageDisplay() {
         }
     }
 
-
-
     const choosePresentation = () => {
         switch (stage.stage_number) {
             case 1:
+                { CopyDocToFolder(projectId, 'RFQ', token, username) }
                 return (
-                    <UploadFile projectId={projectId} docType={'RFQ'} token={token} />
+                    <>
+                        <GoogleDocViewer projectId={projectId} docType={'RFQ'} token={token} />
+                    </>
                 );
             case 2:
                 return (<GoogleDocViewer StageId={stage.stage_id} />);

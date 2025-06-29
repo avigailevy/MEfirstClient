@@ -5,10 +5,10 @@ export function GoogleDocViewer({ StageId , documentType}) {
     const [docUrl, setDocUrl] = useState(null);
 
     useEffect(() => {
-        if (projectId) {
+       
             fetchDocUrl();
-        }
-    }, [projectId]);
+        
+    }, []);
 
     const fetchDocUrl = async () => {
         try {
