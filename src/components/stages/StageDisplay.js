@@ -16,6 +16,8 @@ export function StageDisplay({ username, projectId, stageId }) {
 
     useEffect(() => {
         fetchStage();
+        console.log("🧩 StageDisplay mounted!");
+        
         if (stage > 0) choosePresentation();
     }, [stage])
 
