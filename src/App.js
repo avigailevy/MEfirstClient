@@ -16,7 +16,7 @@ function App() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <>
+    < div className='app-layout'>
       {!isLoggedIn && (
         <div className="login-register-links">
           <Link to="/login" className="navbar-link">Login</Link>
@@ -29,7 +29,7 @@ function App() {
           path="/"
         />
         {/* <Route path="/:username/projects/:projectStatus/:projectId" element={<ProjectDisplay />} /> */}
-        <Route path="/:username" element={<NavigationBar />}>
+        <Route className="nav-bar" path="/:username" element={<NavigationBar />}>
           <Route path="home" element={<HomePage />} />
           <Route path="products" element={<Products />} />
           <Route path="projects"  >
@@ -50,7 +50,7 @@ function App() {
           </Route>
         </Route>
       </Routes >
-    </>
+    </div>
   );
 }
 

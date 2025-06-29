@@ -1,7 +1,8 @@
 
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0; /* להיצמד שמאלה */
   z-index: 1000;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -60,7 +61,9 @@
   display: none;
 }
 
-.content {
-  flex: 1;
-  padding: 20px;
+
+
+/* אם הסיידבר סגור, תגדיר מחלקה ל-navbar או body שמציינת מצב סגור */
+.navbar.closed + .content {
+  margin-left: 50px; /* פחות רוחב כשהסיידבר סגור */
 }
