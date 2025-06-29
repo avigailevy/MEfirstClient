@@ -116,8 +116,6 @@ export function Projects() {
   return (
     <div className="projects-page">
 
-      <h3 className="projectsTitle">Projects Manager</h3>
-
       <SearchAndFilter
         sortCriterion={sortCriterion}
         setSortCriterion={setSortCriterion}

@@ -37,9 +37,7 @@ function App() {
             <Route path=":projectStatus" element={<Projects />} />
             <Route path="projectDisplay/:projectId" element={<ProjectDisplay />} />
             <Route path="projectDisplay/:projectId/stageDisplay/:stageId" element={<StageDisplay />} />
-
           </Route>
-
           <Route path="contacts" >
             <Route path="customers" element={<Customers />} />
             <Route path="Suppliers" element={<Suppliers />} />
