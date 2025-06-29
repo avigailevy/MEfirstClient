@@ -15,15 +15,16 @@ export function StageDisplay({ username, projectId, stageId }) {
     const { user } = useAuth();
 
     useEffect(() => {
-        fetchStage();
-        console.log("🧩 StageDisplay mounted!");
-        
-        if (stage > 0) choosePresentation();
-    }, [stage])
+        if (username && stageId) {
+            fetchStage();
+        }
+    }, [username, stageId]);
+
 
     const fetchStage = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/${username}/stages/${stageId}`, {
+            console.log('in fetchStage');
+            const res = await fetch(`http://localhost:3333/${username}/stages/display/${stageId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -41,14 +42,14 @@ export function StageDisplay({ username, projectId, stageId }) {
     const fetchProjectProducts = async () => {
         try {
             //גם פה פונים לטבלת קשר בין פרוייקטים ומוצרים
-            const res = await fetch(`http://localhost:3333/${username}/stages/${stageId}`, {
+            const res = await fetch(`http://localhost:3333/${username}/${stageId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });
-            
+
             if (!res.ok) throw new Error("Failed to fetch stage");
             const data = await res.json();
             setProjectProducts(data);
@@ -58,8 +59,11 @@ export function StageDisplay({ username, projectId, stageId }) {
     }
 
     const choosePresentation = () => {
+        console.log('in choosePresentation');
+        console.log(stage.stage_number);
         switch (stage.stage_number) {
-            case 1:
+            case 1:             
+
                 return (
                     <>
                         <GoogleDocViewer
@@ -77,7 +81,7 @@ export function StageDisplay({ username, projectId, stageId }) {
             case 3:
                 return (
                     <>
-                    fghfhh
+                        fghfhh
                         <Modal onClose={fetchProjectProducts}>
                             <Products />
                         </Modal>
@@ -113,7 +117,8 @@ export function StageDisplay({ username, projectId, stageId }) {
 
     return (
         <>
-        {choosePresentation()}
+            {stage ? choosePresentation() : <div>טוען נתוני שלב...</div>}
         </>
     );
+
 }

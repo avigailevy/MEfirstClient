@@ -21,6 +21,8 @@ export function Stages({ projectId, username, onStageSelect }) {
             if (!res.ok) throw new Error("Failed to fetch project stages");
             const data = await res.json();
             setProjectStages(data);
+            console.log(data);
+            
         } catch (error) {
             console.error("Error fetching project stages:", error);
         }
