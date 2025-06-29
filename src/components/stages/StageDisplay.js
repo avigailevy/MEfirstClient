@@ -42,7 +42,7 @@ export function StageDisplay({ username, projectId, stageId }) {
     const fetchProjectProducts = async () => {
         try {
             //גם פה פונים לטבלת קשר בין פרוייקטים ומוצרים
-            const res = await fetch(`http://localhost:3333/${username}/stages/${stageId}`, {
+            const res = await fetch(`http://localhost:3333/${username}/stages/display/${stageId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -59,9 +59,10 @@ export function StageDisplay({ username, projectId, stageId }) {
     }
 
     const choosePresentation = () => {
+        console.log('in choosePresentation');
+        console.log(stage.stage_number);
         switch (stage.stage_number) {
-            case 1:
-                console.log('stage 1');
+            case 1:             
 
                 return (
                     <>

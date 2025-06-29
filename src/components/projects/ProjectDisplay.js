@@ -49,7 +49,6 @@ export function ProjectDisplay() {
           projectId={projectId}
           username={username}
           onStageSelect={setSelectedStageId}
-
         />
       ) : (
         <>
