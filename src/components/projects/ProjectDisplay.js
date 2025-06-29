@@ -44,7 +44,7 @@ if (!project || !project.project_id) return <p>Loading project...</p>;
       <Stages projectId={project.id} />
       <input type='button'>Summaries</input>
       <input type='button'>Documents</input>
-      <TextBox projectId={project.id} />
+      <TextBox projectId={project.id} username={username}/>
     </>
   );
 }

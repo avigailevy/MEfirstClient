@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { StageChecklist } from './StageChecklist'
+import { GoogleDocViewer } from '../documents/GoogleDocViewer'
 import { Modal } from "../Modal";
 import { Products } from "../products/Products";
 import { Product } from "../products/Product";
@@ -53,18 +53,16 @@ export function StageDisplay() {
         }
     }
 
-   
+
 
     const choosePresentation = () => {
         switch (stage.stage_number) {
             case 1:
-                //אמור להיות קבלת קובץ מקורי של RFQ
                 return (
-                    <UploadFile projectId={projectId} docType={'RFQ'} token={token}/>
+                    <UploadFile projectId={projectId} docType={'RFQ'} token={token} />
                 );
             case 2:
-                return (<StageChecklist StageId={stage.stage_id} />);
-            // return (<GoogleDocViewer StageId={stage.stage_id} />);
+                return (<GoogleDocViewer StageId={stage.stage_id} />);
             case 3:
                 return (
                     <>
@@ -94,6 +92,8 @@ export function StageDisplay() {
                         />
                     </>
                 );
+            case 5:
+            case 6:
             default:
                 break;
         }
