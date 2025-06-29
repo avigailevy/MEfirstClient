@@ -12,13 +12,31 @@ export function StageDisplay({ username, projectId, stageId }) {
     const [stage, setStage] = useState();
     const [projectProducts, setProjectProducts] = useState();
     const token = localStorage.getItem('token');
-    const { user } = useAuth();
+    const [userId, setUserId] = useState();
 
     useEffect(() => {
         if (username && stageId) {
             fetchStage();
         }
     }, [username, stageId]);
+
+    const fetchUser = async () => {
+        try {
+            console.log('in fetchUser');
+            const res = await fetch(`http://localhost:3333/${username}/users/userId/${username}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (!res.ok) throw new Error("Failed to fetch username");
+            const data = await res.json();
+            setUserId(data);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        }
+    }
 
 
     const fetchStage = async () => {
@@ -60,28 +78,33 @@ export function StageDisplay({ username, projectId, stageId }) {
 
     const choosePresentation = () => {
         console.log('in choosePresentation');
-        console.log('stage number:'+ stage.stage_number);
+        console.log('stage number:' + stage.stage_number);
         switch (stage.stage_number) {
-            case 1:             
-
+            case 1:
                 return (
-                    <>
-                        <GoogleDocViewer
-                            projectId={projectId}
-                            docType={'RFQ'}
-                            stageId={stageId}
-                            token={token}
-                            username={username}
-                            user_id={ user.user_id}
-                        />
-                    </>
+                    <GoogleDocViewer
+                        projectId={projectId}
+                        docType={'9CheckList'}
+                        stageId={stageId}
+                        token={token}
+                        username={username}
+                        user_id={userId}
+                    />
                 );
             case 2:
-                return (<GoogleDocViewer StageId={stage.stage_id} />);
+                return (
+                    <GoogleDocViewer
+                        projectId={projectId}
+                        docType={'9CheckList'}
+                        stageId={stageId}
+                        token={token}
+                        username={username}
+                        user_id={userId}
+                    />
+                );
             case 3:
                 return (
                     <>
-                        fghfhh
                         <Modal onClose={fetchProjectProducts}>
                             <Products />
                         </Modal>

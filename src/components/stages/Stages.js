@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Stage } from './Stage';
+import '../../css/Stages.css';
 
 export function Stages({ projectId, username, onStageSelect }) {
 
@@ -35,7 +36,7 @@ export function Stages({ projectId, username, onStageSelect }) {
                     key={stage.stage_id}
                     onClick={() => onStageSelect(stage.stage_id)} // קריאה לפונקציה שמגיעה מהאב
                     style={{ cursor: 'pointer' }}
-
+                    className='stages-container'
                 >
                     <Stage
                         stageNum={stage.stage_number}
