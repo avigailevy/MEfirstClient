@@ -24,7 +24,7 @@ export function StageDisplay({ username, projectId, stageId }) {
     const fetchStage = async () => {
         try {
             console.log('in fetchStage');
-            const res = await fetch(`http://localhost:3333/${username}/stages/${stageId}`, {
+            const res = await fetch(`http://localhost:3333/${username}/stages/display/${stageId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export function StageDisplay({ username, projectId, stageId }) {
     const fetchProjectProducts = async () => {
         try {
             //גם פה פונים לטבלת קשר בין פרוייקטים ומוצרים
-            const res = await fetch(`http://localhost:3333/${username}/stages/display/${stageId}`, {
+            const res = await fetch(`http://localhost:3333/${username}/${stageId}`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,
