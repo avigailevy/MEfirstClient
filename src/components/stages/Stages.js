@@ -5,7 +5,7 @@ import { Stage } from './Stage'
 export function Stages({ projectId }) {
 
     const { username } = useParams();
-    const [projectStages, setProjectStages] = useState();
+    const [projectStages, setProjectStages] = useState([]);
 
     useEffect(() => {
         fetchProjectStages();
@@ -30,8 +30,8 @@ export function Stages({ projectId }) {
 
     return (
         <>
-            <NavigationBar />
-            {projectStages.map((stage) => (
+          
+            {/* {projectStages.map((stage) => (
                 <div onClick={() => Navigate(``)} key={stage.stage_id}>
                     <Stage
                         stageNum={stage.stage_number}
@@ -39,7 +39,7 @@ export function Stages({ projectId }) {
                         stageName={stage.stage_name}
                     />
                 </div>
-            ))}
+            ))} */}
         </>
     );
 }

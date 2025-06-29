@@ -19,7 +19,7 @@ export function ProjectDisplay() {
 
   const fetchProject = async () => {
     try {
-      const response = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
+      const response = await fetch(`http://localhost:3333/${username}/projects/single/${projectId}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -40,10 +40,10 @@ if (!project || !project.project_id) return <p>Loading project...</p>;
   return (
     <>project display
      <StageDisplay/>
-      <Header title={project} />
-      <Stages projectId={project.id} />
-      <input type='button'>Summaries</input>
-      <input type='button'>Documents</input>
+      <Header title={project.project_name} />
+      <Stages projectId={project.project_id} />
+      <input type='button'></input>
+      <input type='button'></input>
       <TextBox projectId={project.id} username={username}/>
     </>
   );
