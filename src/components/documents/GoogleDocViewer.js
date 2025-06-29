@@ -5,7 +5,6 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, username, 
 
     const [docUrl, setDocUrl] = useState(null);
     const [newDocUrl, setNewDocUrl] = useState(null);
-    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
         fetchDocUrl();
@@ -42,7 +41,7 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, username, 
             )}
             <input type='button' value={`Edit document`} onClick={handleEdit} />
 
-            {edit && <iframe
+            {newDocUrl && <iframe
                 src={newDocUrl}
                 width="100%"
                 height="600px"

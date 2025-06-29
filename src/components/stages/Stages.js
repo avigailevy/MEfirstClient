@@ -1,10 +1,8 @@
-import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Stage } from './Stage';
-import { useNavigate } from 'react-router-dom';
 
 export function Stages({ projectId, username, onStageSelect }) {
-    const navigate = useNavigate();
+
     const [projectStages, setProjectStages] = useState([]);
 
     useEffect(() => {
@@ -33,8 +31,8 @@ export function Stages({ projectId, username, onStageSelect }) {
             {projectStages.map((stage) => (
                 <div
                     key={stage.stage_id}
-                              onClick={() => onStageSelect(stage.stage_id)} // קריאה לפונקציה שמגיעה מהאב
-          style={{ cursor: 'pointer' }}
+                    onClick={() => onStageSelect(stage.stage_id)} // קריאה לפונקציה שמגיעה מהאב
+                    style={{ cursor: 'pointer' }}
 
                 >
                     <Stage

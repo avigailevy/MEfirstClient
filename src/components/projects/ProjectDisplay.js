@@ -62,7 +62,7 @@ export function ProjectDisplay() {
         </>
       )}
 
-      <input type='button' />
+      <button > Show documents</button>
       <SummTextBox projectId={project.project_id} username={username} />
     </>
   );
