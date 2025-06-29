@@ -13,7 +13,7 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, username, 
 
     const fetchDocUrl = async () => {
         try {
-            const res = await fetch(`http://localhost:3333/documents/${StageId}`);
+            const res = await fetch(`http://localhost:3333/documents/${stageId}`);
             if (!res.ok) throw new Error('Doc not found');
             const data = await res.json();
             setDocUrl(data);

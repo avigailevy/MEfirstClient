@@ -25,7 +25,11 @@
 
 .projects-list {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
+  max-height: 70vh;         
+  overflow-y: auto;        
+  padding-right: 0.5rem;   
 }
 
 .project-card-wrapper {
@@ -114,3 +118,4 @@
 .value {
   color: #2c3e50;
 }
+

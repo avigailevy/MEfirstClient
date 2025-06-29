@@ -1,4 +1,5 @@
 import { PencilLine, Trash2 } from 'lucide-react';
+import '../../css/Projects.css';
 
 export function Project({ project, onEdit, onDelete }) {
     return (
