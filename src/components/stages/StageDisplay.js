@@ -15,12 +15,15 @@ export function StageDisplay({ username, projectId, stageId }) {
     const { user } = useAuth();
 
     useEffect(() => {
-        fetchStage();
-        if (stage > 0) choosePresentation();
-    }, [stage])
+        if (username && stageId) {
+            fetchStage();
+        }
+    }, [username, stageId]);
+
 
     const fetchStage = async () => {
         try {
+            console.log('in fetchStage');
             const res = await fetch(`http://localhost:3333/${username}/stages/${stageId}`, {
                 method: 'GET',
                 headers: {
@@ -46,7 +49,7 @@ export function StageDisplay({ username, projectId, stageId }) {
                     'Content-Type': 'application/json'
                 }
             });
-            
+
             if (!res.ok) throw new Error("Failed to fetch stage");
             const data = await res.json();
             setProjectProducts(data);
@@ -58,6 +61,8 @@ export function StageDisplay({ username, projectId, stageId }) {
     const choosePresentation = () => {
         switch (stage.stage_number) {
             case 1:
+                console.log('stage 1');
+
                 return (
                     <>
                         <GoogleDocViewer
@@ -75,7 +80,7 @@ export function StageDisplay({ username, projectId, stageId }) {
             case 3:
                 return (
                     <>
-                    fghfhh
+                        fghfhh
                         <Modal onClose={fetchProjectProducts}>
                             <Products />
                         </Modal>
@@ -111,7 +116,8 @@ export function StageDisplay({ username, projectId, stageId }) {
 
     return (
         <>
-        {choosePresentation()}
+            {stage ? choosePresentation() : <div>טוען נתוני שלב...</div>}
         </>
     );
+
 }
