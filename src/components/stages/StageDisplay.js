@@ -9,7 +9,7 @@ import { AddDocument } from "../documents/AddDocument";
 import { CopyDocToFolder } from '../documents/CopyDocToFolder';
 
 export function StageDisplay() {
-    const { username, stageId, projectId } = useParams();
+   const { username, projectId, stageId } = useParams();
     const [stage, setStage] = useState();
     const [projectProducts, setProjectProducts] = useState();
     const token = localStorage.getItem('token');
