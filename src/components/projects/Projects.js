@@ -32,7 +32,7 @@ export function Projects() {
     } else {
       fetchProjects();
     }
-  }, [username, agentName]);
+  }, [username,projectStatus, agentName]);
 
   const fetchAagentProjects = async () => {
     try {

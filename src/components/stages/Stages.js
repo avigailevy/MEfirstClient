@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react';
 import { Stage } from './Stage';
 import { useNavigate } from 'react-router-dom';
 
-export function Stages() {
+export function Stages({ projectId, username, onStageSelect }) {
     const navigate = useNavigate();
-const { username, projectId } = useParams();
     const [projectStages, setProjectStages] = useState([]);
 
     useEffect(() => {
@@ -34,8 +33,9 @@ const { username, projectId } = useParams();
             {projectStages.map((stage) => (
                 <div
                     key={stage.stage_id}
-                    onClick={() => navigate(`/projects/projectDisplay/${projectId}/stageDisplay/${stage.stage_id}`)}
-                    style={{ cursor: 'pointer' }}
+                              onClick={() => onStageSelect(stage.stage_id)} // קריאה לפונקציה שמגיעה מהאב
+          style={{ cursor: 'pointer' }}
+
                 >
                     <Stage
                         stageNum={stage.stage_number}

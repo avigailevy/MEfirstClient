@@ -1,20 +1,20 @@
 import { useParams } from 'react-router-dom';
-import { StageDisplay } from '../stages/StageDisplay'
-import { Stages } from '../stages/Stages'
+import { StageDisplay } from '../stages/StageDisplay';
+import { Stages } from '../stages/Stages';
 import { useEffect, useState } from 'react';
-import { Header } from '../homePage/Header'
+import { Header } from '../homePage/Header';
 import { SummTextBox } from '../summaries/SummTextBox';
-
 
 export function ProjectDisplay() {
   const { username, projectId } = useParams();
-  const [project, setProject] = useState("");
+  const [project, setProject] = useState(null);
+  const [selectedStageId, setSelectedStageId] = useState(null);
 
   useEffect(() => {
     fetchProject();
     console.log("🧩 ProjectDisplay mounted!");
     return () => {
-      console.log("🧩 Pr ojectDisplay unmounted!");
+      console.log("🧩 ProjectDisplay unmounted!");
     };
   }, []);
 
@@ -36,15 +36,34 @@ export function ProjectDisplay() {
       console.error("Error fetching project:", error);
     }
   };
-if (!project) return <p>Loading project...</p>;
+
+  if (!project) return <p>Loading project...</p>;
 
   return (
-    <>project display
+    <>
+      project display
       <Header title={project.project_name} />
-      <Stages  />
-      <input type='button'></input>
-      <input type='button'></input>
-      <SummTextBox projectId={project.id} username={username}/>
+
+      {selectedStageId === null ? (
+        <Stages
+          projectId={projectId}
+          username={username}
+          onStageSelect={setSelectedStageId}
+
+        />
+      ) : (
+        <>
+          <button onClick={() => setSelectedStageId(null)}>חזור לרשימת השלבים</button>
+          <StageDisplay
+            username={username}
+            projectId={projectId}
+            stageId={selectedStageId}
+          />
+        </>
+      )}
+
+      <input type='button' />
+      <SummTextBox projectId={project.project_id} username={username} />
     </>
   );
 }
