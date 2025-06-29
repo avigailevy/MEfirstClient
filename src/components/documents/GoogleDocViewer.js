@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 
-export function GoogleDocViewer({ StageId , documentType}) {
+export function GoogleDocViewer({ StageId }) {
 
     const [docUrl, setDocUrl] = useState(null);
 
     useEffect(() => {
-       
-            fetchDocUrl();
-        
+        fetchDocUrl();
     }, []);
 
     const fetchDocUrl = async () => {
@@ -28,7 +26,7 @@ export function GoogleDocViewer({ StageId , documentType}) {
                     src={docUrl}
                     width="100%"
                     height="600px"
-                    allow="clipboard-write"
+                    allow="autoplay"
                     title="Google Doc"
                 />
             ) : (

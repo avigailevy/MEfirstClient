@@ -7,12 +7,14 @@ import { Product } from "../products/Product";
 import { UploadFile } from '../documents/UploadFile'
 import { AddDocument } from "../documents/AddDocument";
 import { CopyDocToFolder } from '../documents/CopyDocToFolder';
+import { useAuth} from '../../context/AuthContext'
 
 export function StageDisplay() {
     const { username, stageId, projectId } = useParams();
     const [stage, setStage] = useState();
     const [projectProducts, setProjectProducts] = useState();
     const token = localStorage.getItem('token');
+    const { user } = useAuth();
 
     useEffect(() => {
         fetchStage();
@@ -57,7 +59,7 @@ export function StageDisplay() {
     const choosePresentation = () => {
         switch (stage.stage_number) {
             case 1:
-                { CopyDocToFolder(projectId, 'RFQ', token, username) }
+                { CopyDocToFolder(projectId, 'RFQ', stageId, token, username, user.user_id) }
                 return (
                     <>
                         <GoogleDocViewer projectId={projectId} docType={'RFQ'} token={token} />
