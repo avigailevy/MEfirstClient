@@ -1,10 +1,11 @@
-import { Navigate, useParams } from 'react-router-dom'
-import { NavigationBar } from '../homePage/NavigationBar'
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Stage } from './Stage'
-export function Stages({ projectId }) {
+import { Stage } from './Stage';
+import { useNavigate } from 'react-router-dom';
 
-    const { username } = useParams();
+export function Stages() {
+    const navigate = useNavigate();
+const { username, projectId } = useParams();
     const [projectStages, setProjectStages] = useState([]);
 
     useEffect(() => {
@@ -19,27 +20,30 @@ export function Stages({ projectId }) {
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
                     'Content-Type': 'application/json'
                 }
-            })
+            });
             if (!res.ok) throw new Error("Failed to fetch project stages");
             const data = await res.json();
             setProjectStages(data);
         } catch (error) {
-
+            console.error("Error fetching project stages:", error);
         }
-    }
+    };
 
     return (
         <>
-
             {projectStages.map((stage) => (
-                <div onClick={() => Navigate(`projectDisplay/${projectId}/stageDisplay/${stage.stage_id}`)} >
+                <div
+                    key={stage.stage_id}
+                    onClick={() => navigate(`/projects/projectDisplay/${projectId}/stageDisplay/${stage.stage_id}`)}
+                    style={{ cursor: 'pointer' }}
+                >
                     <Stage
                         stageNum={stage.stage_number}
                         stageStat={stage.completed}
                         stageName={stage.stage_name}
                     />
                 </div>
-            ))} 
+            ))}
         </>
     );
 }

@@ -8,7 +8,7 @@ import { SummTextBox } from '../summaries/SummTextBox';
 
 export function ProjectDisplay() {
   const { username, projectId } = useParams();
-  const [project, setProject] = useState("כככככ");
+  const [project, setProject] = useState("");
 
   useEffect(() => {
     fetchProject();
@@ -40,9 +40,8 @@ if (!project) return <p>Loading project...</p>;
 
   return (
     <>project display
-     <StageDisplay/>
       <Header title={project.project_name} />
-      <Stages projectId={project.project_id} />
+      <Stages  />
       <input type='button'></input>
       <input type='button'></input>
       <SummTextBox projectId={project.id} username={username}/>
