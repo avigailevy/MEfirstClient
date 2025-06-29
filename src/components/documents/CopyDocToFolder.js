@@ -1,3 +1,5 @@
+import { data } from "react-router-dom";
+
 export const CopyDocToFolder = async ({ projectName, docType, stageId, token, username, userId }) => {
     try {
         const res = await fetch(`http://localhost:3333/${username}/documents/copy`, {
@@ -10,9 +12,11 @@ export const CopyDocToFolder = async ({ projectName, docType, stageId, token, us
         });
 
         const data = await res.json();
-        if (res.ok) {
+        
+        if (res.ok) {            
             console.log('Copy successful:', data);
             alert(`הקובץ שוכפל בשם ${data.name}`);
+            return data;
         } else {
             console.error('Copy failed:', data);
             alert('שגיאה בשכפול הקובץ');
@@ -21,5 +25,6 @@ export const CopyDocToFolder = async ({ projectName, docType, stageId, token, us
         console.error('שגיאה ב-fetch:', err);
         alert('שגיאה ברשת');
     }
+    
 }
 
