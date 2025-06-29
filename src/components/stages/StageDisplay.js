@@ -74,6 +74,7 @@ export function StageDisplay({ username, projectId, stageId }) {
             case 3:
                 return (
                     <>
+                    fghfhh
                         <Modal onClose={fetchProjectProducts}>
                             <Products />
                         </Modal>
