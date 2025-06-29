@@ -35,7 +35,7 @@ export function ProjectDisplay() {
       console.error("Error fetching project:", error);
     }
   };
-if (!project || !project.project_id) return <p>Loading project...</p>;
+if (!project) return <p>Loading project...</p>;
 
   return (
     <>project display

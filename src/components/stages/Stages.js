@@ -30,16 +30,16 @@ export function Stages({ projectId }) {
 
     return (
         <>
-          
-            {/* {projectStages.map((stage) => (
-                <div onClick={() => Navigate(``)} key={stage.stage_id}>
+
+            {projectStages.map((stage) => (
+                <div onClick={() => Navigate(`projectDisplay/${projectId}/stageDisplay/${stage.stage_id}`)} >
                     <Stage
                         stageNum={stage.stage_number}
                         stageStat={stage.completed}
                         stageName={stage.stage_name}
                     />
                 </div>
-            ))} */}
+            ))} 
         </>
     );
 }
