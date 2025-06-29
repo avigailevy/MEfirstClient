@@ -46,6 +46,7 @@ export function StageDisplay({ username, projectId, stageId }) {
                     'Content-Type': 'application/json'
                 }
             });
+            
             if (!res.ok) throw new Error("Failed to fetch stage");
             const data = await res.json();
             setProjectProducts(data);
@@ -109,6 +110,7 @@ export function StageDisplay({ username, projectId, stageId }) {
 
     return (
         <>
+        {choosePresentation()}
         </>
     );
 }
