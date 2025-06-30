@@ -12,6 +12,7 @@ import { Login } from "./components/loginAddUser/Login";
 import { ProjectDisplay } from "./components/projects/ProjectDisplay";
 import { StageDisplay } from "./components/stages/StageDisplay";
 import { NavigationBar } from './components/homePage/NavigationBar';
+import { Header } from './components/homePage/Header';
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -23,12 +24,11 @@ function App() {
           <Link to="/login" className="navbar-link">Login</Link>
         </div>
       )}
+      <Header />
 
       <Routes>
         <Route path='login' element={<Login />} />
-        <Route
-          path="/"
-        />
+        <Route path="/"/>
         {/* <Route path="/:username/projects/:projectStatus/:projectId" element={<ProjectDisplay />} /> */}
         <Route className="nav-bar" path="/:username" element={<NavigationBar />}>
           <Route path="home" element={<HomePage />} />
@@ -40,7 +40,7 @@ function App() {
           </Route>
           <Route path="contacts" >
             <Route path="customers" element={<Customers />} />
-            <Route path="Suppliers" element={<Suppliers />} />
+            <Route path="suppliers" element={<Suppliers />} />
           </Route>
           <Route path="todos" element={<Todos />} />
           <Route path="users" >

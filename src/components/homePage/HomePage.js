@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Project } from "../projects/Project";
-import { Header } from "./Header";
 import { Modal } from "../Modal";
 import { AddOrEditProject } from "../projects/AddOrEditProject";
 import { Eye } from "lucide-react";
@@ -86,7 +85,6 @@ export function HomePage() {
 
   return (
     <div className="projects-page">
-      <Header title="Home Page" />
         {showForm && (
         <Modal onClose={closeForm}>
           <AddOrEditProject project={editingProject} onSuccess={handleUpdated} />

@@ -96,14 +96,14 @@ export function Products({ fromProject }) {
 
         <div className="products-grid">
           {products.map(product => (
-            <div>
+            <div key={product.product_id}> 
               {fromProject && (<input
                 type="checkbox"
                 // checked={todo.completed}
                 onChange={toggleChoosed}
               />)}
               <Product
-                key={product.product_id}
+                
                 product={product}
                 onUpdated={handleUpdated}
                 onEdit={() => openEditForm(product)}
