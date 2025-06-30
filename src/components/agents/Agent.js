@@ -1,4 +1,4 @@
-import { EditAgentForm } from "./EditAgentForm";
+import { AddOrEditAgentForm } from "./AddOrEditAgentForm";
 import { useState } from 'react';
 import '../../css/ContactOrUser.css';
 import { UserPen } from 'lucide-react';
@@ -51,7 +51,7 @@ export function Agent({ agent }) {
             <div className="component-1">
                 <UserPen onClick={() => setIsEditing(true)} />
                 {isEditing && (
-                    <EditAgentForm
+                    <AddOrEditAgentForm
                         agent={agent}
                         onUpdate={updateAgent}
                         onClose={() => setIsEditing(false)}
