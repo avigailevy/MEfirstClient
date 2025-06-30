@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"; 
+import '../../css/AddOrEditProductForm.css'
 
 export function AddOrEditProductForm({ onSuccess, product = null }) {
       const { username } = useParams();

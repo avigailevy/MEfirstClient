@@ -52,6 +52,7 @@ html, body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: white;
 }
 
 /* כותרת עליונה */
@@ -69,6 +70,7 @@ header {
   flex-direction: row;
   width: 100%;
   overflow: hidden;
+  background-color: white;
 }
 
 /* תוכן מרכזי */
