@@ -19,37 +19,43 @@ function App() {
 
   return (
     < div className='app-layout'>
+
       {!isLoggedIn && (
         <div className="login-register-links">
           <Link to="/login" className="navbar-link">Login</Link>
         </div>
       )}
-      <Header />
 
-      <Routes>
-        <Route path='login' element={<Login />} />
-        <Route path="/"/>
-        {/* <Route path="/:username/projects/:projectStatus/:projectId" element={<ProjectDisplay />} /> */}
-        <Route className="nav-bar" path="/:username" element={<NavigationBar />}>
-          <Route path="home" element={<HomePage />} />
-          <Route path="products" element={<Products />} />
-          <Route path="projects"  >
-            <Route path=":projectStatus" element={<Projects />} />
-            <Route path="projectDisplay/:projectId" element={<ProjectDisplay />} />
-            <Route path="projectDisplay/:projectId/stageDisplay/:stageId" element={<StageDisplay />} />
-          </Route>
-          <Route path="contacts" >
-            <Route path="customers" element={<Customers />} />
-            <Route path="suppliers" element={<Suppliers />} />
-          </Route>
-          <Route path="todos" element={<Todos />} />
-          <Route path="users" >
-            <Route path="agents" element={<Agents />} >
-              <Route path=":agentName/projects" element={<Projects />} />
+      <Header />
+      <div className="main-layout">
+        <NavigationBar />
+        <main className="main-content">
+          <Routes>
+            <Route path='login' element={<Login />} />
+            <Route path="/" />
+            {/* <Route path="/:username/projects/:projectStatus/:projectId" element={<ProjectDisplay />} /> */}
+            <Route className="nav-bar" path="/:username" >
+              <Route path="home" element={<HomePage />} />
+              <Route path="products" element={<Products />} />
+              <Route path="projects"  >
+                <Route path=":projectStatus" element={<Projects />} />
+                <Route path="projectDisplay/:projectId" element={<ProjectDisplay />} />
+                <Route path="projectDisplay/:projectId/stageDisplay/:stageId" element={<StageDisplay />} />
+              </Route>
+              <Route path="contacts" >
+                <Route path="customers" element={<Customers />} />
+                <Route path="suppliers" element={<Suppliers />} />
+              </Route>
+              <Route path="todos" element={<Todos />} />
+              <Route path="users" >
+                <Route path="agents" element={<Agents />} >
+                  <Route path=":agentName/projects" element={<Projects />} />
+                </Route>
+              </Route>
             </Route>
-          </Route>
-        </Route>
-      </Routes >
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 }

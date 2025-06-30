@@ -1,13 +1,12 @@
 /* בסיס כללי */
 .header-container {
-  background-color: yellow !important;
-  height: 100px !important;
-  z-index: 9999 !important;
-  position: relative !important;
-  display: block !important;
-  border: 2px solid red;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 /* שורה ראשית */
 .frame-72 {

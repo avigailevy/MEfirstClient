@@ -1,70 +1,92 @@
-
-.navbar {
-  position: fixed;
+/* ===== Header ===== */
+.header-container {
+  position: sticky;
   top: 0;
-  left: 0; /* להיצמד שמאלה */
-  z-index: 1000;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  left: 0;
+  width: 100vw;
+  height: 60px;
+  background-color: #b91c1c;
+  color: white;
   display: flex;
-  height: 100%;
-  width: 100%;
+  align-items: center;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
 }
 
+/* ===== App Layout Grid ===== */
+.app-layout {
+  display: grid;
+  grid-template-rows: 60px 1fr; /* Header + תוכן */
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== תוכן השורה השנייה ===== */
+.main-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr; /* סיידבר + תוכן */
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ===== Sidebar ===== */
 .sidebar {
   background-color: #d1e7fb;
-  transition: width 0.3s ease;
-  overflow: hidden;
+  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 40px 20px;
-}
-
-.sidebar.open {
+  gap: 1rem;
+  overflow-y: auto;
+  height: 100%;
+  box-shadow: inset -1px 0 0 #ccc;
+  transition: width 0.3s ease;
   width: 260px;
 }
 
+/* מצב סגור לסיידבר */
 .sidebar.closed {
-  width: 50px;        
+  width: 60px;
   align-items: center;
-  padding: 40px 10px;   
+  padding: 1.5rem 0.5rem;
 }
-
 
 .menu-toggle {
   cursor: pointer;
-  margin-bottom: 40px;
+  margin-bottom: 1.5rem;
+  align-self: flex-end;
 }
 
 .menu-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 24px;
   color: #000;
   text-decoration: none;
   font-family: "PloniMlV2Aaa-Medium", sans-serif;
   font-size: 16px;
-  transition: background-color 0.2s;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
 }
 
 .menu-item:hover {
   background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 8px;
 }
 
 .menu-text {
-  display: inline-block;
+  white-space: nowrap;
 }
 
+/* אם הסיידבר סגור - מסתיר טקסט */
 .sidebar.closed .menu-text {
   display: none;
 }
 
-
-
-/* אם הסיידבר סגור, תגדיר מחלקה ל-navbar או body שמציינת מצב סגור */
-.navbar.closed + .content {
-  margin-left: 50px; /* פחות רוחב כשהסיידבר סגור */
+/* ===== תוכן ראשי ===== */
+.main-content {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  overflow-y: auto;
+  height: 100%;
 }

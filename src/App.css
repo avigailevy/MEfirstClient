@@ -37,4 +37,32 @@
     transform: rotate(360deg);
   }
 }
+/* פריסת הגריד הראשית */
+.app-layout {
+  display: grid;
+  grid-template-rows: auto 1fr; /* header גובה אוטומטי, תוכן תופס את השאר */
+  height: 100vh; /* תופס את כל המסך */
+}
+
+/* פריסת השורה השנייה (תפריט ותוכן) */
+.main-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr; /* תפריט ברוחב קבוע, תוכן תופס את השאר */
+  height: 100%;
+}
+
+/* תוכן מרכזי */
+.main-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+  background-color: #f9fafb;
+}
+
+/* תפריט ניווט */
+.navigation-bar {
+  background-color: #f1f5f9;
+  padding: 1rem;
+  border-right: 1px solid #e2e8f0;
+  overflow-y: auto;
+}
 
