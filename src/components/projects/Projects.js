@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "../Modal";
 import { AddOrEditProject } from "./AddOrEditProject";
 import { Project } from "./Project";
 import '../../css/Projects.css';
-import { useAuth } from "../../context/AuthContext";
-import { SortSomething, FilterSomething } from "../Actions";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { CirclePlus, Eye } from "lucide-react";
@@ -15,10 +12,6 @@ export function Projects() {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
-  const [sortCriterion, setSortCriterion] = useState('project_id');
-  const [searchCriterion, setSearchCriterion] = useState('project_name');
-  const [searchValue, setSearchValue] = useState('');
-  const { user, isLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const { username, agentName, projectStatus } = useParams();
@@ -111,19 +104,9 @@ export function Projects() {
     setEditingProject(null);
   };
 
-  const filtered = FilterSomething(searchCriterion, SortSomething(projects, sortCriterion), searchValue);
 
   return (
     <div className="projects-page">
-
-      <SearchAndFilter
-        sortCriterion={sortCriterion}
-        setSortCriterion={setSortCriterion}
-        searchCriterion={searchCriterion}
-        setSearchCriterion={setSearchCriterion}
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
-      />
 
       <CirclePlus className="btn-add" onClick={openAddForm} />
 
@@ -137,8 +120,8 @@ export function Projects() {
       )}
 
       <div className="projects-list">
-        {filtered.length > 0 ? (
-          filtered.map((project) => (
+        {projects.length > 0 ? (
+          projects.map((project) => (
             <div key={project.project_id} className="project-card-wrapper">
               <Project
                 project={project}
