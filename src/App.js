@@ -28,7 +28,7 @@ function App() {
       )}
 
       <Header />
-      <div className="main-layout">        
+      <div className="main-layout">
         <main className="main-content">
           <Routes>
             <Route path='login' element={<Login />} />
@@ -47,9 +47,8 @@ function App() {
               </Route>
               <Route path="todos" element={<Todos />} />
               <Route path="users" >
-                <Route path="agents" element={<Agents />} >
-                  <Route path=":agentName/projects" element={<Projects />} />
-                </Route>
+                <Route path="agents" element={<Agents />} />
+                <Route path=":agentName/projects" element={<Projects />} />
               </Route>
             </Route>
           </Routes>

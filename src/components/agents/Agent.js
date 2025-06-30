@@ -2,32 +2,13 @@ import { AddOrEditAgentForm } from "./AddOrEditAgentForm";
 import { useState } from 'react';
 import '../../css/ContactOrUser.css';
 import { UserPen } from 'lucide-react';
-import { Link, Outlet, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export function Agent({ agent }) {
 
     const [isEditing, setIsEditing] = useState(false);
     const { username } = useParams();
-
-    //לא בטוח שרוצים למחוק סוכן...
-    // const deleteAgent = async () => {
-    //     try {
-    //         const response = await fetch(`http://localhost:3333/${username}/users/delete/${agent.user_id}`, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 'authorization': `Bearer ${localStorage.getItem('token')}`,
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         }
-    //         );
-    //         if (!response.ok) {
-    //             throw new Error('Failed to delete agent');
-    //         }
-    //     }
-    //     catch (error) {
-    //         console.error("Error deleting agent:", error);
-    //     }
-    // }
+    const navigate = useNavigate();
 
     const updateAgent = async (updatedData) => {
         try {
@@ -73,9 +54,8 @@ export function Agent({ agent }) {
                         <div className="ivory">{agent.address}</div>
                     </div>
                 </div>
-                <div className="frame-5">
-                    <Link className="details" to={`/${username}/users/agents/${agent.username}/projects`}>Show projects</Link>
-                    <Outlet />
+                <div className="frame-5" onClick={()=>navigate(`/${username}/users/${agent.username}/projects`)}>
+                    Show projects
                 </div>
             </div>
         </>

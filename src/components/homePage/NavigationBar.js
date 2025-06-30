@@ -56,13 +56,6 @@ export function NavigationBar() {
           <span className="menu-text">Open Projects</span>
         </Link>
 
-        {user?.role === 'admin' && (
-          <Link to={`/${username}/transactions/completed`} className="menu-item" title='Completed Transactions'>
-            <CircleX />
-            <span className="menu-text">Completed Transactions</span>
-          </Link>
-        )}
-
         <Link to={`/${username}/products`} className="menu-item" title='Products'>
           <ShoppingCart />
           <span className="menu-text">Products</span>
