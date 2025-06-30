@@ -37,32 +37,96 @@
     transform: rotate(360deg);
   }
 }
-/* פריסת הגריד הראשית */
-.app-layout {
-  display: grid;
-  grid-template-rows: auto 1fr; /* header גובה אוטומטי, תוכן תופס את השאר */
-  height: 100vh; /* תופס את כל המסך */
+
+/* עיצוב כללי */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
 }
 
-/* פריסת השורה השנייה (תפריט ותוכן) */
+/* עוטף כללי */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* כותרת עליונה */
+header {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* פריסת גוף האפליקציה */
 .main-layout {
-  display: grid;
-  grid-template-columns: 250px 1fr; /* תפריט ברוחב קבוע, תוכן תופס את השאר */
-  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow: hidden;
 }
 
 /* תוכן מרכזי */
 .main-content {
-  padding: 1.5rem;
+  flex: 1;
+  padding: 2rem;
+  background-color: #ffffff;
   overflow-y: auto;
-  background-color: #f9fafb;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* תפריט ניווט */
-.navigation-bar {
-  background-color: #f1f5f9;
+/* סרגל ניווט פנימי אם יש */
+nav {
+  width: 250px;
+  background-color: #f0f2f5;
   padding: 1rem;
-  border-right: 1px solid #e2e8f0;
-  overflow-y: auto;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
+/* לינקים */
+.navbar-link {
+  display: inline-block;
+  margin: 0 1rem;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar-link:hover {
+  text-decoration: underline;
+}
+
+/* אזור לינקים של Login */
+.login-register-links {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* התאמה למסכים קטנים */
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+  }
+
+  nav {
+    width: 100%;
+    box-shadow: none;
+  }
+
+  .main-content {
+    padding: 1rem;
+  }
+
+  .login-register-links {
+    justify-content: center;
+  }
+}

@@ -189,3 +189,9 @@
   top: 4.12%;
   overflow: visible;
 }
+.agent-container{
+  width: 250px;
+}
+.agents-container{
+  display: flex;
+}

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { PlusCircle } from "lucide-react";
 import { Modal } from '../Modal';
 import { AddOrEditAgentForm } from "./AddOrEditAgentForm";
+import '../../css/ContactOrUser.css';
 
 export function Agents() {
   const [agents, setAgents] = useState([]);
@@ -92,7 +93,7 @@ export function Agents() {
       )}
 
       {agents.length > 0 ? (
-        <div>
+        <div className="agents-container">
           {agents.map((agent) => (
             <div className="agent-container" key={agent.user_id}>
               <Agent agent={agent} />
