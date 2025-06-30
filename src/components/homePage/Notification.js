@@ -33,9 +33,9 @@ export function Notification({ userRole }) {
   return (
     <div className="notification-container">
       <div className="notification-icon" onClick={() => setOpen(!open)}>
-        {notes.length > 1 ? <BellDot /> : <BellRing />}
+        {notes.length > 1 ? <BellDot size={40}/> : <BellRing size={40}/>}
         {userRole === 'admin' && (
-          <BellPlus
+          <BellPlus size={40}
             className="notification-add"
             onClick={(e) => {
               e.stopPropagation();
@@ -74,7 +74,7 @@ export function Notification({ userRole }) {
             <div className="notification-empty">No notifications</div>
           ) : (
             notes.map(note => (
-              
+
               <div
                 key={note.id}
                 className="notification-note"

@@ -126,8 +126,10 @@
 
 /* ה-content יקבל מרווח שמאל לפי מצב הסיידבר */
 .content {
-  margin-left: 10px; /* כשהסיידבר פתוח */
+  margin-left: 10px;
   padding: 20px;
-  transition: margin-left 0.3s ease;
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }

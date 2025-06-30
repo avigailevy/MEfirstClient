@@ -1,4 +1,4 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Notification } from './Notification'
 import { CircleUserRound, LogOut } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
@@ -9,16 +9,20 @@ import { jwtDecode } from 'jwt-decode';
 export const Header = () => {
 
     const token = localStorage.getItem('token');
-    let username = '';
+    let userRole = '';
 
     if (token) {
         try {
             const decoded = jwtDecode(token);
-            username = decoded.username || decoded.name || decoded.sub; // לפי איך שהשרת שלך יצר את הטוקן
+            console.log("Decoded token:", decoded);
+            userRole = decoded.role;
         } catch (error) {
             console.error("Invalid token", error);
         }
     }
+    console.log(userRole);
+
+
     const location = useLocation();
     const [title, setTitle] = useState('Home Page');
 
@@ -31,9 +35,9 @@ export const Header = () => {
     const setTitleOfHeder = () => {
         setTitle(
             location.pathname.includes('home') ? 'Home Page' :
-                location.pathname.includes('projects') ? 'Projects' :
-                    location.pathname.includes('products') ? 'Products' :
-                        location.pathname.includes('contacts') ? 'Contacts' :
+                location.pathname.includes('close') ? 'Closed Projects' :
+                    location.pathname.includes('open') ? 'Opened Projects' :
+                        location.pathname.includes('products') ? 'Products' :
                             location.pathname.includes('todos') ? 'Todos' :
                                 location.pathname.includes('suppliers') ? 'Suppliers' :
                                     location.pathname.includes('customers') ? 'Customers' :
@@ -49,17 +53,19 @@ export const Header = () => {
     return (
         <div className="header-container">
 
-            <div className="logo">LOGO</div>
-            <CircleUserRound size={48} />
-            <div className="frame-67">
-                <div className="username">{username}</div>
+
+            <div className="profilee">
+                <CircleUserRound className='profile' size={48} />
+                <div className="userRole">{userRole}</div>
             </div>
             <div className='title'>{title}</div>
-            <div className="logout-button">
-                <Link to={`/login`} onClick={deleteToken}><LogOut /></Link>
-                <Outlet />
+            <div className='endheader'>
+                <Notification userRole={'admin'} />
+                <div className="logout-button">
+                    <Link to={`/login`} onClick={deleteToken}><LogOut /></Link>
+                    <Outlet />
+                </div>
             </div>
-            <Notification userRole={'admin'} />
         </div>
     );
 }                    
