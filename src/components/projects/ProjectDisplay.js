@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { StageDisplay } from '../stages/StageDisplay';
 import { Stages } from '../stages/Stages';
 import { useEffect, useState } from 'react';
-import { Header } from '../homePage/Header';
 import { SummTextBox } from '../summaries/SummTextBox';
 
 export function ProjectDisplay() {
@@ -42,8 +41,6 @@ export function ProjectDisplay() {
   return (
     <>
       project display
-      <Header title={project.project_name} />
-
       {selectedStageId === null ? (
         <Stages
           projectId={projectId}

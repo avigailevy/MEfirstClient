@@ -17,16 +17,16 @@ export const CopyDocToFolder = async ({ projectId, docType, stageId, token, user
 
         if (res.ok) {
             console.log('Copy successful:', data);
-            alert(`הקובץ שוכפל בשם ${data.name}`);
+            console.log(`הקובץ שוכפל בשם ${data.name}`);            
             return data;
         } else {
             console.error('Copy failed:', data);
-            alert(`שגיאה בשכפול הקובץ: ${data.error || data.message || JSON.stringify(data)}`);
+            console.log(`שגיאה בשכפול הקובץ: ${data.error || data.message || JSON.stringify(data)}`);
             return null;
         }
     } catch (err) {
         console.error('שגיאה ב-fetch:', err);
-        alert('שגיאה ברשת');
+        console.log('שגיאה ברשת');
     }
 
 }

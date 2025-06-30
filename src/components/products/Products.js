@@ -3,7 +3,6 @@ import { Product } from "./Product";
 import { AddOrEditProductForm } from "./AddOrEditProductForm";
 import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "../Modal";
-import { Header } from '../homePage/Header';
 import '../../css/Product.css';
 import { useParams } from "react-router-dom";
 
@@ -83,7 +82,6 @@ export function Products({ fromProject }) {
     <div className="layout">
 
       <div className="main-content">
-        <Header />
         <SearchAndFilter />
         <button onClick={openAddForm}>+</button>
 
