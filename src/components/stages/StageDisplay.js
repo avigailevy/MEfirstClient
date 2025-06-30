@@ -17,10 +17,11 @@ export function StageDisplay({ username, projectId, stageId }) {
     useEffect(() => {
         if (username && stageId) {
             fetchStage();
+            fetchUserId();
         }
     }, [username, stageId]);
 
-    const fetchUser = async () => {
+    const fetchUserId = async () => {
         try {
             console.log('in fetchUser');
             const res = await fetch(`http://localhost:3333/${username}/users/userId/${username}`, {
@@ -32,7 +33,8 @@ export function StageDisplay({ username, projectId, stageId }) {
             });
             if (!res.ok) throw new Error("Failed to fetch username");
             const data = await res.json();
-            setUserId(data);
+            setUserId(data.user_id);
+            console.log('user_id from StageDisplay:', userId);
         } catch (error) {
             console.error("Error fetching projects:", error);
         }

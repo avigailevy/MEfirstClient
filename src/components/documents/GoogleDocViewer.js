@@ -220,7 +220,7 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, user_id })
                 projectId, docType, stageId, userId: user_id, username
             });
 
-            const newDoc = await CopyDocToFolder({ projectId, docType, stageId, token, user_id, username });
+            const newDoc = await CopyDocToFolder({ projectId, docType, stageId, token, userId: user_id, username });
             if (!newDoc || !newDoc.fileId) {
                 throw new Error('Failed to copy document');
             }
@@ -236,7 +236,7 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, user_id })
         // מצב עריכה - מציג iframe של המסמך החדש
         return (
             <div style={{ marginTop: '2rem' }}>
-                <p style={{ marginBottom: '1rem', color: '#2c4e91' }}>זוהי הגרסה שלך לעריכה:</p>
+                <p style={{ marginBottom: '1rem', color: '#2c4e91' }}>Edit version</p>
                 <iframe
                     src={newDocUrl}
                     width="100%"
@@ -264,7 +264,7 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, user_id })
                 margin: 'auto',
             }}
             onClick={handleEdit}
-            title="לחץ כדי ליצור גרסה לעריכה"
+            title="Click to edit the document"
         >
             {/* סמל מסמך */}
             <svg

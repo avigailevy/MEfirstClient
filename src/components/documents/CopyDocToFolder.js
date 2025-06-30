@@ -1,5 +1,8 @@
 
 export const CopyDocToFolder = async ({ projectId, docType, stageId, token, userId, username }) => {
+    console.log('Copy params CopyDocToFolder:', {
+                projectId, docType, stageId, userId, username
+            });
     try {
         const res = await fetch(`http://localhost:3333/${username}/documents/copy`, {
             method: 'POST',
