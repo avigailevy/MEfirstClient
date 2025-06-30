@@ -8,43 +8,41 @@ export function Suppliers() {
 
   useEffect(() => {
     fetchSuppliers();
-  }, []); 
-  
+  }, []);
+
 
   const fetchSuppliers = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    if (!token) throw new Error("No token found");
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error("No token found");
 
-    const response = await fetch("http://localhost:3333/:userName/contacts/suppliers", {
-      method: 'GET',
-      headers: {
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    });
+      const response = await fetch("http://localhost:3333/:userName/contacts/suppliers", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+      });
 
-    if (!response.ok) throw new Error("Failed to fetch Suppliers");
+      if (!response.ok) throw new Error("Failed to fetch Suppliers");
 
-    const data = await response.json();
-    setSuppliers(data);
-    console.log("Fetched Suppliers:", data);
+      const data = await response.json();
+      setSuppliers(data);
+      console.log("Fetched Suppliers:", data);
 
-  } catch (error) {
-    console.error("Error fetching Suppliers:", error);
-  }
-};
+    } catch (error) {
+      console.error("Error fetching Suppliers:", error);
+    }
+  };
 
 
   return (
-    <div>
-     
+    <div className="contacts-container" >
       {suppliers.length > 0 ? (
-        <div>
-                <CirclePlus />
-
+        <div className="contacts-container" >
+          <CirclePlus />
           {suppliers.map((supplier) => (
-            <div className="contact-container" key={supplier.user_id}>
+            <div key={supplier.user_id}>
               <Supplier supplier={supplier} />
             </div>
           ))}

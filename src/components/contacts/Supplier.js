@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { EditCusSuppForm } from '../EditCusSuppForm';
+import { Trash, Pencil } from 'lucide-react';
 
 export function Supplier({ supplier }) {
 
@@ -40,10 +41,8 @@ export function Supplier({ supplier }) {
     return (
         <>
             <div className="component-1">
-                {/* delete */}
-                <img className="trash-02" src="trash-02.svg" onClick={deleteSupplier} />
-                {/* edit */}
-                <img className="edit-02" src="edit-02.svg" onClick={() => setIsEditing(true)} />
+                <Trash onClick={deleteSupplier} />
+                <Pencil onClick={() => setIsEditing(true)} />
                 {isEditing && (
                     <EditCusSuppForm
                         supplier={supplier}
@@ -69,9 +68,6 @@ export function Supplier({ supplier }) {
                         <div className="ivory">{supplier.address}</div>
                     </div>
                 </div>
-                <img className="edit-02" src="edit-020.svg" />
-                <img className="trash-02" src="trash-020.svg" />
-                <img className="play-03" src="play-030.svg" />
             </div>
 
         </>
