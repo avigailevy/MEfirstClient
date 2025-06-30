@@ -1,12 +1,24 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { Notification } from './Notification'
-import { LogOut } from 'lucide-react';
+import { CircleUserRound, LogOut } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import '../../css/Header.css'
 import { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
 
 export const Header = () => {
 
+    const token = localStorage.getItem('token');
+    let username = '';
+
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            username = decoded.username || decoded.name || decoded.sub; // לפי איך שהשרת שלך יצר את הטוקן
+        } catch (error) {
+            console.error("Invalid token", error);
+        }
+    }
     const location = useLocation();
     const [title, setTitle] = useState('Home Page');
 
@@ -36,29 +48,13 @@ export const Header = () => {
 
     return (
         <div className="header-container">
-            <div className="frame-72">
-                <div className="frame-66">
-                    <div className="logo">LOGO</div>
-                </div>
-                <div className="frame-71">
-                    <div className="frame-70">
-                        <img className="notification" src="notification0.svg" />
-                        <div className="frame-69">
-                            <div className="group-4">
-                                <img className="ellipse-1" src="ellipse-10.png" />
-                            </div>
-                            <div className="frame-68">
-                                <div className="frame-67">
-                                    <div className="seving-aslanova">Seving Aslanova</div>
-                                    <div className="seving-aslanova2">Seving Aslanova</div>
-                                </div>
-                                <img className="vector" src="vector0.svg" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+            <div className="logo">LOGO</div>
+            <CircleUserRound size={48} />
+            <div className="frame-67">
+                <div className="username">{username}</div>
             </div>
-            <div>{title}</div>
+            <div className='title'>{title}</div>
             <div className="logout-button">
                 <Link to={`/login`} onClick={deleteToken}><LogOut /></Link>
                 <Outlet />
