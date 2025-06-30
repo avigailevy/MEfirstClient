@@ -1,3 +1,4 @@
+// Agents.jsx
 import { useEffect, useState } from "react";
 import { Agent } from "./Agent";
 import { useParams } from "react-router-dom";
@@ -6,83 +7,80 @@ import { Modal } from '../Modal';
 import { AddOrEditAgentForm } from "./AddOrEditAgentForm";
 
 export function Agents() {
-
   const [agents, setAgents] = useState([]);
-  const { username } = useParams();
   const [addAgent, setAddAgent] = useState(false);
+  const { username } = useParams();
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     fetchAgents();
-  }, []);
+  }, []); 
 
   const fetchAgents = async () => {
     try {
-      const response = await fetch(`http://localhost:3333/${username}/users/agents/all`,
-        {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'authorizeRoles': 'admin',
-            'Content-Type': 'application/json'
-          }
+      const response = await fetch(`http://localhost:3333/${username}/users/agents/all`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'authorizeRoles': 'admin',
+          'Content-Type': 'application/json'
         }
-      );
+      });
       if (!response.ok) throw new Error('Failed to fetch agents');
       const data = await response.json();
       setAgents(data);
-      console.log(agents);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
-  const handleAdd = async () => {
+  const handleAdd = async (newAgent) => {
     try {
-      const response = await fetch(`http://localhost:3333/${username}/users/agents/all`,
-        {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'authorizeRoles': 'admin',
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      if (!response.ok) throw new Error('Failed to fetch agents');
-      const data = await response.json();
-      setAgents(data);
-      console.log(agents);
+      const response = await fetch(`http://localhost:3333/${username}/users/agents/add`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'authorizeRoles': 'admin',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newAgent)
+      });
+      if (!response.ok) throw new Error('Failed to add agent');
+      await fetchAgents();
+      setAddAgent(false);
     } catch (error) {
       console.error(error);
     }
-  }
+  };
 
   return (
     <div>
-      <PlusCircle onClick={setAddAgent(true)} />
+      <PlusCircle 
+        className="text-green-600 w-10 h-10 fixed bottom-6 right-6 cursor-pointer hover:scale-110 transition-transform"
+        onClick={() => setAddAgent(true)} 
+      />
+
       {addAgent && (
         <Modal onClose={() => setAddAgent(false)}>
           <AddOrEditAgentForm
             mode="add"
             onSubmit={handleAdd}
+            onClose={() => setAddAgent(false)}
           />
         </Modal>
-      )
-      }
-      {
-        agents.length > 0 ? (
-          <div>
-            {agents.map((agent) => (
-              <div className="agent-container" key={agent.user_id}>
-                <Agent agent={agent} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p>No agents found.</p>
-        )
-      }
-    </div >
+      )}
+
+      {agents.length > 0 ? (
+        <div>
+          {agents.map((agent) => (
+            <div className="agent-container" key={agent.user_id}>
+              <Agent agent={agent} />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No agents found.</p>
+      )}
+    </div>
   );
 }

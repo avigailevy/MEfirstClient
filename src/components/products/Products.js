@@ -5,43 +5,46 @@ import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "../Modal";
 import '../../css/Product.css';
 import { useParams } from "react-router-dom";
+import { UserPen, Trash2 } from 'lucide-react';
 
-export function Products({ fromProject }) {
+export function Products() {
   const [products, setProducts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const { username } = useParams();
 
   const fetchProducts = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) throw new Error("No token found");
+    const token = localStorage.getItem("token");
+    const res = await fetch(`http://localhost:3333/${username}/products`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await res.json();
+    setProducts(data);
+  };
 
-      const response = await fetch("http://localhost:3333/:userName/products", {
-        method: 'GET',
+  const handleDelete = async (product) => {
+    try {
+      const response = await fetch(`http://localhost:3333/${username}/products/${product.product_id}`, {
+        method: "DELETE",
         headers: {
-          'Authorization': 'Bearer ' + token,
+          'Authorization': 'Bearer ' + localStorage.getItem('token'),
           'Content-Type': 'application/json'
         }
       });
-
-      if (!response.ok) throw new Error("Failed to fetch products");
-
-      const data = await response.json();
-      setProducts(data);
+      if (!response.ok) throw new Error("Delete failed");
+      fetchProducts();
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("שגיאה במחיקת מוצר:", error);
     }
   };
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [username]);
 
   const handleUpdated = () => {
     fetchProducts();
-    setShowForm(false);
-    setEditingProduct(null);
+    closeForm();
   };
 
   const openAddForm = () => {
@@ -55,62 +58,36 @@ export function Products({ fromProject }) {
   };
 
   const closeForm = () => {
-    setShowForm(false);
     setEditingProduct(null);
-  };
-
-  const toggleChoosed = async (product) => {
-    try {
-      //הפונקציה צריכה לגשת לטבלת קשר בין פרוייקט ומוצר
-      const res = await fetch(`http://localhost:3333/${username}/products/${product.product_id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        //
-        body: JSON.stringify(),
-      });
-      if (!res.ok) throw new Error("Failed to toggle complete");
-      // onUpdate();
-    } catch (err) {
-      console.error(err);
-    }
+    setShowForm(false);
   };
 
   return (
     <div className="layout">
+      <SearchAndFilter />
+      <button onClick={openAddForm}>+</button>
 
-      <div className="main-content">
-        <SearchAndFilter />
-        <button onClick={openAddForm}>+</button>
+      {showForm && (
+        <Modal onClose={closeForm}>
+          <AddOrEditProductForm
+            key={editingProduct?.product_id || 'new'}
+            product={editingProduct}
+            onSuccess={handleUpdated}
+          />
+        </Modal>
+      )}
 
-        {showForm && (
-          <Modal onClose={closeForm}>
-            <AddOrEditProductForm
-              product={editingProduct}
-              onSuccess={handleUpdated}
+      <div className="products-grid">
+        {products.map(product => (
+          <div key={product.product_id} className="product-wrapper">
+            <UserPen onClick={() => openEditForm(product)} />
+            <Trash2 onClick={() => handleDelete(product)} />
+            <Product
+              product={product}
+              fromProject={false}
             />
-          </Modal>
-        )}
-
-        <div className="products-grid">
-          {products.map(product => (
-            <div key={product.product_id}> 
-              {fromProject && (<input
-                type="checkbox"
-                // checked={todo.completed}
-                onChange={toggleChoosed}
-              />)}
-              <Product
-                
-                product={product}
-                onUpdated={handleUpdated}
-                onEdit={() => openEditForm(product)}
-              />
-            </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

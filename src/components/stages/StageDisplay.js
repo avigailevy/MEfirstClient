@@ -6,7 +6,8 @@ import { Products } from "../products/Products";
 import { Product } from "../products/Product";
 import { UploadFile } from '../documents/UploadFile'
 import { AddDocument } from "../documents/AddDocument";
-import { useAuth } from '../../context/AuthContext'
+import { Select_products } from "../products/Select_products";
+import { Project_products } from "../products/Project_products";
 
 export function StageDisplay({ username, projectId, stageId }) {
     const [stage, setStage] = useState();
@@ -107,30 +108,20 @@ export function StageDisplay({ username, projectId, stageId }) {
             case 3:
                 return (
                     <>
-                        <Modal onClose={fetchProjectProducts}>
-                            <Products />
-                        </Modal>
-                        {projectProducts > 0 ? (
-                            projectProducts.map((product) => {
-                                <div key={product.product_id}>
-                                    <Product />
-                                    <input type="button" value={'Send file to supplier'} />
-                                </div>
-                            })
-                        ) : (
-                            <>no products found.</>
-                        )}
+                        <div onClose={fetchProjectProducts}>
+                            <Select_products fromProject={true} />
+
+                        </div>
+
                     </>
                 );
             case 4:
                 return (
                     <>
-                        <AddDocument
-                            stageId={stageId}
-                            projectId={projectId}
-                            docType="RFQ"
-                            onSuccess={() => console.log("doc added")}
-                        />
+                        <div onClose={fetchProjectProducts}>
+                            <Project_products fromProject={true} />
+
+                        </div>
                     </>
                 );
             case 5:
@@ -139,7 +130,6 @@ export function StageDisplay({ username, projectId, stageId }) {
                 break;
         }
     }
-
     return (
         <>
             {stage ? choosePresentation() : <div>טוען נתוני שלב...</div>}

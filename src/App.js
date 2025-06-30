@@ -27,20 +27,18 @@ function App() {
       )}
 
       <Header />
-      <div className="main-layout">
-        <NavigationBar />
+      <div className="main-layout">        
         <main className="main-content">
           <Routes>
             <Route path='login' element={<Login />} />
             <Route path="/" />
-            {/* <Route path="/:username/projects/:projectStatus/:projectId" element={<ProjectDisplay />} /> */}
-            <Route className="nav-bar" path="/:username" >
+            <Route path="/:username" element={<NavigationBar />}>
               <Route path="home" element={<HomePage />} />
               <Route path="products" element={<Products />} />
               <Route path="projects"  >
                 <Route path=":projectStatus" element={<Projects />} />
                 <Route path="projectDisplay/:projectId" element={<ProjectDisplay />} />
-                <Route path="projectDisplay/:projectId/stageDisplay/:stageId" element={<StageDisplay />} />
+                <Route path="stageDisplay/:projectId/:stageId" element={<StageDisplay />} />
               </Route>
               <Route path="contacts" >
                 <Route path="customers" element={<Customers />} />
