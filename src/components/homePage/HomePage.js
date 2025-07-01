@@ -61,10 +61,7 @@ export function HomePage() {
     }
   };
 
-  const openAddForm = () => {
-    setEditingProject(null);
-    setShowForm(true);
-  };
+
 
   const openEditForm = (project) => {
     setEditingProject(project);
@@ -101,12 +98,9 @@ export function HomePage() {
                 onDelete={() => deleteProject(project.project_id)}
               />
               <div
-                className="project-details-btn"
-                onClick={() =>
-                  navigate(`/${username}/projects/${project.status}/${project.project_id}`)
-                }
-              >
-                <Eye />
+                className="project-show-details"
+                onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
+                <Eye className="eye-icon"/>
                 Show details
               </div>
             </div>

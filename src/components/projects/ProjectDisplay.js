@@ -4,6 +4,7 @@ import { Stages } from '../stages/Stages';
 import { useEffect, useState } from 'react';
 import { SummTextBox } from '../summaries/SummTextBox';
 
+
 export function ProjectDisplay() {
   const { username, projectId } = useParams();
   const [project, setProject] = useState(null);
@@ -57,7 +58,6 @@ export function ProjectDisplay() {
 
   return (
     <>
-      project display
       {selectedStageId === null ? (
         <Stages
           projectId={projectId}
@@ -66,7 +66,7 @@ export function ProjectDisplay() {
         />
       ) : (
         <>
-          <button onClick={() => setSelectedStageId(null)}>חזור לרשימת השלבים</button>
+          <button onClick={() => setSelectedStageId(null)}>Back to stage list</button>
           <StageDisplay
             username={username}
             projectId={projectId}
@@ -75,7 +75,7 @@ export function ProjectDisplay() {
         </>
       )}
 
-      <button > Show documents</button>
+      <button > folder-closed</button>
       <SummTextBox projectId={project.project_id} username={username} />
     </>
   );
