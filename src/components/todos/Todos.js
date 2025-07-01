@@ -69,7 +69,7 @@ export function Todos() {
 
       <div className="todos-container">
         {todos.map((todo) => (
-          <div className="todo-container">
+          <div key={todo.todo_id} className="todo-container">
             <Todo
               key={todo.todo_id}
               todo={todo}

@@ -81,6 +81,35 @@ export function Projects() {
     }
   };
 
+  const onHoldProject = async (projectId, status) => {
+    if (!window.confirm("Are you sure you want to move this project to 'on hold'?")) return;
+
+
+    try {
+      const res = await fetch(`http://localhost:3333/${username}/projects/onHold/${projectId}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: status }) // ← כאן העדכון בפועל
+      });
+
+
+      if (!res.ok) throw new Error("Failed to update project status");
+
+
+      console.log(`Project ${projectId} set to 'on hold'`);
+      fetchProjects();
+
+
+      // עדכון הסטייט - מסיר את הפרויקט מהרשימה הפעילה
+    } catch (error) {
+      alert("Error setting project to 'on hold': " + error.message);
+    }
+  };
+
+
   const handleUpdated = () => {
     fetchProjects();
     setShowForm(false);
@@ -122,8 +151,8 @@ export function Projects() {
               <Project
                 project={project}
                 onEdit={() => openEditForm(project)}
-                onDelete={() => deleteProject(project.project_id)}
-              />                            
+                onHold={onHoldProject} 
+              />
             </div>
           ))
         ) : (

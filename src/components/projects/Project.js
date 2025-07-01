@@ -1,4 +1,4 @@
-import { PencilLine, Trash2 } from 'lucide-react';
+import { CircleCheckBig, LockKeyholeOpen, PencilLine, RefreshCwOff, Trash2 } from 'lucide-react';
 import { Range } from './Range';
 import '../../css/Projects.css';
 import { useEffect, useState } from 'react';
@@ -6,13 +6,14 @@ import { useParams } from 'react-router-dom';
 import { Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export function Project({ project, onEdit, onDelete }) {
+export function Project({ project, onEdit, onHold }) {
 
     const [completedSteps, setCcompletedSteps] = useState();
     const token = localStorage.getItem('token');
     const { username } = useParams();
     const navigate = useNavigate();
-
+    const allStatuses = ['on hold', 'live project', 'closed'];
+    const availableTransitions = allStatuses.filter(s => s !== project.status);
 
     useEffect(() => {
         fetchCompletedStagesAmount();
@@ -39,9 +40,10 @@ export function Project({ project, onEdit, onDelete }) {
         <div className="project-card">
             <div className="project-card-header">
                 <PencilLine className="icon-edit" onClick={onEdit} />
-                <Trash2 className="icon-delete" onClick={onDelete} />
+                {project.status !== 'on hold' && (<RefreshCwOff className="icon-delete" onClick={() => onHold(project.project_id, 'on hold')} />)}
+                {project.status !== 'closed' && (<CircleCheckBig className="icon-delete" onClick={() => onHold(project.project_id, 'closed')} />)}
+                {project.status !== 'live project' && (<LockKeyholeOpen className="icon-delete" onClick={() => onHold(project.project_id, 'live project')} />)}
             </div>
-
             <div className="project-avatar" />
             <div className="project-title">{project.project_name}</div>
 
