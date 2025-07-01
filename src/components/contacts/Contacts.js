@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { ContactCard } from "./ContactCard";
 import { ContactForm } from "./ContactForm";
 import { CirclePlus } from "lucide-react";
+import '../../css/ContactOrUser.css';
 
 export function Contacts({ type }) {
   const [contacts, setContacts] = useState([]);
@@ -25,14 +26,14 @@ export function Contacts({ type }) {
     setContacts(data);
   };
 
- 
+
 
   const handleAdd = async (newData) => {
     const token = localStorage.getItem('token');
-     const dataWithType = {
-    ...newData,
-    contact_type: type, // ← מוסיף contact_type לפי סוג הדף
-  };
+    const dataWithType = {
+      ...newData,
+      contact_type: type, // ← מוסיף contact_type לפי סוג הדף
+    };
     const addUrl = `http://localhost:3333/${username}/contacts/${type}/add/${newData.contact_name}`;
     const res = await fetch(addUrl, {
       method: 'POST',
@@ -58,26 +59,27 @@ export function Contacts({ type }) {
   };
 
   return (
-    <div>
-      <h2>{type === "customer" ? "לקוחות" : "ספקים"}</h2>
+    <div className="contacts-container">
       <CirclePlus onClick={() => setShowForm(true)} />
-        {showForm && (
-  <ContactForm
-    onSave={handleAdd}
-    onClose={() => setShowForm(false)}
-    type={type} // ← עובר מה-ContactsPage לפי סוג הדף
-  />
-)}
-     
-      {contacts.map((c) => (
-        <ContactCard
-          key={c.contact_id}
-          contact={c}
-          username={username}
-          onUpdated={fetchContacts}
-          onDeleted={handleDelete}
+      {showForm && (
+        <ContactForm
+          onSave={handleAdd}
+          onClose={() => setShowForm(false)}
+          type={type} // ← עובר מה-ContactsPage לפי סוג הדף
         />
-      ))}
+      )}
+
+      <div className="contact-container">
+        {contacts.map((c) => (
+          <ContactCard
+            key={c.contact_id}
+            contact={c}
+            username={username}
+            onUpdated={fetchContacts}
+            onDeleted={handleDelete}
+          />
+        ))}
+      </div>
     </div>
   );
 }

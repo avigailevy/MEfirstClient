@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Pencil, Trash } from 'lucide-react';
 import { ContactForm } from './ContactForm';
+import '../../css/ContactOrUser.css';
 
 export function ContactCard({ contact, username, onUpdated, onDeleted }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -44,21 +45,34 @@ export function ContactCard({ contact, username, onUpdated, onDeleted }) {
   };
 
   return (
-    <div className="contact-card">
+    <div className="component-1">
       <Trash onClick={handleDelete} />
       <Pencil onClick={() => setIsEditing(true)} />
       {isEditing && (
-  <ContactForm
-    contact={contact}
-    onSave={handleUpdate}
-    onClose={() => setIsEditing(false)}
-    type={contact.contact_type} // ← שדה קיים באובייקט, והוא כבר customer/supplier
-  />
-)}
-      <h3>{contact.contact_name}</h3>
-      <p>Phone: {contact.contact_phone}</p>
-      <p>Email: {contact.contact_email}</p>
-      <p>Address: {contact.address}</p>
+        <ContactForm
+          contact={contact}
+          onSave={handleUpdate}
+          onClose={() => setIsEditing(false)}
+          type={contact.contact_type}
+        />
+      )}
+      <div className="ellipse-19"></div>
+      <div className="david-shalom">{contact.contact_name}</div>
+      <div className="frame-50">
+        <div className="frame-47">
+          <div className="company">Tel:</div>
+          <div className="ivory">{contact.contact_phone}</div>
+        </div>
+        <div className="frame-48">
+          <div className="company">Mail:</div>
+          <div className="ivory">{contact.contact_email}</div>
+        </div>
+        <div className="frame-49">
+          <div className="company">Adress:</div>
+          <div className="ivory">{contact.address}</div>
+        </div>
+
+      </div>
     </div>
   );
 }

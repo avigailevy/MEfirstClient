@@ -1,46 +1,12 @@
-.component-1,
-.component-1 * {
-  box-sizing: border-box;
-}
+
 .component-1 {
   flex-shrink: 0;
   width: 276px;
   height: 340px;
   position: relative;
-}
-.edit-02,
-.edit-02 * {
-  box-sizing: border-box;
-}
-.edit-02 {
-  width: 13px;
-  height: 13px;
-  position: relative;
-  overflow: visible;
-}
-.trash-02,
-.trash-02 * {
-  box-sizing: border-box;
-}
-.trash-02 {
-  width: 11px;
-  height: 11px;
-  position: relative;
-  overflow: visible;
-}
-.rectangle-20 {
-  border-radius: 12px;
-  border-style: solid;
-  border-color: #d9d9d9;
-  border-width: 1px;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  right: 0%;
-  left: 0%;
-  bottom: 0%;
-  top: 0%;
-  box-shadow: 1px 2px 6.7px 1px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  border-radius: 25px;
+  height: 350px;
 }
 .david-shalom {
   color: #000000;
@@ -189,11 +155,18 @@
   top: 4.12%;
   overflow: visible;
 }
-.agent-container{
+.agent-container, .contact-container{
   width: 250px;
-}
-.agents-container{
+  background-color: white;
+  border-radius: 25px;
   display: flex;
+  margin: 15px;
+}
+.agents-container, .contacts-container{
+  display: flex;
+  gap: 15px;
+  flex-direction: row;
+  width: 800px;
 }
 .contacts-container{
   display: flex;
