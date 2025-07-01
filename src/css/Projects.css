@@ -21,13 +21,14 @@
 /* רשימת הקלפים */
 .projects-list {
   display: flex;
-  gap: 4.5rem;
+  gap: 1.5rem;
 }
 
 /* קלף של פרויקט */
 .project-card-wrapper {
   display: flex;
   justify-content: center;
+  width: 260px;
 }
 
 .project-card {
@@ -129,5 +130,5 @@
 
 /* עיצוב טווח (range) */
 .range {
-  margin-top: 0.5rem;
+  margin-top: 50px;
 }
