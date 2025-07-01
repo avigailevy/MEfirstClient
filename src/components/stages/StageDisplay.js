@@ -8,6 +8,7 @@ import { UploadFile } from '../documents/UploadFile'
 import { AddDocument } from "../documents/AddDocument";
 import { Select_products } from "../products/Select_products";
 import { Project_products } from "../products/Project_products";
+import '../../css/StageDisplay.css';
 
 export function StageDisplay({ username, projectId, stageId }) {
     const [stage, setStage] = useState();
@@ -78,6 +79,41 @@ export function StageDisplay({ username, projectId, stageId }) {
             console.error("Error fetching projects:", error);
         }
     }
+    const toggleCompleted = async () => {
+  try {
+    const updatedCompleted = !stage.completed;
+    const updatedCompletionDate = updatedCompleted ? new Date().toISOString() : null;
+
+    const res = await fetch(`http://localhost:3333/${username}/stages/completed/${stageId}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        completed: updatedCompleted,
+        completion_date: updatedCompletionDate,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to update stage');
+    }
+
+     // במקום לעדכן את stage חלקית, נטען אותו מחדש מהשרת בשלמותו
+    await fetchStage();
+  } catch (error) {
+    console.error('Error toggling completed:', error);
+    alert('Error updating stage status.');
+  }
+//     const updatedStage = await res.json();
+//     setStage(updatedStage);
+//   } catch (error) {
+//     console.error('Error toggling completed:', error);
+//     alert('Error updating stage status.');
+//   }
+};
+
 
     const choosePresentation = () => {
         console.log('in choosePresentation');
@@ -176,7 +212,28 @@ export function StageDisplay({ username, projectId, stageId }) {
     }
     return (
         <>
-            {stage ? choosePresentation() : <div>Loading stage data...</div>}
+{stage && userId ? choosePresentation() : <div>Loading stage data...</div>}
+            {stage && (
+              <div className="stage-controls">
+                <button
+                  onClick={toggleCompleted}
+                  className={`stage-completed-button ${stage.completed ? 'completed' : ''}`}
+                >
+                  {stage.completed ? 'unComplete' : '✔ Completed'}
+                </button>
+                {stage.completed && stage.completion_date && (
+                  <span className="stage-completed-date">
+                    Completed at: {new Date(stage.completion_date).toLocaleString('en-GB', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </span>
+                )}
+              </div>
+)}
         </>
     );
 
