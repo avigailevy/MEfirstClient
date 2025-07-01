@@ -6,6 +6,7 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, user_id })
     const [docUrl, setDocUrl] = useState(null);      // קישור תצוגה בלבד
     const [newDocUrl, setNewDocUrl] = useState(null); // קישור לעריכה
     const [isEditing, setIsEditing] = useState(false);
+    const [isCopying, setIsCopying] = useState(false);
     const { username } = useParams();
 
     useEffect(() => {
@@ -30,6 +31,8 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, user_id })
     };
 
     const handleEdit = async () => {
+        if (isCopying) return;
+        setIsCopying(true);
         try {
             console.log('username:', username);
             console.log('Copy params:', {
@@ -41,31 +44,42 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, user_id })
                 throw new Error('Failed to copy document');
             }
             const newUrl = `https://docs.google.com/document/d/${newDoc.fileId}/edit`;
-            setNewDocUrl(newUrl);
+            window.open(newUrl, '_blank', 'noopener,noreferrer');
             setIsEditing(true);
         } catch (err) {
             console.error('Error copying doc:', err);
+        } finally {
+            setIsCopying(false); // שחרור כפתור תמיד (גם בשגיאה)
         }
     };
 
     if (isEditing && newDocUrl) {
-        // מצב עריכה - מציג iframe של המסמך החדש
+
         return (
             <div style={{ marginTop: '2rem' }}>
-                <p style={{ marginBottom: '1rem', color: '#2c4e91' }}>Editing version</p>
-                <iframe
-                    src={newDocUrl}
-                    width="100%"
-                    height="650px"
-                    allow="clipboard-write"
-                    title="Editable Google Doc"
-                    style={{ border: 'none', borderRadius: '8px' }}
-                />
+                <p style={{ color: '#2c4e91' }}>
+                    Edit the document in a new window
+                </p>
+                <a
+                    href={newDocUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                        display: 'inline-block',
+                        padding: '10px 16px',
+                        backgroundColor: '#2563eb',
+                        color: '#fff',
+                        borderRadius: '6px',
+                        textDecoration: 'none',
+                        marginTop: '1rem',
+                    }}
+                >
+                    Open the document again
+                </a>
             </div>
         );
     }
 
-    // מצב תצוגה - ריבוע קטן עם אייקון מסמך וכפתור להתחלת עריכה
     return (
         <div
             style={{
@@ -101,17 +115,20 @@ export function GoogleDocViewer({ projectId, docType, stageId, token, user_id })
                     e.stopPropagation();
                     handleEdit();
                 }}
+                disabled={isCopying}
                 style={{
                     padding: '0.5rem 1rem',
-                    backgroundColor: '#4285f4',
+                    backgroundColor: isCopying ? '#9aa4b2' : '#4285f4',
                     color: 'white',
                     border: 'none',
                     borderRadius: 6,
-                    cursor: 'pointer',
+                    cursor: isCopying ? 'not-allowed' : 'pointer',
                     fontSize: 14,
+                    opacity: isCopying ? 0.6 : 1,
+                    transition: 'background-color 0.3s ease',
                 }}
             >
-                Edit Document
+                {isCopying ? 'opening' : 'Edit Document'}
             </button>
         </div>
     );

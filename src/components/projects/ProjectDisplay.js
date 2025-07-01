@@ -75,7 +75,6 @@ export function ProjectDisplay() {
         </>
       )}
 
-      <button > folder-closed</button>
       <SummTextBox projectId={project.project_id} username={username} />
     </>
   );
