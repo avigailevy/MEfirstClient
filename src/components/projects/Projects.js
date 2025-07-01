@@ -25,7 +25,7 @@ export function Projects() {
     } else {
       fetchProjects();
     }
-  }, [username,projectStatus, agentName]);
+  }, [username, projectStatus, agentName]);
 
   const fetchAagentProjects = async () => {
     try {
@@ -131,9 +131,9 @@ export function Projects() {
               <div
                 className="project-show-details"
                 onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
-                <Eye className="eye-icon"/>
+                <Eye className="eye-icon" />
                 Show details
-              </div>
+              </div>              
             </div>
           ))
         ) : (
