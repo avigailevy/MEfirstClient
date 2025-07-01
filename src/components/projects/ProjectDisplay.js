@@ -3,21 +3,23 @@ import { StageDisplay } from '../stages/StageDisplay';
 import { Stages } from '../stages/Stages';
 import { useEffect, useState } from 'react';
 import { SummTextBox } from '../summaries/SummTextBox';
+import { Eye, EyeOff } from 'lucide-react';
+import { Summaries } from '../summaries/Summaries';
+import { Modal } from '../Modal';
 
 
 export function ProjectDisplay() {
   const { username, projectId } = useParams();
   const [project, setProject] = useState(null);
   const [selectedStageId, setSelectedStageId] = useState(null);
+  const [showSumm, setShowSumm] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchProject();
     setLastVisiTime();
     console.log("🧩 ProjectDisplay mounted!");
-    return () => {
-      console.log("🧩 ProjectDisplay unmounted!");
-    };
-  }, []);
+  }, [projectId]);
 
   const fetchProject = async () => {
     try {
@@ -76,6 +78,33 @@ export function ProjectDisplay() {
       )}
 
       <SummTextBox projectId={project.project_id} username={username} />
+      <div className='show-summaries'>
+        {!showSumm ? (
+          <div className='not-showing'>
+            <Eye onClick={() => {
+              setShowSumm(true);
+              setShowModal(true);  
+              console.log('in setShowSumm');
+            }} />
+          </div>
+        ) : (
+          <div className='showing'>
+            <EyeOff onClick={() => {
+              setShowSumm(false);
+              setShowModal(false);  
+            }} />
+          </div>
+        )}
+      </div>
+
+      {showModal && (
+        <Modal onClose={() => {
+          setShowModal(false);
+          setShowSumm(false);
+        }}>
+          <Summaries projectId={project.project_id} username={username}/>
+        </Modal>
+      )}
     </>
   );
 }
