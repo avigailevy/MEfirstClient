@@ -1,3 +1,4 @@
+import '../css/Modal.css'
 
 export function Modal({ children, onClose }) {
   const handleOverlayClick = (e) => {
@@ -7,7 +8,7 @@ export function Modal({ children, onClose }) {
   };
 
   return (
-    <div
+    <div className="modal-overlay"
       onClick={handleOverlayClick}
       style={{
         position: "fixed",
@@ -19,7 +20,7 @@ export function Modal({ children, onClose }) {
         zIndex: 1000,
       }}
     >
-      <div
+      <div className="modal-content"
         style={{
           backgroundColor: "white",
           padding: 20,

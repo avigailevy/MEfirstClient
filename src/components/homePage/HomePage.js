@@ -7,27 +7,27 @@ import { Eye } from "lucide-react";
 import "../../css/Projects.css";
 import { useParams } from "react-router-dom";
 
-
-
 export function HomePage() {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
   const navigate = useNavigate();
-  const { username} = useParams();
+  const { username } = useParams();
 
   useEffect(() => {
     if (username) {
       fetchRecentProjects();
+      console.log(username, 'is fetching recent');
+
     }
   }, [username]);
-
+  const token = localStorage.getItem("token");
   const fetchRecentProjects = async () => {
     try {
       const res = await fetch(`http://localhost:3333/${username}/projects/recent`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
@@ -48,7 +48,7 @@ export function HomePage() {
       const res = await fetch(`http://localhost:3333/${username}/projects/${projectId}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
@@ -61,10 +61,7 @@ export function HomePage() {
     }
   };
 
-  const openAddForm = () => {
-    setEditingProject(null);
-    setShowForm(true);
-  };
+
 
   const openEditForm = (project) => {
     setEditingProject(project);
@@ -85,7 +82,7 @@ export function HomePage() {
 
   return (
     <div className="projects-page">
-        {showForm && (
+      {showForm && (
         <Modal onClose={closeForm}>
           <AddOrEditProject project={editingProject} onSuccess={handleUpdated} />
         </Modal>
@@ -101,12 +98,9 @@ export function HomePage() {
                 onDelete={() => deleteProject(project.project_id)}
               />
               <div
-                className="project-details-btn"
-                onClick={() =>
-                  navigate(`/${username}/projects/${project.status}/${project.project_id}`)
-                }
-              >
-                <Eye />
+                className="project-show-details"
+                onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
+                <Eye className="eye-icon"/>
                 Show details
               </div>
             </div>

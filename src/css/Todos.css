@@ -1,106 +1,23 @@
-.frame-83,
-.frame-83 * {
-  box-sizing: border-box;
-}
-.frame-83 {
+.todos-container {
   display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: relative;
+  flex-direction: column;  
+  width: 1400px;   
+  height: 680px;  
+  overflow-y: auto;    
+  margin: 1rem auto;  
+  padding: 0 1rem;
+  border-radius: 12px;
 }
-.rectangle-21 {
-  background: #d9d9d9;
-  border-radius: 2px;
-  flex-shrink: 0;
-  width: 29px;
-  height: 26px;
-  position: relative;
+
+.todo-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+  margin: 10px;
 }
-.frame-81 {
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  gap: 0px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-shrink: 0;
-  width: 1052px;
-  position: relative;
-}
-.frame-78 {
-  background: #d9d9d9;
-  border-radius: 5px 5px 0px 0px;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  gap: 969px;
-  align-items: center;
-  justify-content: flex-start;
-  align-self: stretch;
-  flex-shrink: 0;
-  height: 26px;
-  position: relative;
-}
-.title {
-  color: #000000;
-  text-align: center;
-  font-family: "PloniMlV2Aaa-Bold", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  position: relative;
-}
-.frame-84 {
-  background: #717171;
-  border-radius: 2px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: 33px;
-  height: 24px;
-  position: relative;
-}
-.div {
-  color: #000000;
-  text-align: center;
-  font-family: "PloniMlV2Aaa-Bold", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  position: relative;
-  align-self: stretch;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.frame-80 {
-  border-radius: 0px 0px 5px 5px;
-  border-style: solid;
-  border-color: #d9d9d9;
-  border-width: 1px;
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  align-self: stretch;
-  flex-shrink: 0;
-  height: 66px;
-  position: relative;
-}
-.description {
-  color: #000000;
-  text-align: center;
-  font-family: "PloniMlV2Aaa-Bold", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.todo-container:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

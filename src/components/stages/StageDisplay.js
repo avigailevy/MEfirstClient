@@ -98,7 +98,7 @@ export function StageDisplay({ username, projectId, stageId }) {
                 return (
                     <GoogleDocViewer
                         projectId={projectId}
-                        docType={'9CheckList'}
+                        docType={'RFQ'}
                         stageId={stageId}
                         token={token}
                         username={username}
@@ -107,32 +107,76 @@ export function StageDisplay({ username, projectId, stageId }) {
                 );
             case 3:
                 return (
-                    <>
-                        <div onClose={fetchProjectProducts}>
-                            <Select_products fromProject={true} />
-
-                        </div>
-
-                    </>
+                    <div onClose={fetchProjectProducts}>
+                        <Select_products fromProject={true} />
+                    </div>
                 );
             case 4:
                 return (
-                    <>
-                        <div onClose={fetchProjectProducts}>
-                            <Project_products fromProject={true} />
-
-                        </div>
-                    </>
+                    <div onClose={fetchProjectProducts}>
+                        <Project_products fromProject={true} />
+                    </div>
                 );
             case 5:
+                return (
+                    <GoogleDocViewer
+                        projectId={projectId}
+                        docType={'LOI'}
+                        stageId={stageId}
+                        token={token}
+                        username={username}
+                        user_id={userId}
+                    />
+                );
             case 6:
-            default:
-                break;
+                return (
+                    <GoogleDocViewer
+                        projectId={projectId}
+                        docType={'FCO'}
+                        stageId={stageId}
+                        token={token}
+                        username={username}
+                        user_id={userId}
+                    />
+                );
+            case 7:
+                return (
+                    <GoogleDocViewer
+                        projectId={projectId}
+                        docType={'SPA'}
+                        stageId={stageId}
+                        token={token}
+                        username={username}
+                        user_id={userId}
+                    />
+                );
+            case 8:
+                return (
+                    <GoogleDocViewer
+                        projectId={projectId}
+                        docType={'ICPO'}
+                        stageId={stageId}
+                        token={token}
+                        username={username}
+                        user_id={userId}
+                    />
+                );
+            case 9:
+                return (
+                    <GoogleDocViewer
+                        projectId={projectId}
+                        docType={'CIF'}
+                        stageId={stageId}
+                        token={token}
+                        username={username}
+                        user_id={userId}
+                    />
+                );
         }
     }
     return (
         <>
-            {stage ? choosePresentation() : <div>טוען נתוני שלב...</div>}
+            {stage ? choosePresentation() : <div>Loading stage data...</div>}
         </>
     );
 

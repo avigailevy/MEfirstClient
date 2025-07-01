@@ -34,7 +34,7 @@ export function Stages({ projectId, username, onStageSelect }) {
             {projectStages.map((stage) => (
                 <div
                     key={stage.stage_id}
-                    onClick={() => onStageSelect(stage.stage_id)} // קריאה לפונקציה שמגיעה מהאב
+                    onClick={() => onStageSelect(stage.stage_id)} 
                     style={{ cursor: 'pointer' }}
                     className='stages-container'
                 >

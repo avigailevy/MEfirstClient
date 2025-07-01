@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { Todo } from "./Todo";
 import { AddOrEditTodoForm } from "./AddOrEditTodoForm";
 import { Modal } from "../Modal";
-import { NavigationBar } from "../homePage/NavigationBar";
-
+import '../../css/Todos.css';
+import { PlusCircle } from "lucide-react";
 export function Todos() {
   const { username } = useParams();
   const [todos, setTodos] = useState([]);
@@ -55,8 +55,8 @@ export function Todos() {
 
   return (
     <div>
-    
-      <button onClick={openAddForm}>הוסף משימה</button>
+
+      <PlusCircle color="green" onClick={openAddForm}/>
 
       {showForm && (
         <Modal onClose={closeForm}>
@@ -67,14 +67,18 @@ export function Todos() {
         </Modal>
       )}
 
-      {todos.map((todo) => (
-        <Todo
-          key={todo.todo_id}
-          todo={todo}
-          onUpdate={handleUpdated}
-          onEdit={() => openEditForm(todo)}
-        />
-      ))}
+      <div className="todos-container">
+        {todos.map((todo) => (
+          <div className="todo-container">
+            <Todo
+              key={todo.todo_id}
+              todo={todo}
+              onUpdate={handleUpdated}
+              onEdit={() => openEditForm(todo)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

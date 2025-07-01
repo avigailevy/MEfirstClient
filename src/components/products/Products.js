@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Product } from "./Product";
 import { AddOrEditProductForm } from "./AddOrEditProductForm";
-import { SearchAndFilter } from "../SearchAndFilter";
 import { Modal } from "../Modal";
 import '../../css/Product.css';
 import { useParams } from "react-router-dom";
-import { UserPen, Trash2 } from 'lucide-react';
+import { UserPen, Trash2, PlusCircle } from 'lucide-react';
 
 export function Products() {
   const [products, setProducts] = useState([]);
@@ -64,8 +63,7 @@ export function Products() {
 
   return (
     <div className="layout">
-      <SearchAndFilter />
-      <button onClick={openAddForm}>+</button>
+      <PlusCircle color="green" onClick={openAddForm}/>
 
       {showForm && (
         <Modal onClose={closeForm}>
