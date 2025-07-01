@@ -4,8 +4,7 @@ import { Products } from "./components/products/Products";
 import { Link } from "react-router-dom";
 import { HomePage } from "./components/homePage/HomePage";
 import { Projects } from "./components/projects/Projects";
-import { Customers } from "./components/contacts/Customers";
-import { Suppliers } from "./components/contacts/Suppliers";
+import { Contacts } from "./components/contacts/Contacts";
 import { Agents } from "./components/agents/Agents";
 import { Todos } from "./components/todos/Todos";
 import { Login } from "./components/loginAddUser/Login";
@@ -21,13 +20,8 @@ function App() {
   return (
     < div className='app-layout'>
 
-      {!isLoggedIn && (
-        <div className="login-register-links">
-          <Link to="/login" className="navbar-link">Login</Link>
-        </div>
-      )}
-
-      <Header />
+        {!isLoggedIn &&( <Login />)}
+      {isLoggedIn && (<Header/>)}
       <div className="main-layout">
         <main className="main-content">
           <Routes>
@@ -42,8 +36,8 @@ function App() {
                 <Route path="stageDisplay/:projectId/:stageId" element={<StageDisplay />} />
               </Route>
               <Route path="contacts" >
-                <Route path="customers" element={<Customers />} />
-                <Route path="suppliers" element={<Suppliers />} />
+                <Route path="customers" element={<Contacts  type="customer"/>} />
+                <Route path="suppliers" element={<Contacts type="supplier"/>} />
               </Route>
               <Route path="todos" element={<Todos />} />
               <Route path="users" >
