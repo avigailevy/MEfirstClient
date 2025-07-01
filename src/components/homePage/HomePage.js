@@ -97,12 +97,12 @@ export function HomePage() {
                 onEdit={() => openEditForm(project)}
                 onDelete={() => deleteProject(project.project_id)}
               />
-              <div
+              {/* <div
                 className="project-show-details"
                 onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
                 <Eye className="eye-icon"/>
                 Show details
-              </div>
+              </div> */}
             </div>
           ))
         ) : (

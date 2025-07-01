@@ -3,12 +3,16 @@ import { Range } from './Range';
 import '../../css/Projects.css';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Eye } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export function Project({ project, onEdit, onDelete }) {
 
     const [completedSteps, setCcompletedSteps] = useState();
     const token = localStorage.getItem('token');
     const { username } = useParams();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         fetchCompletedStagesAmount();
@@ -55,7 +59,13 @@ export function Project({ project, onEdit, onDelete }) {
                     <span className="value">{new Date(project.last_visit_time).toLocaleDateString()}</span>
                 </div>
             </div>
-            <Range completedSteps={completedSteps} />
+            <div className='range'><Range completedSteps={completedSteps} /></div>
+
+            <div className="project-show-details"
+                onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
+                <Eye className="eye-icon" />
+                Show details
+            </div>
         </div>
     );
 }

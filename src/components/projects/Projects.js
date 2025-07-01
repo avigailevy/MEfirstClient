@@ -4,15 +4,13 @@ import { AddOrEditProject } from "./AddOrEditProject";
 import { Project } from "./Project";
 import '../../css/Projects.css';
 import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { CirclePlus, Eye } from "lucide-react";
+import { CirclePlus } from "lucide-react";
 
 
 export function Projects() {
   const [projects, setProjects] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
-  const navigate = useNavigate();
 
   const { username, agentName, projectStatus } = useParams();
   console.log("Username:", username, "Agent Name:", agentName, "Project Status:", projectStatus);
@@ -107,9 +105,7 @@ export function Projects() {
 
   return (
     <div className="projects-page">
-
       <CirclePlus className="btn-add" onClick={openAddForm} />
-
       {showForm && (
         <Modal onClose={closeForm}>
           <AddOrEditProject
@@ -127,13 +123,7 @@ export function Projects() {
                 project={project}
                 onEdit={() => openEditForm(project)}
                 onDelete={() => deleteProject(project.project_id)}
-              />
-              <div
-                className="project-show-details"
-                onClick={() => navigate(`/${username}/projects/projectDisplay/${project.project_id}`)}>
-                <Eye className="eye-icon" />
-                Show details
-              </div>              
+              />                            
             </div>
           ))
         ) : (
