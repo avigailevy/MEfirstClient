@@ -7,6 +7,7 @@
   background-color: white;
   border-radius: 25px;
   height: 350px;
+  margin: 5px;
 }
 .david-shalom {
   color: #000000;
@@ -135,7 +136,7 @@
   right: 18.84%;
   left: 19.2%;
   bottom: 6.18%;
-  top: 82.94%;
+  top: 65.94%;
 }
 .details {
   color: #000000;
@@ -160,7 +161,7 @@
   background-color: white;
   border-radius: 25px;
   display: flex;
-  margin: 15px;
+  margin: 5px;
 }
 .agents-container, .contacts-container{
   display: flex;
